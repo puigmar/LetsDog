@@ -3,24 +3,50 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Get Current Position</title>
-<script>
-    function showPosition() {
-        if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
-                document.getElementById("result").innerHTML = positionInfo;
-            });
-        } else {
-            alert("Sorry, your browser does not support HTML5 geolocation.");
-        }
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    .panel{
+        position: relative;
+        z-index: 2;
+        background-color: aliceblue;
     }
-</script>
+
+    #tripmeter{
+        padding: 20px;
+        background-color: white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+</style>
 </head>
 <body>
-    <p><button id="findme" style="font-size: 20px;">Show my location</button></p>
-    <div id="out" style="font-size: 20px;"></div>
+    <div class="panel">
+        <div id="out" style="font-size: 20px;"></div>
+        <p id="latitude"></p>
+        <p id="longitude"></p>
+    </div>
+
+
+    <div id="map"></div>
+    <div id="tripmeter">
+        <p>
+          Starting Location (lat, lon):<br/>
+          <span id="startLat">???</span>°, <span id="startLon">???</span>°
+        </p>
+        <p>
+          Current Location (lat, lon):<br/>
+          <span id="currentLat">???</span>°, <span id="currentLon">???</span>°
+        </p>
+        <p>
+          Distance from starting location:<br/>
+          <span id="distance">0</span> km
+        </p>
+    </div>
     <script src="test.js"></script>
 </body>
 </html>
