@@ -12,10 +12,10 @@ function geoFindMe() {
   
       output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
   
-      var img = new Image();
+      /*var img = new Image();
       img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
   
-      output.appendChild(img);
+      output.appendChild(img);*/
     };
   
     function error() {
@@ -26,3 +26,11 @@ function geoFindMe() {
   
     navigator.geolocation.getCurrentPosition(success, error);
   }
+
+
+
+document.getElementById('findme').addEventListener('click', function(){
+    setInterval(() => {
+        geoFindMe()  
+    }, 300);
+})
