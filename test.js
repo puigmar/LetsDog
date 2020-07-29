@@ -5,7 +5,7 @@ var map = new mapboxgl.Map({
     zoom: 0
 });
 
-map.on('load', async () => {
+map.on('load', () => {
 
     if (navigator.geolocation) {
         console.log('Geolocation is supported!');
@@ -68,14 +68,10 @@ map.on('load', async () => {
 
     navigator.geolocation.watchPosition(
         function(position) {
+
             document.getElementById('currentLat').innerHTML = position.coords.latitude;
             document.getElementById('currentLon').innerHTML = position.coords.longitude;
-        }
-    );
 
-    navigator.geolocation.watchPosition(
-        function(position) {
-            // same as above
             document.getElementById('distance').innerHTML =
                 calculateDistance(
                     startPos.coords.latitude, 
@@ -107,7 +103,7 @@ map.on('load', async () => {
                 });
             }
         
-            window.setInterval(function() {
+            window.setInterval( () => {
                 move(data);
                 console.log('latitude:', latitude)
                 console.log('longitude:', longitude)
