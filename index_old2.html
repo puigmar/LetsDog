@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Animate a point</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/5.1.5/turf.js" integrity="sha256-YcmHZHyXpKYagiKb3z5qKGALna6dDVK4NP+4GTOzh6k=" crossorigin="anonymous"></script>
+<style>
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoicHVpZ21hciIsImEiOiJja2Q1cTRjMHoyOWc1MzBwZzUxNnBqZjgzIn0.Dl_LIKPYzM72_QZAE0wZWQ';
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11',
+center: [0, 0],
+zoom: 2
+});
+
+var start_data = null;
+var current_data = null;
+var destination_data = null;
+var start_time = null;
+var isAnimated = false;
+
+function getPointData(lngLat) {
+    return {
+        'type': 'Point',
+        'coordinates': [lngLat.lng, lngLat.lat]
+    };
+}
+
+function animateMarker(tm) {
+    if(start_time === null) {
+        start_time = tm;
+    }
+
+    zero_time = tm - start_time;
+    var newPoint = turf.along(turf.lineString([start_data.coordinates,destination_data.coordinates]), (zero_time / 2));
+
+    if(!(newPoint.geometry.coordinates == destination_data.coordinates)){
+        current_data = newPoint.geometry;
+        map.getSource('point_source').setData(newPoint);
+        requestAnimationFrame(animateMarker);
+    } else {
+        isAnimated = false;
+        start_time = null;
+    }
+
+}
+
+map.on('click', function() {
+    var coordsClick = getPointData(event.lngLat);
+
+    if(map.getSource('point_source') && !isAnimated){
+        isAnimated = true;
+        start_data = current_data;
+        destination_data = coordsClick;
+
+        requestAnimationFrame(animateMarker);
+    }
+    if(map.getSource('point_source') === undefined) {
+        current_data = coordsClick;
+        destination_data = coordsClick;
+
+        map.addSource('point_source', {
+            'type': 'geojson',
+            'data': coordsClick
+        });
+
+        map.addLayer({
+            'id': 'point',
+            'source': 'point_source',
+            'type': 'circle',
+            'paint': {
+                'circle-radius': 10,
+                'circle-color': '#007cbf'
+            }
+        });
+    }
+})
+
+</script>
+
+</body>
+</html>
+share  improve this answer  

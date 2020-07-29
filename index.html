@@ -1,52 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Current Position</title>
-<script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js"></script>
-<link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet" />
-<style>
-	body { margin: 0; padding: 0; }
-	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    .panel{
-        position: relative;
-        z-index: 2;
-        background-color: aliceblue;
-    }
+<meta charset="utf-8" />
+<title>Animate a point</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet" />
 
-    #tripmeter{
-        padding: 20px;
-        background-color: white;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/5.1.5/turf.js" integrity="sha256-YcmHZHyXpKYagiKb3z5qKGALna6dDVK4NP+4GTOzh6k=" crossorigin="anonymous"></script>
+<style>
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 </style>
 </head>
 <body>
-    <div class="panel">
-        <div id="out" style="font-size: 20px;"></div>
-        <p id="latitude"></p>
-        <p id="longitude"></p>
-    </div>
+<div id="map"></div>
+<script>
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoicHVpZ21hciIsImEiOiJja2Q1cTRjMHoyOWc1MzBwZzUxNnBqZjgzIn0.Dl_LIKPYzM72_QZAE0wZWQ';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [0, 0],
+        zoom: 2
+    });
 
 
-    <div id="map"></div>
-    <div id="tripmeter">
-        <p>
-          Starting Location (lat, lon):<br/>
-          <span id="startLat">???</span>°, <span id="startLon">???</span>°
-        </p>
-        <p>
-          Current Location (lat, lon):<br/>
-          <span id="currentLat">???</span>°, <span id="currentLon">???</span>°
-        </p>
-        <p>
-          Distance from starting location:<br/>
-          <span id="distance">0</span> km
-        </p>
-    </div>
-    <script src="test.js"></script>
+    function getPointData(lngLat) {
+        return {
+            'type': 'Point',
+            'coordinates': [lngLat.coords.longitude, lngLat.coords.latitude]
+        };
+    }
+
+    map.on('load', function() {
+
+        var startPos;
+        var latitude;
+        var longitude;
+        var coordsClick;
+        
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+
+                startPos = position;
+                coordsClick = getPointData(startPos)
+
+                map.addSource('point_source', {
+                    'type': 'geojson',
+                    'data': coordsClick
+                });
+
+                map.addLayer({
+                    'id': 'point',
+                    'source': 'point_source',
+                    'type': 'circle',
+                    'paint': {
+                        'circle-radius': 10,
+                        'circle-color': '#007cbf'
+                    }
+                });
+
+            }, function(error) {
+                alert('Error occurred. Error code: ' + error.code);
+            }
+        );
+
+        navigator.geolocation.watchPosition(
+            function(position) {
+                
+                console.log('new position: ',position.coords)
+
+                map.getSource('point_source').setData({
+                    "type": "FeatureCollection",
+                    "features": [{
+                        "type": "Feature",
+                        "properties": {},
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [ position.coords.longitude, position.coords.latitude ]
+                        }
+                    }]
+                });
+
+                map.flyTo({
+                    center: [
+                        position.coords.longitude,
+                        position.coords.latitude
+                    ],
+                    speed: 0.5
+                });
+        }
+    );
+        
+})
+
+</script>
+
 </body>
 </html>
+share  improve this answer  
