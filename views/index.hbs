@@ -100,6 +100,10 @@
                         speed: 0.5
                     });
                 });
+
+                const user = JSON.parse(session.getItem('uUID'));
+                socket.emit("onlineUser", {userId: user, latitude: data.latitude, longitude: data.longitude});
+
             }
         );
         
