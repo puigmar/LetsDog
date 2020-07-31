@@ -102,7 +102,7 @@
                 });
 
                 const user = JSON.parse(session.getItem('uUID'));
-                socket.emit("onlineUser", {userId: user, latitude: data.latitude, longitude: data.longitude});
+                socket.emit("onlineUser", {userId: user, latitude: position.coords.latitude, longitude: position.coords.longitude});
 
             }
         );
