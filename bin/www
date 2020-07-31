@@ -30,18 +30,60 @@ let server  = http.createServer(app);
 // Socket.io
 const io    = require('socket.io')(server);
 
-const usersCoords = [];
+let users = [],
+    users_connected = [];
+
 io.on('connection', (socket) => {
-  for(let i = 0; i < usersCoords.length; i++) {
-    socket.emit("showOnlineUsers", usersCoords[i]);
+
+  var uid = null;
+
+  for(let i = 0; i < users_connected.length; i++) {
+    socket.emit("showOnlineUsers", users_connected[i]);
   }
-  socket.on('turnOnline', data => {
-    usersCoords.push(data);
-    console.log('usersCoords: ',usersCoords);
+
+  socket.on('onlineUser', user_uid => {
+
+    if( users_connected.indexOf(user_uid) < 0 ) {
+      users_connected.push(user_uid);
+    }
+
+    if ( users.indexOf(user_uid) < 0 ) {
+      console.log('user_uid:');
+      console.log(user_uid);
+      console.log('users online: ', users_connected.length)
+      users.push(user_uid);
+
+      // notify other clients that a new user has joined
+      socket.broadcast.emit('user:join', {
+        name: user_uid,
+        users: users_connected.length
+      });
+    }
+
+    uid = user_uid;
+
   });
+
+  socket.on('disconnect', () => {
+  
+    users_connected.splice( users_connected.indexOf(uid), 1);
+  
+    setTimeout(function () {
+      if ( users_connected.indexOf(uid) < 0 ) {
+        socket.broadcast.emit('user:left', {
+          name: uid
+        });
+  
+        var index = users.indexOf(uid);
+        users.splice(index, 1);
+      }
+  
+    }, 3000);
+  });
+
 });
 
-console.log('usersCoords: ',usersCoords);
+console.log(users_connected)
 
 server.on('error', error => {
   if (error.syscall !== 'listen') { throw error }

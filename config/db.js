@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose
-  .connect('mongodb://localhost/letsdog', {useMongoClient: true})
+  .connect('mongodb://localhost/letsdog', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
