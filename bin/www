@@ -26,7 +26,6 @@ app.use((err, req, res, next) => {
 }); // Express middleware to handle errors
 
 let server  = http.createServer(app);
-
 // Socket.io
 const io    = require('socket.io')(server);
 
@@ -44,20 +43,29 @@ io.on('connection', (socket) => {
   socket.on('onlineUser', user_uid => {
 
     if( users_connected.indexOf(user_uid) < 0 ) {
+      console.log('connection added');
       users_connected.push(user_uid);
+
+      console.log('Current Connected Users:');
+      console.log(users_connected);
+      console.log('\n');
     }
 
     if ( users.indexOf(user_uid) < 0 ) {
-      console.log('user_uid:');
-      console.log(user_uid);
-      console.log('users online: ', users_connected.length)
       users.push(user_uid);
+
+      console.log('Current Users:');
+      console.log(users);
+      console.log('\n');      
 
       // notify other clients that a new user has joined
       socket.broadcast.emit('user:join', {
         name: user_uid,
-        users: users_connected.length
+        users_connteced: users_connected.length
       });
+
+      console.log('users online: ', users_connected.length)
+
     }
 
     uid = user_uid;
@@ -65,25 +73,26 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-  
+
+    const leftUSer = uid;
+    console.log('this user has left the socket: ', uid);
+
     users_connected.splice( users_connected.indexOf(uid), 1);
-  
-    setTimeout(function () {
-      if ( users_connected.indexOf(uid) < 0 ) {
-        socket.broadcast.emit('user:left', {
-          name: uid
-        });
-  
-        var index = users.indexOf(uid);
-        users.splice(index, 1);
-      }
-  
-    }, 3000);
+    users.splice( users.indexOf(uid), 1);
+    
+    if ( users_connected.indexOf(uid) < 0 ) {
+      socket.broadcast.emit('user:left', {
+        name: uid
+      });
+    }
+
+    console.log('Current Connected Users:');
+    console.log(users_connected);
+    console.log('num connected: ', users_connected);
+
   });
 
 });
-
-console.log(users_connected)
 
 server.on('error', error => {
   if (error.syscall !== 'listen') { throw error }

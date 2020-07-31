@@ -5,7 +5,7 @@ const User = require("../models/User");
 const Dog = require("../models/Dog");
 const Carer = require("../models/Carer");
 
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const { route } = require(".");
 const bcryptSalt = 10;
 
@@ -54,11 +54,18 @@ router
       .catch((error) => {
         console.log(error);
       });
-  })
-  .catch((error) => {
-    next(error);
   });
 
-router.post("/signup/check-user-data", (req, res, next) => {
-  const { email, password } = req.body;
+const parser = require('./../config/cloudinary');
+
+router.get('/signup/test-photo' , (req, res, next) => {
+  res.render('auth/signup-testAxios')
+})
+
+router.post("/signup/test-photo", parser.single('image'), (req, res, next) => {
+  const image_url = req.file.secure_url;
+  res.send(image_url);
 });
+
+
+module.exports = router;

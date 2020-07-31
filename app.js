@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express      = require('express');
@@ -11,10 +9,17 @@ const path         = require('path');
 const session      = require('express-session');
 const MongoStore   = require('connect-mongo')(session);
 
-mongoose.Promise = Promise;
+
+require('dotenv').config();
 
 // DB Config Connection
-require('./config/db.js');
+mongoose
+  .connect('mongodb://localhost/letsdog', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to Mongo!')
+  }).catch(err => {
+    console.error('Error connecting to mongo', err)
+  });
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -39,10 +44,25 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
-// default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+// Authentication
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: true,
+    resave: true,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      ttl: 24 * 60 * 60, // 1 day
+    }),
+  }),
+);
+app.use(cookieParser());
 
 const index = require('./routes/index');
 app.use('/', index);
+
+const auth = require('./routes/auth');
+app.use('/auth', auth);
+
 
 module.exports = app;
