@@ -11,12 +11,16 @@
 
 <script>
 
+    const session = localStorage;
+
+    session.setItem('uUID', JSON.stringify(Math.random().toString(24) + new Date().toLocaleDateString("en-US")));
+
     mapboxgl.accessToken = 'pk.eyJ1IjoicHVpZ21hciIsImEiOiJja2Q1cTRjMHoyOWc1MzBwZzUxNnBqZjgzIn0.Dl_LIKPYzM72_QZAE0wZWQ';
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
         center: [0, 0],
-        zoom: 10
+        zoom: 5
     });
 
     function getPointData(lngLat) {
@@ -57,7 +61,11 @@
                 });
 
                 console.log(position);
-                socket.emit("turnOnline", {latitude: position.coords.latitude, longitude: position.coords.longitude});
+                console.log('session uuid: ', session.getItem('uUID'));
+
+                const user = JSON.parse(session.getItem('uUID'));
+
+                socket.emit("onlineUser", {userId: user, latitude: position.coords.latitude, longitude: position.coords.longitude});
 
 
             }, function(error) {
@@ -96,5 +104,7 @@
         );
         
     });
+
+    socket.on('user:join', m => console.log('resume', m));
 
 </script>
