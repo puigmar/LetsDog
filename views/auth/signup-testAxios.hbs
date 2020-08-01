@@ -58,7 +58,7 @@
         data.append('image', fileToUpload);
 
         axios.post('/auth/signup/test-photo', data, config)
-            .then((response)=>{
+            .then((wrapper)=>{
                 console.log(response)
                 const dogProfileUrl = response.data;
                 document.getElementById('addPhoto').style.backgroundImage = `url(${dogProfileUrl})`;
