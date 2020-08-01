@@ -1,0 +1,93 @@
+<style>
+    .profile{
+        background-image: url(https://cdn2.iconfinder.com/data/icons/flat-ui-4/100/Camera-512.png);
+        border-radius: 100%;
+        width: 80px;
+        height: 80px;
+        background-position: center;
+        background-color: rgba(0,0,0,0.1);
+        background-size: 70%;
+        background-repeat: no-repeat;
+        margin: 0 auto 20px;
+        transition: all 0.3s ease-in-out;
+        transition-property: background-color, box-shadow;
+        cursor: pointer;
+    }
+
+    .profile:hover{
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .profile.cover{
+        background-color: rgba(255,255,255,1);
+        background-size: cover;
+        box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.32);
+    }
+
+    #formBtn{
+        margin: 0 auto;
+        display: block;
+    }
+
+    #photo,
+    #submitBtn{
+        display: none;
+    }
+</style>
+
+<form enctype="multipart/form-data" id="form">
+    <div id="addPhoto" class="profile"></div>
+    <input id="photo" type="file" name="photo">
+    <input id="submitBtn" type="submit">
+</form>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    
+    
+    const updateDogProfile = () => {
+
+        const fileToUpload  = document.querySelector('#photo').files[0];
+
+        let config = {
+            headers : {
+                'Content-Type' : 'multipart/form-data'
+            }
+        }
+
+        let data = new FormData()
+        data.append('image', fileToUpload);
+
+        axios.post('/auth/signup/test-photo', data, config)
+            .then((response)=>{
+                console.log(response)
+                const dogProfileUrl = response.data;
+                document.getElementById('addPhoto').style.backgroundImage = `url(${dogProfileUrl})`;
+                document.getElementById('addPhoto').classList.add('cover')
+                
+            })
+            .catch(err =>{
+                console.error("Image post failed: ", err)
+            })
+    };
+
+    const sendForm = (e) => {
+        e.preventDefault();
+        console.log('hola..')
+        updateDogProfile()
+    }
+
+    document.getElementById('addPhoto').addEventListener('click', () => {
+        document.getElementById('photo').click()
+    })
+    document.getElementById('form').addEventListener('submit', sendForm);
+    document.getElementById('photo').addEventListener('change', () => {
+        document.getElementById('submitBtn').click()
+    });
+
+    
+    
+
+    //const btn = document.getElementById('formBtn');
+    //btn.addEventListener('click', sendForm);
+
+</script>

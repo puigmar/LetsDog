@@ -11,7 +11,7 @@
 
 <script>
 
-    const session = localStorage;
+    const session = localStorage;c
 
     session.setItem('uUID', JSON.stringify(Math.random().toString(24) + new Date().toLocaleDateString("en-US")));
 
@@ -30,7 +30,7 @@
         };
     }
 
-    var socket = io();
+    var socket = io('');
 
     map.on('load', function() {
 
@@ -60,13 +60,10 @@
                     }
                 });
 
-                console.log(position);
-                console.log('session uuid: ', session.getItem('uUID'));
-
                 const user = JSON.parse(session.getItem('uUID'));
 
                 socket.emit("onlineUser", {userId: user, latitude: position.coords.latitude, longitude: position.coords.longitude});
-
+                socket.on('user:join', m => console.log('Exist a new user: ', m));
 
             }, function(error) {
                 alert('Error occurred. Error code: ' + error.code);
@@ -99,16 +96,16 @@
                         ],
                         speed: 0.5
                     });
+                    
+                    const user = JSON.parse(session.getItem('uUID'));
+                    socket.emit("onlineUser", {userId: user, latitude: position.coords.latitude, longitude: position.coords.longitude});
+
                 });
-
-                const user = JSON.parse(session.getItem('uUID'));
-                socket.emit("onlineUser", {userId: user, latitude: position.coords.latitude, longitude: position.coords.longitude});
-
             }
         );
         
     });
 
-    socket.on('user:join', m => console.log('resume', m));
+    socket.on('user:left', data => console.log('usario ha dejado la sesion: ', data));
 
 </script>
