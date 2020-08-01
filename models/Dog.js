@@ -7,6 +7,8 @@ const dogSchema = new Schema({
     type: String,
     default: "",
   },
+  name: String,
+  age: Number,
   sex: {
     type: String,
     enum: ["macho", "hembra"],
@@ -26,8 +28,6 @@ const dogSchema = new Schema({
       enum: ["Agresivo", "Social", "Timido"],
     },
   },
-
-  age: Number,
 });
 
 dogSchema.set("timestamps", true);

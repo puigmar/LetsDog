@@ -1,0 +1,40 @@
+<h2> Sign Up </h2>
+
+{{#if err}}
+<p class="error-message">
+    {{ err }}
+</p>
+{{/if}}
+
+<form action="/signup" method="post">
+
+    <div>
+        <label for="email-input"> Email </label>
+        <input type="email" name="email" id="email-input" placeholder="e.g., hola@hola.com">
+    </div>
+
+    <div>
+        <label for="password-input"> Password </label>
+        <input type="password" name="password" id="password-input" placeholder="e.g., ••••••••••••">
+    </div>
+
+    <button> Create New Account </button>
+</form>
+
+<p>
+    Already have an account?
+    <a href="/login">
+        Log in.
+    </a>
+</p>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    axios
+    .post('/signup,', signupData)
+        .then((response), => {
+            if (!response.data) {
+                
+            }
+        }
+</script>
