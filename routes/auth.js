@@ -15,11 +15,12 @@ router.get("/signup", (req, res, next) => {
 
 router.post("/signup", (req, res, next) => {
 
+  
+
   const { userData, dogData, clientData } = req.body;
   
   console.log(userData);
   console.log(dogData);
-  console.log(req.body);
 
 
   const salt = bcrypt.genSaltSync(bcryptSalt);
@@ -27,41 +28,42 @@ router.post("/signup", (req, res, next) => {
 
   userData.password = hashPass;
 
-  // User.create(userData)
-  //   .then(() => {
-  //     User.findOne({ email: userData.email })
-  //       .then((user) => {
-  //         const userId = user._id;
-  //         dogData.userId = userId;
-  //         clientData.userId = userId;
-  //         console.log(dogData)
-  //         Dog.create(dogData)
-  //           .then(() => {
-  //             Dog.findOne({ userId: dogData.userId }).then((dog) => {
-  //               const dogId = dog._id;
-  //               clientData.dogId = dogId;
-  //               Client.create(clientData)
-  //                 .then(() => {
-  //                   req.session.currentUser = {userData, dogData, clientData}
-  //                   console.log(req.session.currentUser);
-  //                   res.send(true)
-  //                 })
-  //                 .catch((err) => {
-  //                   console.log(err);
-  //                 });
-  //             });
-  //           })
-  //           .catch((err) => {
-  //             console.log(err);
-  //           });
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
+  User.create(userData)
+    .then(() => {
+      User.findOne({ email: userData.email })
+        .then((user) => {
+          const userId = user._id;
+          console.log(userId)
+          dogData.userId = userId;
+          clientData.userId = userId;
+          //console.log(dogData)
+          Dog.create(dogData)
+            .then(() => {
+              Dog.findOne({ userId: dogData.userId }).then((dog) => {
+                const dogId = dog._id;
+                clientData.dogId = dogId;
+                Client.create(clientData)
+                  .then(() => {
+                    req.session.currentUser = {userData, dogData, clientData}
+                    console.log(req.session.currentUser);
+                    res.send(true)
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 router.get("/login", (req, res, next) => {
@@ -70,6 +72,8 @@ router.get("/login", (req, res, next) => {
 
 router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
+
+  //console.log(req.body)
 
   if (email === "" || password === "") {
     res.render("auth/signup", { err: "Type something" });
@@ -80,15 +84,38 @@ router.post("/login", (req, res, next) => {
     if (!user) {
       res.render("auth/login", { err: "Email doesn't exist" });
       return;
-    }
+    } 
 
     if (bcrypt.compareSync(password, user.password)) {
-      //req.session.currentUser = user;
+      var sessionData = {user}
+      Dog.findOne({ userId: user._id })
+        .then((dog) => {
+          sessionData = {user, dog}
+          //console.log(sessionData)
+          Client.findOne({ userId: user._id})
+            .then((client) => {
+              sessionData = {user, dog, client}
+              
+              req.session.currentUser = sessionData
+              console.log('datos de sesion:', req.session.currentUser)
+              //console.log(req.session.currentUser)
+            })
+            .catch ((err) => {
+              console.log(err);
+            })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
       res.redirect("/");
     } else {
       res.render("auth/login", { err: "Incorrect password" });
     }
-  });
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  
 });
 
 module.exports = router;

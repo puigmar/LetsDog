@@ -11,7 +11,7 @@ const dogSchema = new Schema({
   age: Number,
   sex: {
     type: String,
-    enum: ["macho", "hembra"],
+    enum: ["male", "female"],
   },
   breed: String,
   size: {
@@ -21,11 +21,11 @@ const dogSchema = new Schema({
   behavior: {
     withDogs: {
       type: String,
-      enum: ["agresivo", "social", "timido"],
+      enum: ["agressive", "social", "shy"],
     },
     withPeople: {
       type: String,
-      enum: ["agresivo", "social", "timido"],
+      enum: ["agressive", "social", "shy"],
     },
   },
 });

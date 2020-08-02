@@ -129,11 +129,11 @@ class Signup{
         this.dogData.photo = this.photoDogUrl;
         this.dogData.name = this.dogNameInput.value;
         this.dogData.sex = this.dogSexInput.value;
-        this.dogData.breed = this.dogBreedInput.vaue;
+        this.dogData.breed = this.dogBreedInput.value;
         this.dogData.age = this.dogAgeInput.value;
-        this.dogData.size = this.dogSizeInput;
-        this.dogData.behavior.withPeople = this.dogBehaviorPeopleInput;
-        this.dogData.behavior.withDogs = this.dogBehaviorDogsInput;
+        this.dogData.size = this.dogSizeInput.value;
+        this.dogData.behavior.withPeople = this.dogBehaviorPeopleInput.value;
+        this.dogData.behavior.withDogs = this.dogBehaviorDogsInput.value;
     }
 
     sendSignupFormData = (e) => {
@@ -154,6 +154,7 @@ class Signup{
             }
         };
 
+        console.log
         console.log(signupData)
 
         axios.post('/signup', signupData)
