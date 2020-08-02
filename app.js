@@ -55,7 +55,8 @@ app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    saveUninitialized: false,
+    cookie: {maxAge: 1200000},
+    saveUninitialized: true,
     resave: true,
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
@@ -68,7 +69,7 @@ app.use((req, res, next) => {
   if (req.session.currentUser) {
     res.locals.currentUserInfo = req.session.currentUser;
     //app.locals.currentUserInfo = req.session.currentUser;
-    console.log(req.session);
+    console.log('esto mierda', req.session.currentUser);
     res.locals.isUserLoggedIn = true;
   } else {
     res.locals.isUserLoggedIn = false;

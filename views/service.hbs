@@ -1,3 +1,31 @@
-{{#if isUserLoggedIn}}
-  <p> Hello, {{ currentUserInfo.dogData.name }}. </p>
-{{/if}}
+<!--{{#if isUserLoggedIn}}-->
+  <p> Hello, {{currentUserInfo.dog.name}}. </p>
+<!--{{/if}}-->
+
+{{#each intervalList}}
+<div class="intervalCard">
+    <h2 class="intervalTime">{{this.intervalTime}}</h2>
+    <h4 class="price">{{this.price}}</h4>
+    <a href="#" class="intervalButton">click</a>
+</div>
+{{/each}}
+
+<script>
+    
+    
+    const intervalButtons = document.querySelectorAll(".intervalButton");
+    intervalButtons.forEach((elem) => {
+        elem.addEventListener("click", (event) => {
+            const card = event.target.parentNode
+            const interval = card.querySelector('.intervalTime').innerHTML
+            const price = card.querySelector('.price').innerHTML
+
+
+        const contract = {userId: "", carerId: "", interval_time: interval, price: price, card_number: "" };
+        localStorage.setItem('contract', JSON.stringify(contract));
+        
+    });
+
+    });
+    
+</script>

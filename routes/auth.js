@@ -87,18 +87,16 @@ router.post("/login", (req, res, next) => {
     } 
 
     if (bcrypt.compareSync(password, user.password)) {
-      var sessionData = {user}
+      //var sessionData = {user}
       Dog.findOne({ userId: user._id })
         .then((dog) => {
-          sessionData = {user, dog}
-          //console.log(sessionData)
+          //sessionData = {user, dog}
+
           Client.findOne({ userId: user._id})
             .then((client) => {
-              sessionData = {user, dog, client}
-              
-              req.session.currentUser = sessionData
-              console.log('datos de sesion:', req.session.currentUser)
-              //console.log(req.session.currentUser)
+              //sessionData = {user, dog, client}
+              req.session.currentUser = {user: user, dog: dog , client: client}
+
             })
             .catch ((err) => {
               console.log(err);
