@@ -1,5 +1,5 @@
 <!--{{#if isUserLoggedIn}}-->
-  <p> Hello, {{currentUserInfo.dog.name}}. </p>
+<p> Hello, {{currentUserInfo.dog.name}}. </p>
 <!--{{/if}}-->
 
 {{#each intervalList}}
@@ -11,8 +11,8 @@
 {{/each}}
 
 <script>
-    
-    
+
+
     const intervalButtons = document.querySelectorAll(".intervalButton");
     intervalButtons.forEach((elem) => {
         elem.addEventListener("click", (event) => {
@@ -21,11 +21,11 @@
             const price = card.querySelector('.price').innerHTML
 
 
-        const contract = {userId: "", carerId: "", interval_time: interval, price: price, card_number: "" };
-        localStorage.setItem('contract', JSON.stringify(contract));
-        
-    });
+            const contract = { userId: "", carerId: "", interval_time: interval, price: price, card_number: "" };
+            localStorage.setItem('contract', JSON.stringify(contract));
+
+        });
 
     });
-    
+
 </script>

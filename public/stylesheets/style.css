@@ -1,24 +1,26 @@
 .profile {
   background-image: url(https://cdn2.iconfinder.com/data/icons/flat-ui-4/100/Camera-512.png);
   border-radius: 100%;
-  width: 80px;
-  height: 80px;
+  width: 150px;
+  height: 150px;
   background-position: center;
   background-color: rgba(0, 0, 0, 0.1);
-  background-size: 70%;
+  background-size: 70px 70px;
   background-repeat: no-repeat;
   margin: 0 auto 20px;
   transition: all 0.3s ease-in-out;
   transition-property: background-color, box-shadow;
   cursor: pointer; }
-
-.profile:hover {
-  background-color: rgba(0, 0, 0, 0.4); }
-
-.profile.cover {
-  background-color: white;
-  background-size: cover;
-  box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.32); }
+  .profile.profile-banner {
+    width: 400px;
+    height: 200px;
+    border-radius: 5px; }
+  .profile:hover {
+    background-color: rgba(0, 0, 0, 0.4); }
+  .profile.cover {
+    background-color: white;
+    background-size: cover;
+    box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.32); }
 
 #formBtn {
   margin: 0 auto;

@@ -169,8 +169,6 @@ Carer model
     }
 ```
 
-
-
 Dog model
 
 ```javascript

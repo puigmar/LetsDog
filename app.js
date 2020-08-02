@@ -68,8 +68,7 @@ app.use(
 app.use((req, res, next) => {
   if (req.session.currentUser) {
     res.locals.currentUserInfo = req.session.currentUser;
-    //app.locals.currentUserInfo = req.session.currentUser;
-    console.log('esto mierda', req.session.currentUser);
+    console.log(req.session)
     res.locals.isUserLoggedIn = true;
   } else {
     res.locals.isUserLoggedIn = false;
@@ -85,6 +84,9 @@ app.use("/", index);
 
 const auth = require("./routes/auth");
 app.use("/", auth);
+
+const carer = require("./routes/carer");
+app.use("/carer", carer);
 
 const axios = require("./routes/axios");
 app.use("/manage", axios);
