@@ -2,55 +2,29 @@
 
 class SignupValidator {
     constructor(){
-        this.invalidSpecie = 'You have to select a specie';
         this.emailExistError = 'Your email already exist!';
         this.invalidEmailError = 'Write a valid email';
         this.passwordError = 'Your password must have at least 6 letters';
         this.repeatPasswordError = `This field doesn't match with your password`;
-        this.invalidName = 'Name is empty';
         this.invalidAccess = 'Your email or your password are incorrect';
+        
 
-        this.errorForms = {
-            errorSpecieMsg: this.invalidSpecie,
+        this.UserErrorForms = {
             errorEmailMsg: this.invalidEmailError,
             errorPassMsg: this.passwordError,
-            errorPassRepeatMsg: this.repeatPasswordError,
-            errorNameMsg: this.invalidName
+            errorPassRepeatMsg: this.repeatPasswordError
         }
-    }
-
-    validateSpecies = (e, str) => {
-
-        let parent = e.target.parentNode;
-        let formEl = e.target;
-        
-        if(str === ''){
-            
-            this.errorForms.errorSpecieMsg = this.invalidSpecie;
-
-        } else {
-            
-            delete this.errorForms.errorSpecieMsg;
-        }
-
-        this.checkValidationMsg(e, this.errorForms.errorSpecieMsg || null)
-
-        
     }
 
     validateEmail = (e, str) => {
-        let parent = e.target.parentNode;
-        let formEl = e.target;
 
         if(!this.emailIsValid(str)){
-            console.log('EMAIL INVALIDO')
-            this.errorForms.errorEmailMsg = this.invalidEmailError;
+            this.UserErrorForms.errorEmailMsg = this.invalidEmailError;
         } else {
-            console.log('EMAIL VALIDO')
-            delete this.errorForms.errorEmailMsg;
+            delete this.UserErrorForms.errorEmailMsg;
         }
 
-        this.checkValidationMsg(e, this.errorForms.errorEmailMsg || null)
+        this.checkValidationMsg(e, this.UserErrorForms.errorEmailMsg || null)
 
     }
 
@@ -68,33 +42,22 @@ class SignupValidator {
 
     validatePassWord = (e, str) => {
         if(str.length < 6){
-            this.errorForms.errorPassMsg = this.passwordError
+            this.UserErrorForms.errorPassMsg = this.passwordError
         } else {
-            delete this.errorForms.errorPassMsg
+            delete this.UserErrorForms.errorPassMsg
         }
 
-        this.checkValidationMsg(e, this.errorForms.errorPassMsg || null)
+        this.checkValidationMsg(e, this.UserErrorForms.errorPassMsg || null)
     }
 
     validateRepeatPassword = (e, password, repeatPassword) => {
         if(password !== repeatPassword){
-            this.errorForms.errorPassRepeatMsg = this.repeatPasswordError
+            this.UserErrorForms.errorPassRepeatMsg = this.repeatPasswordError
         } else {
-            delete this.errorForms.errorPassRepeatMsg
+            delete this.UserErrorForms.errorPassRepeatMsg
         }
 
-        this.checkValidationMsg(e, this.errorForms.errorPassRepeatMsg || null)
-    }
-
-    validateName = (e, name) => {
-        if(name === ''){
-            this.errorForms.errorNameMsg = this.invalidName
-        } else {
-            delete this.errorForms.errorNameMsg
-        }
-
-        this.checkValidationMsg(e, this.errorForms.errorNameMsg || null)
-
+        this.checkValidationMsg(e, this.UserErrorForms.errorPassRepeatMsg || null)
     }
 
     checkValidationMsg = (e, msgErr) => {

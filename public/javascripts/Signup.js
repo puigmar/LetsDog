@@ -11,6 +11,16 @@ class Signup{
         this.photoDogSubmit = document.getElementById('photoDogSubmit');
         this.photoDogForm = document.getElementById('photoDogForm');
 
+        this.dogNameInput = document.getElementById('signupDogName');
+        this.dogSexInput = document.querySelector('input[name="signupDogSex"]:checked');
+        this.dogBreedInput = document.getElementById('signupDogBreed');
+        this.dogAgeInput = document.getElementById('signupDogAge');
+        this.dogSizeInput = document.querySelector('input[name="signupDogSize"]:checked');
+        this.dogBehaviorPeopleInput = document.getElementById('signupDogBehaviorPeople');
+        this.dogBehaviorDogsInput = document.getElementById('signupDogBehaviorDogs');
+
+
+
         this.signupDogName = document.getElementById('signupDogName');
         this.signupBtnStep1 = document.getElementById('signupBtnStep1');
         this.signupBtnStep3 = document.getElementById('signupBtnStep3');
@@ -34,8 +44,8 @@ class Signup{
     }
 
     updateDogPhoto = () => {
-        console.log('entrando...')
         const dogPhotoToUpload = this.photoDogInputFile.files[0];
+
         const config = {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -43,7 +53,6 @@ class Signup{
         }
         const data = new FormData()
         data.append('image', dogPhotoToUpload);
-
         axios.post('/manage/validate-dog-photo', data, config)
             .then((response) => {
                 this.photoDogUrl = response.data;
@@ -56,24 +65,49 @@ class Signup{
     };
 
     sendDogPhoto = (e) => {
-        console.log('estoy en sendDogPhoto')
         e.preventDefault();
         this.updateDogPhoto()
     }
 
-    isEmailExists = (e) => {
+    addUserData = () => {
+        this.userData.email = this.emailInput.value;
+        this.userData.password = this.passwordInput.value;
+    }
+
+    addDogData = () => {
+        this.dogData.photo = this.photoDogUrl;
+        this.dogData.name = this.dogNameInput.value;
+        this.dogData.sex = this.dogSexInput.value;
+        this.dogData.breed = this.dogBreedInput.vaue;
+        this.dogData.age = this.dogAgeInput.value;
+        this.dogData.size = this.dogSizeInput;
+        this.dogData.behavior.withPeople = this.dogBehaviorPeopleInput;
+        this.dogData.behavior.withDogs = this.dogBehaviorDogsInput;
+    }
+
+    handleIfEmailExists = async (e) => {
         e.preventDefault();
-        axios
-            .post('/manage/validate-user', { email: this.emailInput.value })
+        axios.post('/manage/validate-user', { email: this.emailInput.value })
             .then((response) => {
                 if (!response.data) {
-                    console.log(response.data)
-                } else {
-                    console.log('no existes');
-                    this.userData.email = this.emailInput.value;
-                    console.log(this.userData.email)
+                    validator.UserErrorForms.errorEmailMsg = validator.emailExistError;
+                    validator.checkValidationMsg(e, validator.emailExistError)
                 }
-            });
+            })
+            .catch( err => console.log(err));
+    }
+
+    sendSignupFormData = () => {
+
+        this.addUserData();
+        this.addDogData();
+
+        axios.post('/signup', {userData = this.userData, dogData = this.dogData})
+            .then( () => {
+                window.location.href = '/service'
+            })
+            .catch( err => console.log(err));
+            
     }
 
     addListeners = () => {
@@ -86,7 +120,9 @@ class Signup{
         });
         
 
-        this.signupBtnStep1.addEventListener('click', this.isEmailExists);
+        this.signupBtnStep1.addEventListener('click', handleIfEmailExists);
+        this.signupBtnStep2.addEventListener('click', )
+        this.signupBtnStep2.addEventListener('click', )
     }
 
     init = () => {

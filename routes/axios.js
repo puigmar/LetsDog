@@ -26,6 +26,7 @@ router.post ('/validate-user', (req, res, next) => {
 
 router.post("/validate-dog-photo", parser.single("image"), (req, res, next) => {
     const image_url = req.file.secure_url;
+    console.log(image_url)
     res.send(image_url);
   });
 
