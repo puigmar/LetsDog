@@ -14,32 +14,11 @@ router.get("/signup", (req, res, next) => {
 });
 
 router.post("/signup", (req, res, next) => {
+
   const { userData, dogData } = req.body;
+  
   console.log(userData);
   console.log(dogData);
-  
-  /*const userData = {
-    email: req.body.email,
-    password: req.body.password,
-  };
-  const dogData = {
-    userId: "",
-    photo: req.body.photo,
-    name: req.body.name,
-    age: req.body.age,
-    sex: req.body.sex,
-    breed: req.body.breed,
-    size: req.body.size,
-    behavior: { withDogs: req.body.withDogs, withPeople: req.body.withPeople },
-  };
-  const clientData = {
-    userId: "",
-    dogId: "",
-    favourites: "",
-    cards: "",
-    coords: ""
-  };*/
-
 
 
   const salt = bcrypt.genSaltSync(bcryptSalt);
@@ -51,34 +30,34 @@ router.post("/signup", (req, res, next) => {
   console.log(userData.email);
   User.create(userData)
     .then(() => {
-      User.findOne({email: userData.email})
-        .then ((user) => {
-        const userId = user._id;
-        dogData.userId = userId;
-        clientData.userId = userId;
+      User.findOne({ email: userData.email })
+        .then((user) => {
+          const userId = user._id;
+          dogData.userId = userId;
+          clientData.userId = userId;
           Dog.create(dogData)
             .then(() => {
-              Dog.findOne({userId: dogData.userId})
-                .then ((dog) => {
-                  const dogId = dog._id;
-                  clientData.dogId = dogId;
-                    Client.create(clientData)
-                      .then(() => {
-                        console.log(clientData)
-                      }) 
-                      .catch((err) => {
-                        console.log(err)
-                      })
-                })
+              Dog.findOne({ userId: dogData.userId }).then((dog) => {
+                const dogId = dog._id;
+                clientData.dogId = dogId;
+                Client.create(clientData)
+                  .then(() => {
+                    req.session.currentUser = {userData, dogData, clientData}
+                    console.log(req.session.currentUser);
+                    res.redirect('/service')
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              });
             })
             .catch((err) => {
-              console.log(err)
-            })
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
     .catch((error) => {
       console.log(error);
@@ -90,29 +69,26 @@ router.get("/login", (req, res, next) => {
 });
 
 router.post("/login", (req, res, next) => {
+  const { email, password } = req.body;
 
-const {email, password} = req.body;
+  if (email === "" || password === "") {
+    res.render("auth/signup", { err: "Type something" });
+    return;
+  }
 
-    if (email === "" || password === "") {
-        res.render("auth/signup", { err: "Type something" });
-        return;
-      }
-    
-    User.findOne ({email})
-      .then((user) => {
-          if(!user) {
-              res.render('auth/login', {err:"Email doesn't exist"});
-              return;
-          }
+  User.findOne({ email }).then((user) => {
+    if (!user) {
+      res.render("auth/login", { err: "Email doesn't exist" });
+      return;
+    }
 
-          if(bcrypt.compareSync(password, user.password)) {
-            req.session.currentUser = user;
-            res.redirect('/')
-          } else {
-              res.render('auth/login', {err: 'Incorrect password'})
-          }
-      })
-    })
-
+    if (bcrypt.compareSync(password, user.password)) {
+      //req.session.currentUser = user;
+      res.redirect("/");
+    } else {
+      res.render("auth/login", { err: "Incorrect password" });
+    }
+  });
+});
 
 module.exports = router;
