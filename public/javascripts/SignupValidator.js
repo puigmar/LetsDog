@@ -70,7 +70,7 @@ class SignupValidator {
         }
         
         // Comprobamos si sigue existiendo el error
-        if(this.getErrors().find(error => error === msgErr) && msgErr !== null){
+        if(this.getErrors(this.UserErrorForms).find(error => error === msgErr) && msgErr !== null){
             if(parent.querySelectorAll('.invalid-feedback').length === 0){
                 let msg = document.createElement('div');
                 msg.setAttribute('class','invalid-feedback');
@@ -94,8 +94,8 @@ class SignupValidator {
         }
     }
 
-    getErrors(){
-        return Object.values(this.errorForms)
+    getErrors(object){
+        return Object.values(object)
     }
 
 }

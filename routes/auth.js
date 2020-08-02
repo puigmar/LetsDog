@@ -14,7 +14,11 @@ router.get("/signup", (req, res, next) => {
 });
 
 router.post("/signup", (req, res, next) => {
-  const userData = {
+  const { userData, dogData } = req.body;
+  console.log(userData);
+  console.log(dogData);
+  
+  /*const userData = {
     email: req.body.email,
     password: req.body.password,
   };
@@ -34,7 +38,7 @@ router.post("/signup", (req, res, next) => {
     favourites: "",
     cards: "",
     coords: ""
-  };
+  };*/
 
 
 

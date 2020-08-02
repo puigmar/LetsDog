@@ -4,6 +4,7 @@ class Signup{
         this.emailInput = document.getElementById('signupEmailInput');
         this.passwordInput = document.getElementById('signupPasswordInput');
         this.repeatPasswordInput = document.getElementById('signupPasswordRepeatInput');
+        this.signupBtnStep1 = document.getElementById('signupBtnStep1');
 
         this.photoDogAvatar = document.getElementById('photoDogAvatar');
         this.photoDogUrl = document.getElementById('photoDogUrl');
@@ -22,13 +23,14 @@ class Signup{
 
 
         this.signupDogName = document.getElementById('signupDogName');
-        this.signupBtnStep1 = document.getElementById('signupBtnStep1');
+        
         this.signupBtnStep3 = document.getElementById('signupBtnStep3');
 
         this.userData = {
             email: '',
             password: ''
-        },
+        }
+
         this.dogData = {
             photo: '',
             name: '',
@@ -41,6 +43,18 @@ class Signup{
                 withPeople: true
             }
         }
+
+        this.clientData = {
+            userId: "",
+            dogId: "",
+            favourites: [],
+            cards: [],
+            coords: {
+              type: "Point",
+              coodinates: [0, 0],
+            },
+        }
+
     }
 
     updateDogPhoto = () => {
@@ -64,6 +78,44 @@ class Signup{
             })
     };
 
+    handleIfEmailExists = async (e) => {
+        e.preventDefault();
+        axios.post('/manage/validate-user', { email: this.emailInput.value })
+            .then((response) => {
+                if (!response.data) {
+                    validator.UserErrorForms.errorEmailMsg = validator.emailExistError;
+                    validator.checkValidationMsg(e, validator.emailExistError)
+                } else {
+                    console.log('no existes')
+                }
+            })
+            .catch( err => console.log(err));
+    }
+
+    handleEmail = (e) => {
+        const email = e.target.value;
+
+        // validamos con validator
+        validator.validateEmail(e, email);
+
+        this.checkSubmitButton(this.signupBtnStep1, 'UserErrorForms');
+    }
+
+    handlePassword = (e) => {
+        const password = e.target.value;
+        // Validamos campo
+        validator.validatePassWord(e, password);
+        this.checkSubmitButton(this.signupBtnStep1, 'UserErrorForms');
+    }
+
+    handleRepeatPassword = (e) => {
+        const repeatPassword = e.target.value;
+        const password = this.passwordInput.value;
+        // Validamos campo
+        validator.validateRepeatPassword(e, password, repeatPassword);
+        this.checkSubmitButton(this.signupBtnStep1, 'UserErrorForms');
+    }
+
     sendDogPhoto = (e) => {
         e.preventDefault();
         this.updateDogPhoto()
@@ -85,32 +137,38 @@ class Signup{
         this.dogData.behavior.withDogs = this.dogBehaviorDogsInput;
     }
 
-    handleIfEmailExists = async (e) => {
-        e.preventDefault();
-        axios.post('/manage/validate-user', { email: this.emailInput.value })
-            .then((response) => {
-                if (!response.data) {
-                    validator.UserErrorForms.errorEmailMsg = validator.emailExistError;
-                    validator.checkValidationMsg(e, validator.emailExistError)
-                }
-            })
-            .catch( err => console.log(err));
-    }
-
     sendSignupFormData = () => {
 
         this.addUserData();
         this.addDogData();
+        const userData = this.userData;
+        const dogData = this.dogData;
+        const clientData = this.clientData;
 
-        axios.post('/signup', {userData = this.userData, dogData = this.dogData})
+        axios.post('/signup', {userData, dogData, clientData})
             .then( () => {
                 window.location.href = '/service'
             })
             .catch( err => console.log(err));
-            
+
+    }
+
+    checkSubmitButton = (button, errors) => {
+        const pendentErrors = Object.keys(validator[errors]);
+        console.log(pendentErrors)
+        if(pendentErrors.length !== 0){
+            button.disabled = true;
+        } else {
+            button.disabled = false;
+        }
     }
 
     addListeners = () => {
+
+        this.emailInput.addEventListener('input', this.handleEmail)
+        this.passwordInput.addEventListener('input', this.handlePassword)
+        this.repeatPasswordInput.addEventListener('input', this.handleRepeatPassword)
+
         this.photoDogAvatar.addEventListener('click', () => {
             this.photoDogInputFile.click()
         })
@@ -120,9 +178,10 @@ class Signup{
         });
         
 
-        this.signupBtnStep1.addEventListener('click', handleIfEmailExists);
-        this.signupBtnStep2.addEventListener('click', )
-        this.signupBtnStep2.addEventListener('click', )
+        this.signupBtnStep1.addEventListener('click', this.handleIfEmailExists);
+        this.signupBtnStep3.addEventListener('click', this.sendSignupFormData);
+        /*this.signupBtnStep2.addEventListener('click', )
+        this.signupBtnStep2.addEventListener('click', )*/
     }
 
     init = () => {
