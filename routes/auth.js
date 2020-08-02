@@ -15,53 +15,55 @@ router.get("/signup", (req, res, next) => {
 
 router.post("/signup", (req, res, next) => {
 
-  const { userData, dogData } = req.body;
+  console.log(req.body)
+
+  // const { userData, dogData } = req.body;
   
-  console.log(userData);
-  console.log(dogData);
+  // console.log(userData);
+  // console.log(dogData);
 
 
-  const salt = bcrypt.genSaltSync(bcryptSalt);
-  const hashPass = bcrypt.hashSync(userData.password, salt);
+  // const salt = bcrypt.genSaltSync(bcryptSalt);
+  // const hashPass = bcrypt.hashSync(userData.password, salt);
 
-  userData.password = hashPass;
+  // userData.password = hashPass;
 
-  console.log(userData);
-  console.log(userData.email);
-  User.create(userData)
-    .then(() => {
-      User.findOne({ email: userData.email })
-        .then((user) => {
-          const userId = user._id;
-          dogData.userId = userId;
-          clientData.userId = userId;
-          Dog.create(dogData)
-            .then(() => {
-              Dog.findOne({ userId: dogData.userId }).then((dog) => {
-                const dogId = dog._id;
-                clientData.dogId = dogId;
-                Client.create(clientData)
-                  .then(() => {
-                    req.session.currentUser = {userData, dogData, clientData}
-                    console.log(req.session.currentUser);
-                    res.redirect('/service')
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  // console.log(userData);
+  // console.log(userData.email);
+  // User.create(userData)
+  //   .then(() => {
+  //     User.findOne({ email: userData.email })
+  //       .then((user) => {
+  //         const userId = user._id;
+  //         dogData.userId = userId;
+  //         clientData.userId = userId;
+  //         Dog.create(dogData)
+  //           .then(() => {
+  //             Dog.findOne({ userId: dogData.userId }).then((dog) => {
+  //               const dogId = dog._id;
+  //               clientData.dogId = dogId;
+  //               Client.create(clientData)
+  //                 .then(() => {
+  //                   req.session.currentUser = {userData, dogData, clientData}
+  //                   console.log(req.session.currentUser);
+  //                   res.redirect('/service')
+  //                 })
+  //                 .catch((err) => {
+  //                   console.log(err);
+  //                 });
+  //             });
+  //           })
+  //           .catch((err) => {
+  //             console.log(err);
+  //           });
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
 });
 
 router.get("/login", (req, res, next) => {
