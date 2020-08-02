@@ -7,7 +7,7 @@ class Signup{
         this.signupBtnStep1 = document.getElementById('signupBtnStep1');
 
         this.photoDogAvatar = document.getElementById('photoDogAvatar');
-        this.photoDogUrl = document.getElementById('photoDogUrl');
+        this.photoDogUrl = '';
         this.photoDogInputFile = document.getElementById('photoDogInputFile');
         this.photoDogSubmit = document.getElementById('photoDogSubmit');
         this.photoDogForm = document.getElementById('photoDogForm');
@@ -35,9 +35,9 @@ class Signup{
             photo: '',
             name: '',
             age: 0,
-            sex: 'macho',
+            sex: '',
             breed: '',
-            size: 'mediano',
+            size: '',
             behavior: {
                 withDogs: '',
                 withPeople: ''
@@ -130,7 +130,7 @@ class Signup{
         this.dogData.name = this.dogNameInput.value;
         this.dogData.sex = this.dogSexInput.value;
         this.dogData.breed = this.dogBreedInput.value;
-        this.dogData.age = this.dogAgeInput.value;
+        this.dogData.age = Number(this.dogAgeInput.value);
         this.dogData.size = this.dogSizeInput.value;
         this.dogData.behavior.withPeople = this.dogBehaviorPeopleInput.value;
         this.dogData.behavior.withDogs = this.dogBehaviorDogsInput.value;
