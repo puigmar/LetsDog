@@ -14,6 +14,8 @@ router.get("/signup", (req, res, next) => {
 });
 
 router.post("/signup", (req, res, next) => {
+
+  //const {userData, dogData} = req.body;
   const userData = {
     email: req.body.email,
     password: req.body.password,
@@ -60,7 +62,9 @@ router.post("/signup", (req, res, next) => {
                 clientData.dogId = dogId;
                 Client.create(clientData)
                   .then(() => {
-                    console.log(clientData);
+                    req.session.currentUser = {userData, dogData, clientData}
+                    console.log(req.session.currentUser);
+                    res.redirect('/service')
                   })
                   .catch((err) => {
                     console.log(err);
@@ -99,7 +103,7 @@ router.post("/login", (req, res, next) => {
     }
 
     if (bcrypt.compareSync(password, user.password)) {
-      req.session.currentUser = user;
+      //req.session.currentUser = user;
       res.redirect("/");
     } else {
       res.render("auth/login", { err: "Incorrect password" });
