@@ -15,13 +15,7 @@ router.get("/signup", (req, res, next) => {
 
 router.post("/signup", (req, res, next) => {
 
-  
-
   const { userData, dogData, clientData } = req.body;
-  
-  console.log(userData);
-  console.log(dogData);
-
 
   const salt = bcrypt.genSaltSync(bcryptSalt);
   const hashPass = bcrypt.hashSync(userData.password, salt);

@@ -1,0 +1,53 @@
+<h1> Sign Up - carer</h1>
+<section>
+    <div>
+        <label for="signupCarerEmailInput"> Email </label>
+        <input type="email" name="email" id="signupCarerEmailInput" placeholder="e.g., hola@hola.com">
+    </div>
+
+    <div>
+        <label for="signupCarerPasswordInput"> Password </label>
+        <input type="password" name="password" id="signupCarerPasswordInput" placeholder="">
+    </div>
+
+    <div>
+        <label for="signupCarerPasswordRepeatInput"> Repeat Password </label>
+        <input type="password" name="repeatPassword" id="signupCarerPasswordRepeatInput" placeholder="">
+    </div>
+</section>
+<section>
+    <form enctype="multipart/form-data" id="photoCarerAvatarForm">
+        <div id="photoCarerAvatarPreview" class="profile"></div>
+        <p>Foto de Avatar</p>
+        <input id="photoCarerAvatarInputFile" type="file" name="photo">
+        <input id="photoCArerAvatarBtnSubmit" type="submit">
+    </form>
+    <form enctype="multipart/form-data" id="photoCarerBannerProfileForm">
+        <div id="photoCarerBannerProfilePreview" class="profile profile-banner"></div>
+        <p>Foto de Perfil</p>
+        <input id="photoCarerBannerProfileInputFile" type="file" name="photo">
+        <input id="photoCarerBannerProfileBtnSubmit" type="submit">
+    </form>
+    <form action="/signup" method="post" id="form-step1">
+        <div>
+            <label for="signupCarerNameInput">Nombre</label>
+            <input type="text" name="text" id="signupCarerNameInput" placeholder="Escribe tu nombre">
+        </div>
+        <div>
+            <label for="signupCarerDescriptionInput">Descripción</label>
+            <textarea id="signupCarerDescriptionInput"></textarea>
+        </div>
+    </form>
+</section>
+<button id="signupCarerBtnForm" type="button" disabled> Continuar </button>
+     
+<p>
+    Already have an account?
+    <a href="/login">
+        Log in.
+    </a>
+</p>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/javascripts/carer/SignupCarerValidator.js"></script>
+<script src="/javascripts/carer/SignupCarer.js"></script>
