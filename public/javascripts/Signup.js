@@ -35,9 +35,9 @@ class Signup{
             photo: '',
             name: '',
             age: 0,
-            sex: 'macho',
+            sex: '',
             breed: '',
-            size: 'mediano',
+            size: '',
             behavior: {
                 withDogs: '',
                 withPeople: ''

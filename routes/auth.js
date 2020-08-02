@@ -18,9 +18,6 @@ router.post("/signup", (req, res, next) => {
   
 
   const { userData, dogData, clientData } = req.body;
-  
-  console.log(userData);
-  console.log(dogData);
 
 
   const salt = bcrypt.genSaltSync(bcryptSalt);
@@ -30,6 +27,7 @@ router.post("/signup", (req, res, next) => {
 
   User.create(userData)
     .then(() => {
+
       User.findOne({ email: userData.email })
         .then((user) => {
           const userId = user._id;
@@ -37,11 +35,13 @@ router.post("/signup", (req, res, next) => {
           dogData.userId = userId;
           clientData.userId = userId;
           //console.log(dogData)
+
           Dog.create(dogData)
             .then(() => {
               Dog.findOne({ userId: dogData.userId }).then((dog) => {
                 const dogId = dog._id;
                 clientData.dogId = dogId;
+
                 Client.create(clientData)
                   .then(() => {
                     req.session.currentUser = {userData, dogData, clientData}
@@ -107,7 +107,7 @@ router.post("/login", (req, res, next) => {
         .catch((err) => {
           console.log(err)
         })
-      res.redirect("/");
+      res.redirect("/service");
     } else {
       res.render("auth/login", { err: "Incorrect password" });
     }

@@ -6,8 +6,8 @@ router.get('/', (req, res, next) => {
   res.render('index');
 });
 
-router.get('/test', (req, res, next) => {
-  res.render('test');
+router.get('/service', (req, res, next) => {
+  res.render('service');
 })
 
 
