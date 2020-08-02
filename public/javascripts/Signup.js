@@ -39,8 +39,8 @@ class Signup{
             breed: '',
             size: 'mediano',
             behavior: {
-                withDogs: true,
-                withPeople: true
+                withDogs: '',
+                withPeople: ''
             }
         }
 
@@ -54,7 +54,6 @@ class Signup{
               coodinates: [0, 0],
             },
         }
-
     }
 
     updateDogPhoto = () => {
@@ -138,18 +137,28 @@ class Signup{
     }
 
     sendSignupFormData = (e) => {
-
+        
         e.preventDefault();
         this.addUserData();
         this.addDogData();
-        const userData = this.userData;
-        const dogData = this.dogData;
-        const clientData = this.clientData;
-        console.log(userData, dogData, clientData)
-        axios.post('/signup', {userData, dogData, clientData})
-            .then( (data) => {
-                console.log(data)
-                //window.location.href = '/service'
+        
+        const signupData = {
+            userData: {
+                ...this.userData
+            },
+            dogData: {
+                ...this.dogData
+            },
+            clientData: {
+                ...this.clientData
+            }
+        };
+
+        console.log(signupData)
+
+        axios.post('/signup', signupData)
+            .then( () => {
+                window.location.href = '/service'
             })
             .catch( err => console.log(err));
 

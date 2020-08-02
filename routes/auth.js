@@ -19,6 +19,7 @@ router.post("/signup", (req, res, next) => {
   
   console.log(userData);
   console.log(dogData);
+  console.log(req.body);
 
 
   const salt = bcrypt.genSaltSync(bcryptSalt);
@@ -26,42 +27,41 @@ router.post("/signup", (req, res, next) => {
 
   userData.password = hashPass;
 
-  console.log(userData);
-  console.log(userData.email);
-  User.create(userData)
-    .then(() => {
-      User.findOne({ email: userData.email })
-        .then((user) => {
-          const userId = user._id;
-          dogData.userId = userId;
-          clientData.userId = userId;
-          Dog.create(dogData)
-            .then(() => {
-              Dog.findOne({ userId: dogData.userId }).then((dog) => {
-                const dogId = dog._id;
-                clientData.dogId = dogId;
-                Client.create(clientData)
-                  .then(() => {
-                    req.session.currentUser = {userData, dogData, clientData}
-                    console.log(req.session.currentUser);
-                    res.send(true)
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  // User.create(userData)
+  //   .then(() => {
+  //     User.findOne({ email: userData.email })
+  //       .then((user) => {
+  //         const userId = user._id;
+  //         dogData.userId = userId;
+  //         clientData.userId = userId;
+  //         console.log(dogData)
+  //         Dog.create(dogData)
+  //           .then(() => {
+  //             Dog.findOne({ userId: dogData.userId }).then((dog) => {
+  //               const dogId = dog._id;
+  //               clientData.dogId = dogId;
+  //               Client.create(clientData)
+  //                 .then(() => {
+  //                   req.session.currentUser = {userData, dogData, clientData}
+  //                   console.log(req.session.currentUser);
+  //                   res.send(true)
+  //                 })
+  //                 .catch((err) => {
+  //                   console.log(err);
+  //                 });
+  //             });
+  //           })
+  //           .catch((err) => {
+  //             console.log(err);
+  //           });
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
 });
 
 router.get("/login", (req, res, next) => {
