@@ -137,17 +137,19 @@ class Signup{
         this.dogData.behavior.withDogs = this.dogBehaviorDogsInput;
     }
 
-    sendSignupFormData = () => {
+    sendSignupFormData = (e) => {
 
+        e.preventDefault();
         this.addUserData();
         this.addDogData();
         const userData = this.userData;
         const dogData = this.dogData;
         const clientData = this.clientData;
-
+        console.log(userData, dogData, clientData)
         axios.post('/signup', {userData, dogData, clientData})
-            .then( () => {
-                window.location.href = '/service'
+            .then( (data) => {
+                console.log(data)
+                //window.location.href = '/service'
             })
             .catch( err => console.log(err));
 

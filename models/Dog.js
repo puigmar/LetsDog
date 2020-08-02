@@ -5,7 +5,7 @@ const dogSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User"},
   photo: {
     type: String,
-    default: "",
+    default: "https://res.cloudinary.com/dtg4wdrbg/image/upload/v1596358771/letsdog_files/bujjluek1gihvczcxrza.jpg",
   },
   name: String,
   age: Number,
@@ -16,16 +16,16 @@ const dogSchema = new Schema({
   breed: String,
   size: {
     type: String,
-    enum: ["pequeño", "mediano", "grande"],
+    enum: ["small", "medium", "big"],
   },
   behavior: {
     withDogs: {
       type: String,
-      enum: ["Agresivo", "Social", "Timido"],
+      enum: ["agresivo", "social", "timido"],
     },
     withPeople: {
       type: String,
-      enum: ["Agresivo", "Social", "Timido"],
+      enum: ["agresivo", "social", "timido"],
     },
   },
 });

@@ -15,7 +15,7 @@ router.get("/signup", (req, res, next) => {
 
 router.post("/signup", (req, res, next) => {
 
-  const { userData, dogData } = req.body;
+  const { userData, dogData, clientData } = req.body;
   
   console.log(userData);
   console.log(dogData);
@@ -44,7 +44,7 @@ router.post("/signup", (req, res, next) => {
                   .then(() => {
                     req.session.currentUser = {userData, dogData, clientData}
                     console.log(req.session.currentUser);
-                    res.redirect('/service')
+                    res.send(true)
                   })
                   .catch((err) => {
                     console.log(err);
