@@ -45,8 +45,8 @@ class Signup{
         }
 
         this.clientData = {
-            userId: "",
-            dogId: "",
+            //userId: "",
+            //dogId: "",
             favourites: [],
             cards: [],
             coords: {

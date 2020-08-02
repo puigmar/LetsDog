@@ -21,7 +21,7 @@
             const price = card.querySelector('.price').innerHTML
 
 
-            const contract = { userId: "", carerId: "", interval_time: interval, price: price, card_number: "" };
+            const contract = { userId: `{{currentUserInfo.user._id}}`, carerId: "", interval_time: interval, price: price, card_number: "" };
             localStorage.setItem('contract', JSON.stringify(contract));
 
         });
