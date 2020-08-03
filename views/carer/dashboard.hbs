@@ -2,22 +2,10 @@
 <p>Hola {{currentUserInfo.carer.name}}!</p>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+<script src="/javascripts/carer/Carer.js"></script>
 <script>
     var socket = io('');
-    var startPos;
-
-    let carerId = '{{currentUserInfo.user._id}}';
-    
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            startPos = position;
-            socket.emit("carer-online", { userId: carerId, latitude: startPos.coords.latitude, longitude: startPos.coords.longitude });
-        }
-    );
-
-    navigator.geolocation.watchPosition(
-        (position) => {
-            socket.emit("carer-online-moving", { userId: carerId, latitude: position.coords.latitude, longitude: position.coords.longitude });
-        }
-    );
+    const thecarer = new User('{{currentUserInfo.user._id}}');
+    thecarer.sendEmitCoords('carer-online');
+    thecarer.sendEmitWatchPosition('carer-online-moving');
 </script>
