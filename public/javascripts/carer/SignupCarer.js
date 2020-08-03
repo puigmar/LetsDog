@@ -214,7 +214,7 @@ class SignupCarer{
         this.repeatPasswordInput.addEventListener('input', this.handleRepeatPassword)
         this.nameInput.addEventListener('input', this.handleName)
         this.descriptionInput.addEventListener('input', this.handleDescription)
-        this.prefixPhoneInput.addEventListener('input', this.handlePhone)
+        this.phoneInput.addEventListener('input', this.handlePhone)
 
         this.photoCarerAvatarPreview.addEventListener('click', () => {
             this.photoCarerAvatarInputFile.click()

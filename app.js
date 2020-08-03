@@ -71,8 +71,9 @@ app.use(
 app.use((req, res, next) => {
   if (req.session.currentUser) {
     res.locals.currentUserInfo = req.session.currentUser;
-    console.log(req.session)
+    console.log('Esta es la session:', req.session)
     res.locals.isUserLoggedIn = true;
+    
 
     if(res.locals.currentUserInfo.user.isCarer){
       res.locals.isCarerLoggedIn = true;

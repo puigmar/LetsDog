@@ -10,6 +10,7 @@ class SignupCarerValidator {
         this.emptyDescriptionError = 'This field cannot be empty';
         this.emptyNameError = 'This field cannot be empty';
         this.emptyPhoneError = 'This field cannot be empty';
+        //this.profileImageError = 'You must pick an image';
         
         this.UserErrorForms = {
             errorEmailMsg: this.invalidEmailError,
@@ -17,7 +18,9 @@ class SignupCarerValidator {
             errorPassRepeatMsg: this.repeatPasswordError,
             emptyDescriptionError: this.emptyDescriptionError,
             emptyNameError: this.emptyNameError,
-            emptyPhoneError: this.emptyPhoneError
+            emptyPhoneError: this.emptyPhoneError,
+            profileImageError: this.profileImageError,
+            //avatarImageError: this.profileImageError
         }
         
     }
@@ -44,6 +47,10 @@ class SignupCarerValidator {
         
         //console.log(`Is a valid email: ${isValid}`)
         return isValid;      
+    }
+
+    validatePhoto = (e) => {
+
     }
 
     validatePassWord = (e, str) => {

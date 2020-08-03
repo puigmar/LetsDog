@@ -1,21 +1,22 @@
 <h1> Profile - carer</h1>
 <section>
-    <div>
+    <div data-fieldId="carerNameInput">
         <label for="carerNameInput">Nombre</label>
         <input type="text" name="carerNameInput" id="carerNameInput" placeholder="Escribe tu nombre" value="{{carer.name}}">
         <button type="button" id="carerNameInputModify">Modificar</button>
     </div>
 </section>
 <section>
-    <div>
+    <div data-fieldId="carerDescriptionInput">
         <label for="carerDescriptionInput">Descripción</label>
         <textarea id="carerDescriptionInput">{{carer.description}}</textarea>
         <button type="button" id="carerDescriptionInputModify">Modificar</button>
     </div>
 </section> 
-    <div>
+    <div data-fieldId="carerPhoneNumber">
         <label for="carerPhoneInput">Teléfono</label>
         <select id="carerPrefixPhoneInput">
+            {{#select carer.phone.prefix}}
             <option data-countryCode="DZ" value="213">Algeria (+213)</option>
             <option data-countryCode="AD" value="376">Andorra (+376)</option>
             <option data-countryCode="AO" value="244">Angola (+244)</option>
@@ -230,12 +231,14 @@
             <option data-countryCode="YE" value="967">Yemen (South)(+967)</option>
             <option data-countryCode="ZM" value="260">Zambia (+260)</option>
             <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
+            {{/select}}
         </select>
         <input type="text" name="carerPhoneInput" id="carerPhoneInput" placeholder="Escribe tu teléfono">
+        <input type="hidden" name="carerFullPhone">
         <button type="button" id="carerPhoneInputModify">Modificar</button>
     </div>
 <section>
-    <div>
+    <div data-fieldId="carerEmailInput">
         <label for="carerEmailInput"> Email </label>
         <input type="email" name="email" id="carerEmailInput" placeholder="Escribe unemail" value="{{carer.userId.email}}">
         <button type="button" id="carerEmailInputModify">Modificar</button>
@@ -244,7 +247,7 @@
 
 <section>
     <h3>Foto de Avatar</h3>
-    <form enctype="multipart/form-data" id="photoCarerAvatarForm">
+    <form enctype="multipart/form-data" id="photoCarerAvatarForm" data-fieldId="photoCarerAvatarInputFile">
         <div id="photoCarerAvatarPreview" class="profile cover" style="background-image: url('{{carer.profilePhoto}}')"></div>
         <input id="photoCarerAvatarInputFile" type="file" name="photo">
         <input id="photoCarerAvatarBtnSubmit" type="submit">
@@ -254,7 +257,7 @@
 </section>
 
 <section>
-    <form enctype="multipart/form-data" id="photoCarerBannerProfileForm">
+    <form enctype="multipart/form-data" id="photoCarerBannerProfileForm" data-fieldId="photoCarerBannerProfileInputFile">
         <div id="photoCarerBannerProfilePreview" class="profile cover profile-banner" style="background-image: url('{{carer.gallery}}');"></div>
         <p>Foto de Perfil</p>
         <input id="photoCarerBannerProfileInputFile" type="file" name="photo">

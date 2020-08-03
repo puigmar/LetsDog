@@ -2,6 +2,16 @@
 
 class SignupCarerValidator {
     constructor(){
+
+        this.emailExistError = 'Your email already exist!';
+        this.invalidEmailError = 'Write a valid email';
+        this.passwordError = 'Your password must have at least 6 letters';
+        this.repeatPasswordError = `This field doesn't match with your password`;
+        this.invalidAccess = 'Your email or your password are incorrect';
+        this.emptyDescriptionError = 'This field cannot be empty';
+        this.emptyNameError = 'This field cannot be empty';
+        this.emptyPhoneError = 'This field cannot be empty';
+
         this.invalidEmailError = 'Write a valid email';
         this.emptyDescriptionError = 'This field cannot be empty';
         this.emptyNameError = 'This field cannot be empty';

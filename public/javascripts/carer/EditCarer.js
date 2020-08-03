@@ -1,8 +1,9 @@
 class EditCarer{
     constructor(){
-        this.emailInput = document.getElementById('signupCarerEmailInput');
-        this.nameInput = document.getElementById('signupCarerNameInput');
-        this.descriptionInput = document.getElementById('signupCarerDescriptionInput');
+        this.emailInput = document.getElementById('carerEmailInput');
+        this.nameInput = document.getElementById('carerNameInput');
+        this.descriptionInput = document.getElementById('carerDescriptionInput');
+        this.phoneNumber = document.getElementById('carerPhoneNumber');
 
         this.photoCarerAvatarPreview = document.getElementById('photoCarerAvatarPreview');
         this.photoCarerAvatarInputFile = document.getElementById('photoCarerAvatarInputFile');
@@ -13,47 +14,6 @@ class EditCarer{
         this.photoCarerBannerProfileInputFile = document.getElementById('photoCarerBannerProfileInputFile');
         this.photoCarerBannerProfileBtnSubmit = document.getElementById('photoCarerBannerProfileBtnSubmit');
         this.photoCarerBannerProfileForm = document.getElementById('photoCarerBannerProfileForm');
-
-        this.signupCarerBtnForm = document.getElementById('signupCarerBtnForm');
-
-        this.userData = {
-            email: '',
-            password: '',
-            isCarer: true
-        }
-
-        this.carerData = {
-            name: '',
-            profilePhoto: '',
-            gallery: '',
-            description: '',
-            items: {
-                ontime: {
-                    name: 'Puntual',
-                    score: 6
-                },
-                professional: {
-                    name: 'Profesional',
-                    score: 6
-                },
-                loving: {
-                    name: 'Cariños@',
-                    score: 6
-                },
-                atentive: {
-                    name: 'Atent@',
-                    score: 6
-                },
-                coords: {
-                    type: 'Point',
-                    coordinates: [0,0]
-                }
-            },
-            coords: {
-                type: "Point",
-                coordinates: [0,0]
-            }
-        }
     }
 
     sendAvatarPhoto = (e) => {
