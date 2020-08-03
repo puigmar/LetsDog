@@ -1,17 +1,16 @@
 <h1> Profile - carer</h1>
 <section>
-
-</section>
-<section>
     <div>
         <label for="carerNameInput">Nombre</label>
         <input type="text" name="carerNameInput" id="carerNameInput" placeholder="Escribe tu nombre" value="{{carer.name}}">
+        <button type="button" id="carerNameInputModify">Modificar</button>
     </div>
 </section>
 <section>
     <div>
         <label for="carerDescriptionInput">Descripción</label>
         <textarea id="carerDescriptionInput">{{carer.description}}</textarea>
+        <button type="button" id="carerDescriptionInputModify">Modificar</button>
     </div>
 </section> 
     <div>
@@ -233,20 +232,24 @@
             <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
         </select>
         <input type="text" name="carerPhoneInput" id="carerPhoneInput" placeholder="Escribe tu teléfono">
+        <button type="button" id="carerPhoneInputModify">Modificar</button>
     </div>
 <section>
     <div>
         <label for="carerEmailInput"> Email </label>
         <input type="email" name="email" id="carerEmailInput" placeholder="Escribe unemail" value="{{carer.userId.email}}">
+        <button type="button" id="carerEmailInputModify">Modificar</button>
     </div>
 </section>
 
 <section>
     <h3>Foto de Avatar</h3>
     <form enctype="multipart/form-data" id="photoCarerAvatarForm">
-        <div id="photoCarerAvatarPreview" class="profile cover" style="background-image: url('{{carer.profilePhoto}}');"></div>
+        <div id="photoCarerAvatarPreview" class="profile cover" style="background-image: url('{{carer.profilePhoto}}')"></div>
         <input id="photoCarerAvatarInputFile" type="file" name="photo">
-        <input id="photoCArerAvatarBtnSubmit" type="submit">
+        <input id="photoCarerAvatarBtnSubmit" type="submit">
+        <input type="hidden" id="photoCarerAvatarUrl">
+        <button type="button" id="photoCarerAvatarInputModify">Modificar</button>
     </form>
 </section>
 
@@ -256,11 +259,10 @@
         <p>Foto de Perfil</p>
         <input id="photoCarerBannerProfileInputFile" type="file" name="photo">
         <input id="photoCarerBannerProfileBtnSubmit" type="submit">
+        <input type="hidden" id="photoCarerAvatarUrl">
+        <button type="button" id="photoCarerBannerInputModify">Modificar</button>
     </form>
 </section>
-<button id="profileCarerModify" type="button">Guardar</button>
-
-
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/javascripts/carer/EditCarerValidator.js"></script>
 <script src="/javascripts/carer/EditCarer.js"></script>

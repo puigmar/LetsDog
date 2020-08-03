@@ -4,6 +4,7 @@ const router = express.Router();
 const User = require("../models/User");
 const Dog = require("../models/Dog");
 const Carer = require("../models/Carer");
+const Review = require("../models/Review");
 
 const bcrypt = require("bcrypt");
 const app = require("../app");
@@ -71,6 +72,16 @@ router.post('/login', async (req, res) => {
     }
 })
 
+
+router.use((req, res, next) => {
+    if (req.session.currentUser) {
+      next();
+      return;
+    }
+  
+    res.redirect('/carer/login');
+  });
+
 router.get('/dashboard', (req, res) => {
     res.render('carer/dashboard')
 })
@@ -86,8 +97,21 @@ router.get('/profile/:id', async (req, res) => {
     catch(error){
         console.log(error)
     }
+})
 
-    
+router.get('/reviews/:id', async (req, res) => {
+    const carerId = req.params.id;
+    console.log('carerId: ', carerId)
+    try{
+        const reviews = await Review.findById({"userId": currentUserInfo.user._id})
+                                    .populate('clientId')
+                                    .populate('dogId')
+                                    .populate('userId')
+        res.render('carer/profile', {carer: theCarer})
+    }
+    catch(error){
+        console.log(error)
+    }
 })
 
 

@@ -11,6 +11,9 @@ const MongoStore = require("connect-mongo")(session);
 
 require("dotenv").config();
 
+// HBS helpers
+require('./helpers/handlebars')(hbs);
+
 // DB Config Connection
 mongoose
   .connect("mongodb://localhost/letsdog", {
@@ -74,7 +77,6 @@ app.use((req, res, next) => {
     } else {
       res.locals.isCarerLoggedIn = false;
     }
-
   } else {
     res.locals.isUserLoggedIn = false;
   }

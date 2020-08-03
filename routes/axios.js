@@ -8,8 +8,6 @@ const { builtinModules } = require("module");
 
 const parser = require('./../config/cloudinary.js')
 
-
-
 router.post ('/validate-user', (req, res, next) => {
     const query = '';
     if(req.query.type === 'carer'){
