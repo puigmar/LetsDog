@@ -1,12 +1,8 @@
-class SignupCarer{
+class EditCarer{
     constructor(){
         this.emailInput = document.getElementById('signupCarerEmailInput');
-        this.passwordInput = document.getElementById('signupCarerPasswordInput');
-        this.repeatPasswordInput = document.getElementById('signupCarerPasswordRepeatInput');
         this.nameInput = document.getElementById('signupCarerNameInput');
         this.descriptionInput = document.getElementById('signupCarerDescriptionInput');
-        this.prefixPhoneInput = document.getElementById('signupCarerPrefixPhoneInput');
-        this.phoneInput = document.getElementById('signupCarerPhoneInput');
 
         this.photoCarerAvatarPreview = document.getElementById('photoCarerAvatarPreview');
         this.photoCarerAvatarInputFile = document.getElementById('photoCarerAvatarInputFile');
@@ -56,10 +52,6 @@ class SignupCarer{
             coords: {
                 type: "Point",
                 coordinates: [0,0]
-            },
-            phone: {
-                prefix: '',
-                number: ''
             }
         }
     }
@@ -143,12 +135,6 @@ class SignupCarer{
         this.checkSubmitButton(this.signupCarerBtnForm, 'UserErrorForms');
     }
 
-    handlePhone = (e) => {
-        const phone = e.target.value;
-        carerValidator.validatePhone(e, phone);
-        this.checkSubmitButton(this.signupCarerBtnForm, 'UserErrorForms');
-    }
-
     handleRepeatPassword = (e) => {
         const repeatPassword = e.target.value;
         const password = this.passwordInput.value;
@@ -166,8 +152,6 @@ class SignupCarer{
         this.carerData.password = this.passwordInput.value;
         this.carerData.name = this.nameInput.value;
         this.carerData.description = this.descriptionInput.value;
-        this.carerData.prefixPhoneInput = this.prefixPhoneInput.value;
-        this.carerData.phoneInput = this.phoneInput.value;
     }
 
     sendSignupFormData = (e) => {
@@ -210,11 +194,8 @@ class SignupCarer{
     addListeners = () => {
 
         this.emailInput.addEventListener('input', this.handleEmail)
-        this.passwordInput.addEventListener('input', this.handlePassword)
-        this.repeatPasswordInput.addEventListener('input', this.handleRepeatPassword)
         this.nameInput.addEventListener('input', this.handleName)
         this.descriptionInput.addEventListener('input', this.handleDescription)
-        this.prefixPhoneInput.addEventListener('input', this.handlePhone)
 
         this.photoCarerAvatarPreview.addEventListener('click', () => {
             this.photoCarerAvatarInputFile.click()
@@ -243,5 +224,5 @@ class SignupCarer{
 
 }
 
-const signupCarer = new SignupCarer();
-window.addEventListener('load', signupCarer.init())
+const editCarer = new EditCarer();
+window.addEventListener('load', editCarer.init())

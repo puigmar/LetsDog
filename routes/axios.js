@@ -11,8 +11,16 @@ const parser = require('./../config/cloudinary.js')
 
 
 router.post ('/validate-user', (req, res, next) => {
+    const query = '';
+    if(req.query.type === 'carer'){
+        console.log('hay query ?key=value')
+        query = { email, isCarer: true}
+    } else {
+        query = { email }
+    }
+    console.log('query: ',query)
     const {email} = req.body
-    User.findOne({ email })
+    User.findOne(query)
     .then((userEmail) => {
         res.send({email: userEmail});  
     })
@@ -21,8 +29,6 @@ router.post ('/validate-user', (req, res, next) => {
     });
 
 });
-
-
 
 router.post("/validate-photo", parser.single("image"), (req, res, next) => {
     const image_url = req.file.secure_url;
