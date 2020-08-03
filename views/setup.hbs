@@ -2,26 +2,74 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet" />
 <style>
-    body { margin: 0; padding: 0; }
-    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        margin-top: 75px;
+    }
+
+    .geocoder {
+        position: absolute;
+        z-index: 1;
+        width: 50%;
+        left: 50%;
+        margin-left: -25%;
+        top: 10px;
+    }
+
+    .mapboxgl-ctrl-geocoder {
+        min-width: 100%;
+    }
 </style>
 
 <div id="map"></div>
+<div id="geocoder" class="geocoder"></div>
 
 
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+    type="text/css" />
+<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 <script>
 
-    const session = localStorage;
-
-    session.setItem('uUID', JSON.stringify(Math.random().toString(24) + new Date().toLocaleDateString("en-US")));
+    const session = '{{currentUserInfo.userData._id}}';
 
     mapboxgl.accessToken = 'pk.eyJ1IjoicHVpZ21hciIsImEiOiJja2Q1cTRjMHoyOWc1MzBwZzUxNnBqZjgzIn0.Dl_LIKPYzM72_QZAE0wZWQ';
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [0, 0],
+        center: [41, 2],
         zoom: 5
     });
+
+    map.addControl(
+        new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        }));
+
+    var geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+    });
+
+    document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
+    console.log(document.getElementsByClassName('.mapboxgl-ctrl-geocoder--input').value)
+
+    //console.log(meetingLocationInput.value)
 
     function getPointData(lngLat) {
         return {
@@ -32,15 +80,15 @@
 
     var socket = io('');
 
-    map.on('load', function() {
+    map.on('load', function () {
 
         var startPos;
         var latitude;
         var longitude;
         var coordsClick;
-        
+
         navigator.geolocation.getCurrentPosition(
-            function(position) {
+            function (position) {
 
                 startPos = position;
                 coordsClick = getPointData(startPos)
@@ -60,22 +108,20 @@
                     }
                 });
 
-                const user = JSON.parse(session.getItem('uUID'));
-
-                socket.emit("onlineUser", {userId: user, latitude: position.coords.latitude, longitude: position.coords.longitude});
+                socket.emit("onlineUser", { userId: `{{currentUserInfo.user._id}}`, latitude: position.coords.latitude, longitude: position.coords.longitude });
                 socket.on('user:join', m => console.log('Exist a new user: ', m));
 
-            }, function(error) {
+            }, function (error) {
                 alert('Error occurred. Error code: ' + error.code);
             }
         );
 
         navigator.geolocation.watchPosition(
-            function(position) {
-                
+            function (position) {
+
                 socket.on("showOnlineUsers", data => {
 
-                    console.log('data from socket.io: ',data)
+                    console.log('data from socket.io: ', data)
 
                     map.getSource('point_source').setData({
                         "type": "FeatureCollection",
@@ -84,7 +130,7 @@
                             "properties": {},
                             "geometry": {
                                 "type": "Point",
-                                "coordinates": [ data.longitude, data.latitude ]
+                                "coordinates": [data.longitude, data.latitude]
                             }
                         }]
                     });
@@ -96,14 +142,14 @@
                         ],
                         speed: 0.5
                     });
-                    
-                    const user = JSON.parse(session.getItem('uUID'));
-                    socket.emit("onlineUser", {userId: user, latitude: position.coords.latitude, longitude: position.coords.longitude});
+
+
+                    socket.emit("onlineUser", { userId: `{{currentUserInfo.user._id}}`, latitude: position.coords.latitude, longitude: position.coords.longitude });
 
                 });
             }
         );
-        
+
     });
 
     socket.on('user:left', data => console.log('usario ha dejado la sesion: ', data));

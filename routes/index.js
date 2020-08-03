@@ -8,9 +8,8 @@ router.get('/', (req, res, next) => {
   res.render('index');
 });
 
-router.get('/service', (req, res, next) => {
-  res.render('service', {intervalList: prices});
-})
+
+
 
 
 module.exports = router;

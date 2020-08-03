@@ -11,6 +11,9 @@ const MongoStore = require("connect-mongo")(session);
 
 require("dotenv").config();
 
+// HBS helpers
+require('./helpers/handlebars')(hbs);
+
 // DB Config Connection
 mongoose
   .connect("mongodb://localhost/letsdog", {
@@ -70,6 +73,12 @@ app.use((req, res, next) => {
     res.locals.currentUserInfo = req.session.currentUser;
     console.log(req.session)
     res.locals.isUserLoggedIn = true;
+
+    if(res.locals.currentUserInfo.user.isCarer){
+      res.locals.isCarerLoggedIn = true;
+    } else {
+      res.locals.isCarerLoggedIn = false;
+    }
   } else {
     res.locals.isUserLoggedIn = false;
   }
@@ -78,6 +87,8 @@ app.use((req, res, next) => {
 });
 
 app.use(cookieParser());
+
+
 
 const index = require("./routes/index");
 app.use("/", index);
@@ -90,5 +101,9 @@ app.use("/carer", carer);
 
 const axios = require("./routes/axios");
 app.use("/manage", axios);
+
+const service = require("./routes/service");
+app.use("/", service);
+
 
 module.exports = app;

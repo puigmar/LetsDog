@@ -3,13 +3,17 @@ const Schema = mongoose.Schema;
 
 const carerSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User" },
+  name: String,
   profilePhoto: {
     type: String,
-    default: "",
+    default: "https://res.cloudinary.com/dtg4wdrbg/image/upload/v1596389824/letsdog_files/onjowfvjo53rkxwxhjuz.jpg",
   },
-  gallery: [String],
+  gallery: String,
   description: String,
-  tel: Number,
+  phone: {
+    prefix: String,
+    number: String
+  },
   items: {
     ontime: {
       name: String,
@@ -39,6 +43,10 @@ const carerSchema = new Schema({
       required: true,
     },
   },
+  rate: {
+    type: Number,
+    default: 5
+  }
 });
 
 carerSchema.set("timestamps", true);

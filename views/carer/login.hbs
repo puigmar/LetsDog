@@ -1,0 +1,24 @@
+<h1> Login - carer</h1>
+<section>
+    <form method="POST" action="/carer/login">
+        <div>
+            <label for="loginCarerEmailInput"> Email </label>
+            <input type="email" name="email" id="loginCarerEmailInput" placeholder="Escribe tu email">
+        </div>
+
+        <div>
+            <label for="loginCarerPasswordInput"> Password </label>
+            <input type="password" name="password" id="loginCarerPasswordInput">
+        </div>
+        {{#if errMsg}} 
+            <div>{{ errMsg }}</div>
+        {{/if}}
+        <input id="loginCarerBtnSubmit" type="submit" value="Iniciar sesión" disabled>
+    </form>
+    
+    <p>¿Aún no eres usuario? Regístrate <a href="/carer/signup">aquí</a></p>
+</section>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/javascripts/carer/LoginCarerValidator.js"></script>
+<script src="/javascripts/carer/LoginCarer.js"></script>
