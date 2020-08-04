@@ -195,7 +195,6 @@ router.post("/check/available-carers", async (req, res, next) => {
                 }
             }
 
-
         } catch (error) {
             console.log(error);
         }
@@ -204,7 +203,7 @@ router.post("/check/available-carers", async (req, res, next) => {
     await nearestOnlineCarers()
     const queryCarerList = filterCarerByTime(availableCarers);
 
-    console.log('queryCarerList: ', queryCarerList)
+    res.send(queryCarerList)
 
 });
 
