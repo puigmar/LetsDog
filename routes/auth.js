@@ -28,9 +28,9 @@ router.post("/signup", async (req, res) => {
       ...dogData,
     });
     const client = await Client.create({
+      ...clientData,
       dogId: dog._id,
       userId: user._id,
-      ...clientData,
     });
     if (client) {
       req.session.currentUser = { user: user, dog: dog, client: client };
