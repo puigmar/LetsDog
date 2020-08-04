@@ -78,7 +78,9 @@ app.use((req, res, next) => {
 
 app.use(cookieParser());
 
+// Global variables
 
+require('./socket');
 
 const index = require("./routes/index");
 app.use("/", index);
