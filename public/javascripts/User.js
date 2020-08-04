@@ -6,17 +6,13 @@ class User{
         this.eventEmitWatchCoords = '';
         this.id = id;
         this.startPosition = {
-          coords: {
-              latitude: 0,
-              longitude: 0 
-          }  
+            coordinates: [0,0], // longitude, latitude
+            type: 'Point'
         }
-
+        
         this.currentPosition = {
-            coords: {
-                latitude: 0,
-                longitude: 0 
-            }  
+            coordinates: [0,0],
+            type: 'Point'
         }
     }
 
@@ -24,13 +20,16 @@ class User{
         this.eventEmitCoords = event;
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                this.startPosition.coords.latitude = position.coords.latitude;
-                this.startPosition.coords.longitude = position.coords.longitude;
+                if(this.startPosition.coordinates[0] && this.startPosition.coordinates[1] === 0){
+                    this.startPosition.coordinates[0] = position.coords.longitude;
+                    this.startPosition.coordinates[1] = position.coords.latitude;
+                }
+                
                 socket.emit(event, 
                     { 
                         carerId: this.id, 
-                        latitude: this.startPosition.coords.latitude, 
-                        longitude: this.startPosition.coords.longitude 
+                        coordinates: [0,0],
+                        type: 'Point'
                     }
                 );
             }
@@ -42,13 +41,13 @@ class User{
         this.eventEmitWatchCoords = event;
         navigator.geolocation.watchPosition(
             (position) => {
-                this.currentPosition.coords.latitude = position.coords.latitude;
-                this.currentPosition.coords.longitude = position.coords.longitude;
+                this.currentPosition.coordinates[0] = position.coords.latitude;
+                this.currentPosition.coordinates[1] = position.coords.longitude;
                 socket.emit(event, 
                     { 
-                        carerId: this.carerId, 
-                        latitude: position.coords.latitude, 
-                        longitude: position.coords.longitude 
+                        carerId: this.id, 
+                        coordinates: [0,0],
+                        type: 'Point'
                     }
                 );
             }
@@ -61,5 +60,10 @@ class User{
 
     getCurrentPosition = () => {
         return this.currentPosition;
+    }
+
+    setStartPosition = (array) => {
+        this.currentPosition.coordinates[0] = array[0];
+        this.currentPosition.coordinates[1] = array[1];
     }
 }
