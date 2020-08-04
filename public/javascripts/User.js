@@ -10,7 +10,6 @@ class User{
                 coordinates: [0,0], // longitude, latitude
                 type: 'Point'
             }
-            
         }
         
         this.currentPosition = {
@@ -51,8 +50,8 @@ class User{
                         geometry: {
                             coordinates: [this.currentPosition.geometry.coordinates[0],this.currentPosition.geometry.coordinates[1]],
                             type: 'Point'
-                        }
-
+                        },
+                        duration: 0
                     }
                 );
             }
