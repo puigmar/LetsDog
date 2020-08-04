@@ -50,11 +50,12 @@ io.on('connection', (socket) => {
     console.log('antes de: ', carers_connected)
     let arrayCarrerIndex = carers_connected.forEach( (carer, index) => {
       if(carer.userId === carerData.userId){
-        carers_connected[index].latitude = carerData.latitude;
-        carers_connected[index].longitude = carerData.longitude;
+        carers_connected[index].geometry.coordinates[0] = carerData.geometry.coordinates[0];
+        carers_connected[index].geometry.coordinates[1] = carerData.geometry.coordinates[1];
+        
       }
     })
-    console.log('después de: ', carers_connected)
+    console.log('después de: ', carers_connected[0].geometry)
   })
 
   socket.on('disconnect', userId => {

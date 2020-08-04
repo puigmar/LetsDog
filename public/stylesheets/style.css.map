@@ -8,8 +8,8 @@
 		"base/_colors.scss",
 		"_layouts.scss",
 		"layouts/_header.scss",
-		"_views.scss",
-		"views/_home.scss",
+		"_pages.scss",
+		"pages/_home.scss",
 		"_components.scss",
 		"components/_buttons.scss"
 	],

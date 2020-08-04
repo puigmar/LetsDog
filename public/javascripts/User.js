@@ -6,30 +6,33 @@ class User{
         this.eventEmitWatchCoords = '';
         this.id = id;
         this.startPosition = {
-            coordinates: [0,0], // longitude, latitude
-            type: 'Point'
+            geometry: {
+                coordinates: [0,0], // longitude, latitude
+                type: 'Point'
+            }
+            
         }
         
         this.currentPosition = {
-            coordinates: [0,0],
-            type: 'Point'
+            geometry: {
+                coordinates: [0,0], // longitude, latitude
+                type: 'Point'
+            }
         }
     }
 
     sendEmitCoords = (event) => {
-        this.eventEmitCoords = event;
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                if(this.startPosition.coordinates[0] && this.startPosition.coordinates[1] === 0){
-                    this.startPosition.coordinates[0] = position.coords.longitude;
-                    this.startPosition.coordinates[1] = position.coords.latitude;
+                if(this.startPosition.geometry.coordinates[0] && this.startPosition.geometry.coordinates[1] === 0){
+                    this.startPosition.geometry.coordinates[0] = position.coords.longitude;
+                    this.startPosition.geometry.coordinates[1] = position.coords.latitude;
                 }
                 
                 socket.emit(event, 
                     { 
                         carerId: this.id, 
-                        coordinates: [0,0],
-                        type: 'Point'
+                        ...this.startPosition
                     }
                 );
             }
@@ -38,16 +41,18 @@ class User{
     }
 
     sendEmitWatchPosition = (event) => {
-        this.eventEmitWatchCoords = event;
         navigator.geolocation.watchPosition(
             (position) => {
-                this.currentPosition.coordinates[0] = position.coords.latitude;
-                this.currentPosition.coordinates[1] = position.coords.longitude;
+                this.currentPosition.geometry.coordinates[0] = position.coords.longitude;
+                this.currentPosition.geometry.coordinates[1] = position.coords.latitude;
                 socket.emit(event, 
                     { 
                         carerId: this.id, 
-                        coordinates: [0,0],
-                        type: 'Point'
+                        geometry: {
+                            coordinates: [this.currentPosition.geometry.coordinates[0],this.currentPosition.geometry.coordinates[1]],
+                            type: 'Point'
+                        }
+
                     }
                 );
             }
