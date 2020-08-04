@@ -123,11 +123,6 @@ map.on("load", function () {
   });
 });
 
-// const contract = {
-//     meeting_point : {lat: position.coords.latitude, lon: position.coords.longitude},
-//     ...contract
-// }
-// localStorage.setItem('contract', JSON.stringify(contract));
 
 socket.on("user:left", (data) =>
   console.log("usario ha dejado la sesion: ", data)
