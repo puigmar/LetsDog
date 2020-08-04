@@ -4,9 +4,9 @@ Review.collection.drop();
 
 const reviews = [
     {
-      clientId: '5f29103d25a75108290e97d3',
-      carerId: '5f2809b21c1bcd0638f8f8a7',
-      dogId: '5f26a96ab400f61b8fa9a098',
+      clientId: '5f29945d8d4ca12efe5264f2',
+      carerId: '5f299086cae8662e580067fe',
+      dogId: '5f29945d8d4ca12efe5264f1',
       average: 4,
       items: {
         ontime: {
@@ -29,9 +29,9 @@ const reviews = [
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget diam odio. Vestibulum posuere felis enim, sit amet eleifend felis tempus sed. Aliquam nec sodales lorem.',
     },
     {
-        clientId: '5f29103d25a75108290e97d3',
-        carerId: '5f2809b21c1bcd0638f8f8a7',
-        dogId: '5f26a96ab400f61b8fa9a098',
+        clientId: '5f29945d8d4ca12efe5264f2',
+        carerId: '5f299086cae8662e580067fe',
+        dogId: '5f29945d8d4ca12efe5264f1',
         average: 4,
         items: {
           ontime: {

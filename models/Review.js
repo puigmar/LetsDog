@@ -5,7 +5,7 @@ const reviewSchema = new Schema({
   clientId: { type: Schema.Types.ObjectId, ref: "User" },
   carerId: { type: Schema.Types.ObjectId, ref: "Carer" },
   dogId: { type: Schema.Types.ObjectId, ref: "Dog" },
-  average: Number,
+  rate: Number,
   items: {
     ontime: {
       name: String,
