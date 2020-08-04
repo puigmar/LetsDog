@@ -19,7 +19,7 @@ class SignupCarerValidator {
             emptyDescriptionError: this.emptyDescriptionError,
             emptyNameError: this.emptyNameError,
             emptyPhoneError: this.emptyPhoneError,
-            profileImageError: this.profileImageError,
+            //profileImageError: this.profileImageError,
             //avatarImageError: this.profileImageError
         }
         

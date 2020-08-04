@@ -18,6 +18,7 @@ const {
 const {
     routes
 } = require("../app");
+const Review = require("../models/Review");
 
 router.post('/validate-user', (req, res, next) => {
     const query = '';
@@ -120,62 +121,26 @@ router.post("/check/available-carers", async (req, res, next) => {
     const MAXTIME = 30; // minutes
 
     const falseCarers = [{
-        carerId: '5f2809b21c1bcd0638f8f8a6',
+        carerId: '5f299e1fbc5a2a31e4c545ab',
         geometry: {
-            coordinates: [2.1608813, 41.3904655],
+            coordinates: [2.1941694, 41.390356499999996],
             type: 'Point'
         }
     }, {
-        carerId: '5f2809b21c1bcd0638f8f254',
+        carerId: '5f299e37bc5a2a31e4c545ad',
         geometry: {
-            coordinates: [2.162688, 41.399681],
-            type: 'Point'
-        }
-    }, {
-        carerId: '5f2809b21c1bcd0638f8853',
-        geometry: {
-            coordinates: [2.161111, 41.398541],
-            type: 'Point'
-        }
-    }, {
-        carerId: '5f2809b21c1bcd0638f8f125',
-        geometry: {
-            coordinates: [2.163320, 41.397000],
-            type: 'Point'
-        }
-    }, {
-        carerId: '5f2809b21c1bcd0638f8f9067',
-        geometry: {
-            coordinates: [2.164444, 41.397500],
-            type: 'Point'
-        }
-    }, {
-        carerId: '5f2809b21c1bcd0638f8f404',
-        geometry: {
-            coordinates: [2.165555, 41.398000],
-            type: 'Point'
-        }
-    }, {
-        carerId: '5f2809b21c1bcd0638f8f107',
-        geometry: {
-            coordinates: [2.160000, 41.392000],
-            type: 'Point'
-        }
-    }, {
-        carerId: '5f2809b21c1bcd0638f8f045',
-        geometry: {
-            coordinates: [2.162222, 41.399000],
+            coordinates: [2.1941694, 41.390356499999996],
             type: 'Point'
         }
     }]
+
+
     
     carers_connected.push(...falseCarers);
 
-    console.log('carers_connected: ', carers_connected)
-
-    const filterCarerByTime = (array) => {
+    const orderCarerByTime = (array) => {
         const orderByDuration = array.sort((a, b) => a.duration - b.duration);
-        return (orderByDuration < SEARCHLIMIT) ? orderByDuration : orderByDuration.splice(0, 15)
+        return (orderByDuration < SEARCHLIMIT) ? orderByDuration : orderByDuration.splice(0, SEARCHLIMIT)
     }
 
     const nearestOnlineCarers = async () => {
@@ -201,10 +166,42 @@ router.post("/check/available-carers", async (req, res, next) => {
     }
 
     await nearestOnlineCarers()
-    const queryCarerList = filterCarerByTime(availableCarers);
+    const queryCarerList = orderCarerByTime(availableCarers);
 
-    res.send(queryCarerList)
+    console.log(queryCarerList);
 
+    const carerDetails = [];
+
+    const getCarerDetails = async () => {
+        try{
+            for(let i= 0; i<queryCarerList.length; i++){
+
+                const carers = await Carer.find({userId: queryCarerList[i].carerId})
+                                          .populate('liked.reviews', 'description')
+                                          .lean()
+
+                const carerId = await Carer.find({ userId: queryCarerList[i].carerId }, { carerId:1 })
+                const reviews = await Review.find({ carerId }, { description: 1 }).lean()
+
+                let carerObj = carers;
+            
+                let duration = queryCarerList[i].duration;
+                carerObj.duration = duration;
+                carerObj.reviews = reviews;
+                carerObj.numReviews = reviews.length;
+
+                carerDetails.push(carerObj);
+
+            }
+        } 
+        catch(err){
+            console.log(err)
+        }
+    }
+
+    await getCarerDetails();
+    
+    res.send(carerDetails)
 });
 
 module.exports = router
