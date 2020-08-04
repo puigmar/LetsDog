@@ -82,26 +82,25 @@ router.post("/updateField/carer", async (req, res, next) => {
     }
   });
 
-router.post("/check/available-carers", async (req, res, next) => {
+router.post("/check/available-carers", (req, res, next) => {
     const availableCarers = [];
-
-    carers_connected.forEach( carer => {
+    carers_connected.forEach( (carer) => {
         let userCoords = req.body;
         const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${userCoords[0]},${userCoords[1]};${carer.geometry['coordinates'][0]},${carer.geometry['coordinates'][1]}?geometries=geojson&access_token=pk.eyJ1IjoicHVpZ21hciIsImEiOiJja2Q1cTRjMHoyOWc1MzBwZzUxNnBqZjgzIn0.Dl_LIKPYzM72_QZAE0wZWQ`;
-        
-        console.log(url)
 
         axios.get(url)
         .then( res => {
             const duration = res.data.routes[0].duration;
-            console.log(duration)
-            if(duration < (60 * 20)){
+            const minutes = duration/60;
+
+            if(minutes < 20){
                 carer.duration = duration;
                 availableCarers.push(carer);
             }
         })
         .catch(err => console.log(err))
     })
+    
     
 });
 
