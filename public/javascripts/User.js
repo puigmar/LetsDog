@@ -54,4 +54,12 @@ class User{
             }
         ); 
     }
+
+    getStartPosition = () => {
+        return this.startPosition;
+    }
+
+    getCurrentPosition = () => {
+        return this.currentPosition;
+    }
 }

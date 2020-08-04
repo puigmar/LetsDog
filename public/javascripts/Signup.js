@@ -6,7 +6,7 @@ class Signup{
         this.repeatPasswordInput = document.getElementById('signupPasswordRepeatInput');
         this.signupBtnStep1 = document.getElementById('signupBtnStep1');
 
-        this.photoDogAvatar = document.getElementById('photoDogAvatar');
+        this.photoDogAvatarPreview = document.getElementById('photoDogAvatar');
         this.photoDogUrl = '';
         this.photoDogInputFile = document.getElementById('photoDogInputFile');
         this.photoDogSubmit = document.getElementById('photoDogSubmit');
@@ -56,27 +56,6 @@ class Signup{
         }
     }
 
-    updateDogPhoto = () => {
-        const dogPhotoToUpload = this.photoDogInputFile.files[0];
-
-        const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }
-        const data = new FormData()
-        data.append('image', dogPhotoToUpload);
-        axios.post('/manage/validate-dog-photo', data, config)
-            .then((response) => {
-                this.photoDogUrl = response.data;
-                this.photoDogAvatar.style.backgroundImage = `url(${this.photoDogUrl})`;
-                this.photoDogAvatar.classList.add('cover')
-            })
-            .catch(err => {
-                console.error("Image post failed: ", err)
-            })
-    };
-
     handleIfEmailExists = async (e) => {
         e.preventDefault();
         axios.post('/manage/validate-user', { email: this.emailInput.value })
@@ -115,9 +94,32 @@ class Signup{
         this.checkSubmitButton(this.signupBtnStep1, 'UserErrorForms');
     }
 
-    sendDogPhoto = (e) => {
+    sendAvatarPhoto = (e) => {
         e.preventDefault();
-        this.updateDogPhoto()
+        this.updatePhoto(
+            this.photoDogInputFile, this.photoDogAvatarPreview, '/manage/validate-photo', 'photo'
+        )
+    }
+
+    updatePhoto = (inputFile, wrapperPreview, postUrl, objKeyName) => {
+        const photoToUpload = inputFile.files[0];
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        const data = new FormData()
+        data.append('image', photoToUpload);
+
+        axios.post(postUrl, data, config)
+            .then((response) => {
+                this.dogData[objKeyName] = response.data;
+                wrapperPreview.style.backgroundImage = `url(${this.dogData[objKeyName]})`;
+                wrapperPreview.classList.add('cover')
+            })
+            .catch(err => {
+                console.error("Image post failed: ", err)
+            })
     }
 
     addUserData = () => {
@@ -181,10 +183,10 @@ class Signup{
         this.passwordInput.addEventListener('input', this.handlePassword)
         this.repeatPasswordInput.addEventListener('input', this.handleRepeatPassword)
 
-        this.photoDogAvatar.addEventListener('click', () => {
+        this.photoDogAvatarPreview.addEventListener('click', () => {
             this.photoDogInputFile.click()
         })
-        this.photoDogForm.addEventListener('submit', this.sendDogPhoto);
+        this.photoDogForm.addEventListener('submit', this.sendAvatarPhoto);
         this.photoDogInputFile.addEventListener('change', () => {
             this.photoDogSubmit.click()
         });
