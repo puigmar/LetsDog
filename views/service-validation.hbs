@@ -1,0 +1,16 @@
+<h2>Contratar Servicio</h1>
+
+<div>
+    <img src="#" alt="Waiting for service photo">
+</div>
+
+<p>Esperando la confirmación de </br><span id="carer-name"></span></p>
+
+<script>
+    Window.onload = () => {
+    let retrievedObject = localStorage.getItem("contract");
+    let contract = JSON.parse(retrievedObject);
+
+    document.getElementById('carer-name').innerHTML = contract.carerName
+    }
+</script>

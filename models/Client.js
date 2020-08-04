@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const clientSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User" },
   favourites: [{ type: Schema.Types.ObjectId, ref: "Carer" }],
-  dogsId: [{ type: Schema.Types.ObjectId, ref: "Dog" }],
+  dogId: [{ type: Schema.Types.ObjectId, ref: "Dog" }],
   cards: [{ type: Schema.Types.ObjectId, ref: "Card" }],
   coords: {
     type: {

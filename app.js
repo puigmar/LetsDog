@@ -12,10 +12,10 @@ const MongoStore = require("connect-mongo")(session);
 require("dotenv").config();
 
 // HBS helpers
-require('./helpers/handlebars')(hbs);
+require("./helpers/handlebars")(hbs);
 
 // DB Config Connection
-require('./config/db.js');
+require("./config/db.js");
 
 const app_name = require("./package.json").name;
 const debug = require("debug")(
@@ -48,7 +48,7 @@ app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    cookie: {maxAge: 1200000},
+    cookie: { maxAge: 5500000 },
     saveUninitialized: true,
     resave: true,
     store: new MongoStore({
@@ -64,7 +64,7 @@ app.use((req, res, next) => {
     //console.log('Esta es la session:', req.session)
     res.locals.isUserLoggedIn = true;
 
-    if(res.locals.currentUserInfo.user.isCarer){
+    if (res.locals.currentUserInfo.user.isCarer) {
       res.locals.isCarerLoggedIn = true;
     } else {
       res.locals.isCarerLoggedIn = false;
@@ -96,6 +96,7 @@ app.use("/manage", axios);
 
 const service = require("./routes/service");
 app.use("/", service);
+
 
 
 module.exports = app;

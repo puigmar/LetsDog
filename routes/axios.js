@@ -117,6 +117,7 @@ router.post("/updateField/carer", async (req, res, next) => {
 router.post("/check/available-carers", async (req, res, next) => {
     let availableCarers = [];
     let userCoords = req.body;
+    console.log(req.body)
     const SEARCHLIMIT = 20;
     const MAXTIME = 30; // minutes
 
@@ -203,5 +204,6 @@ router.post("/check/available-carers", async (req, res, next) => {
     
     res.send(carerDetails)
 });
+
 
 module.exports = router
