@@ -1,5 +1,9 @@
 const session = "{{currentUserInfo.userData._id}}";
 
+// const theUser = new User('{{currentUserInfo.user._id}}');
+// theUser.sendEmitCoords('user-online');
+// theUser.sendEmitWatchPosition('user-online-moving');
+
 const updateContractMeetingPoint = (meetingPoint) => {
   let retrievedObject = localStorage.getItem("contract");
   let contract = JSON.parse(retrievedObject);
@@ -10,6 +14,12 @@ const updateContractMeetingPoint = (meetingPoint) => {
   };
   console.log(contract);
   localStorage.setItem("contract", JSON.stringify(contract));
+};
+
+const generateCarersList = (meetingPoint) => {
+  const userLocation = meetingPoint.result.geometry.coordinates;
+  console.log(userLocation);
+  return userLocation;
 };
 
 mapboxgl.accessToken =
@@ -40,9 +50,17 @@ document.getElementById("geocoder").appendChild(geocoder.onAdd(map));
 geocoder.on("result", (e) => {
   var meetingPoint = e;
   updateContractMeetingPoint(meetingPoint);
+  const userLocArr = generateCarersList(meetingPoint);
+
+  document.getElementById("search-carers").addEventListener("click", () => {
+    apiService
+      .sendUserLocation(userLocArr)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+  });
 });
-
-
 
 function getPointData(lngLat) {
   return {
@@ -68,16 +86,6 @@ map.on("load", function () {
         type: "geojson",
         data: coordsClick,
       });
-
-      // map.addLayer({
-      //     'id': 'point',
-      //     'source': 'point_source',
-      //     'type': 'circle',
-      //     'paint': {
-      //         'circle-radius': 10,
-      //         'circle-color': '#007cbf'
-      //     }
-      // });
 
       socket.emit("onlineUser", {
         userId: `{{currentUserInfo.user._id}}`,
@@ -122,7 +130,6 @@ map.on("load", function () {
     });
   });
 });
-
 
 socket.on("user:left", (data) =>
   console.log("usario ha dejado la sesion: ", data)
