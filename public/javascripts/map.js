@@ -42,7 +42,7 @@ geocoder.on("result", (e) => {
   updateContractMeetingPoint(meetingPoint);
 });
 
-//updateContractMeetingPoint ();
+
 
 function getPointData(lngLat) {
   return {
