@@ -7,8 +7,13 @@ class ApiService {
 
     sendUserLocation (userLocArr) {
 
-    return this.api.post("/manage/check/available-carers", { coordinates: userLocArr })
+        return this.api.post("/manage/check/available-carers", userLocArr)
             
+    }
+
+    getNearestCarers (carersList) {
+        
+        return this.api.post("manage/check/nearest-carers", carersList)
     }
 }
 

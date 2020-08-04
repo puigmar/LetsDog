@@ -40,7 +40,7 @@ io.on('connection', (socket) => {
 
   socket.on('carer-online', carerData => {
     carers_connected.push(carerData);
-    console.log('carers_connected: ',carers_connected)
+    //console.log('carers_connected: ',carers_connected)
   })
 
   socket.on('carer-online-moving', carerData => {

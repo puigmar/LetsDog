@@ -1,0 +1,42 @@
+<div>
+    <img scr="{{selectedCarer.profilePhoto}}" alt="Carer's profile photo">
+</div>
+
+<section>
+    <h2>{{selectedCarer.name}}</h2>
+    <ul>
+        {{#times selectedCarer.rate}}
+        <span>Huesito</span>
+        {{/times}}
+    </ul>
+    <p>{{selectedCarer.description}}</p>
+    {{#each selectedCarer.items}}
+    <p>{{this.name}}</p>
+    <ul>
+        {{#times this.score}}
+        <span>Huesito</span>
+        {{/times}}
+    </ul>
+    {{/each}}
+    <button id="get-service"class="btn btn-primary btn-primary">Contratar el servicio</button>
+
+</section>
+
+<script>
+    const getServiceButton = document.getElementById('get-service')
+
+    getServiceButton.addEventListener('click', () => {
+
+    let retrievedObject = localStorage.getItem("contract");
+    let contract = JSON.parse(retrievedObject);
+    contract = {
+        ...contract,
+        carerId: `{{selectedCarer._id}}`,
+        carerName: `{{selectedCarer.name}}`
+    };
+    console.log(contract);
+    localStorage.setItem("contract", JSON.stringify(contract));
+
+    });
+
+</script>

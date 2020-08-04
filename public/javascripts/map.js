@@ -56,7 +56,7 @@ geocoder.on("result", (e) => {
     apiService
       .sendUserLocation(userLocArr)
       .then((response) => {
-        console.log(response);
+        console.log(response)
       })
       .catch((err) => console.log(err));
   });
