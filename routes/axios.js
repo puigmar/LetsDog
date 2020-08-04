@@ -203,6 +203,7 @@ router.post("/check/available-carers", async (req, res, next) => {
     await getCarerDetails();
     
     res.send(carerDetails)
+    
 });
 
 
