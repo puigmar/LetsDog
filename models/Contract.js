@@ -7,9 +7,7 @@ const contractSchema = new Schema({
   price: Number,
   interval_price: Number,
   meeting_point: String,
-  cardNumber: String,
-  expiration: Date,
-  cvv: Number,
+  card_number: String,
 });
 
 contractSchema.set("timestamps", true);

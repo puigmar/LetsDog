@@ -58,7 +58,8 @@ app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    saveUninitialized: false,
+    cookie: {maxAge: 1200000},
+    saveUninitialized: true,
     resave: true,
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
@@ -70,7 +71,9 @@ app.use(
 app.use((req, res, next) => {
   if (req.session.currentUser) {
     res.locals.currentUserInfo = req.session.currentUser;
+    console.log('Esta es la session:', req.session)
     res.locals.isUserLoggedIn = true;
+    
 
     if(res.locals.currentUserInfo.user.isCarer){
       res.locals.isCarerLoggedIn = true;
@@ -86,6 +89,8 @@ app.use((req, res, next) => {
 
 app.use(cookieParser());
 
+
+
 const index = require("./routes/index");
 app.use("/", index);
 
@@ -97,5 +102,9 @@ app.use("/carer", carer);
 
 const axios = require("./routes/axios");
 app.use("/manage", axios);
+
+const service = require("./routes/service");
+app.use("/", service);
+
 
 module.exports = app;

@@ -10,7 +10,7 @@ class SignupCarerValidator {
         this.emptyDescriptionError = 'This field cannot be empty';
         this.emptyNameError = 'This field cannot be empty';
         this.emptyPhoneError = 'This field cannot be empty';
-        //this.profileImageError = 'You must choice an image';
+        //this.profileImageError = 'You must pick an image';
         
         this.UserErrorForms = {
             errorEmailMsg: this.invalidEmailError,
