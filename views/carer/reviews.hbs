@@ -1,11 +1,11 @@
 <h1>Reviews</h1>
 <section>
     <h2>Tu puntuación global</h2>
-    {{#each carer.items}}
-        <p>{{this.name}}</p>
+    <p>{{review.[0].carerId.name}}</p>
+    {{#each review.[0].carerId.items}}
         <ul>
             {{#times this.score}}
-                <span>Huesito</span>
+                <li>Huesito</li>
             {{/times}}
         </ul>
     {{/each}}
@@ -16,11 +16,11 @@
     {{#each review}}
         <li>
             <div>
-                <div style="width:100px;height:100px; backgroun-image: url('{{}}'); background-size: cover;"></div>
-                {{#each items}}
-                    <p><{{this.name}}</p>
-                    <p>{{this.score}}</p>>
-                {{/each}}
+                <div style="width:100px;height:100px; background-image: url('{{dogId.photo}}'); background-size: cover;"></div>
+                {{#with dogId}}
+                    <p>{{this.name}}</p>
+                    <p>{{../average}}</p>
+                {{/with}}
             </div>
             <div>
                 {{description}}

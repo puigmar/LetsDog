@@ -4,7 +4,8 @@
  * Module dependencies.
  */
 
-var app         = require('../app');
+var app = require('../app');
+const { users, users_connected, carers_connected} = require('../socket');
 var debug       = require('debug')('lets-dog:server');
 const http      = require('http');
 
@@ -31,12 +32,8 @@ let server  = http.createServer(app);
 
 const io = require('socket.io')(server);
 
-let users = [],
-    users_connected = [],
-    carers_connected = [];
-
 io.on('connection', (socket) => {
-
+  
   for(let i = 0; i < users_connected.length; i++) {
     socket.emit("showOnlineUsers", users_connected[i]);
   }
@@ -47,21 +44,21 @@ io.on('connection', (socket) => {
   })
 
   socket.on('carer-online-moving', carerData => {
-    console.log('antes de: ', carers_connected)
     let arrayCarrerIndex = carers_connected.forEach( (carer, index) => {
       if(carer.userId === carerData.userId){
-        carers_connected[index].latitude = carerData.latitude;
-        carers_connected[index].longitude = carerData.longitude;
+        carers_connected[index].geometry.coordinates[0] = carerData.geometry.coordinates[0];
+        carers_connected[index].geometry.coordinates[1] = carerData.geometry.coordinates[1];
+        
       }
     })
-    console.log('después de: ', carers_connected)
+    //console.log('después de: ', carers_connected[0].geometry)
   })
 
   socket.on('disconnect', userId => {
     carers_connected.splice( carers_connected.indexOf(userId), 1);
-    console.log('Current Connected Users:');
-    console.log(users_connected);
-    console.log('num connected: ', users_connected);
+    //console.log('Current Connected Users:');
+    //console.log(users_connected);
+    //console.log('num connected: ', users_connected);
   })
 });
 

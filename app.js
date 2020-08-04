@@ -61,7 +61,7 @@ app.use(
 app.use((req, res, next) => {
   if (req.session.currentUser) {
     res.locals.currentUserInfo = req.session.currentUser;
-    console.log("Esta es la session:", req.session);
+    //console.log('Esta es la session:', req.session)
     res.locals.isUserLoggedIn = true;
 
     if (res.locals.currentUserInfo.user.isCarer) {
@@ -77,6 +77,10 @@ app.use((req, res, next) => {
 });
 
 app.use(cookieParser());
+
+// Global variables
+
+require('./socket');
 
 const index = require("./routes/index");
 app.use("/", index);

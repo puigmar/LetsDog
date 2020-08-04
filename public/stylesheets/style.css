@@ -84,28 +84,24 @@ header {
 @media (max-width: 991px) {
   .offcanvas-collapse {
     position: fixed;
-    top: 56px;
-    bottom: 0;
     left: 100%;
-    width: 100%;
-    padding-right: 1rem;
-    padding-left: 1rem;
+    width: 80vw;
+    height: 100vh;
     overflow-y: auto;
     visibility: hidden;
     background-color: #343a40;
     transition-timing-function: ease-in-out;
     transition-duration: .3s;
-    transition-property: left, visibility; }
+    transition-property: left, visibility;
+    font-size: 1.8rem;
+    padding: 40px;
+    background: #38C6F4;
+    top: 0;
+    color: #fff; }
   .offcanvas-collapse.open {
     left: 20vw;
     visibility: visible;
-    z-index: 1;
-    top: 0;
-    padding: 40px;
-    background: #38C6F4;
-    box-sizing: border-box;
-    font-size: 1.8rem;
-    color: #fff; } }
+    z-index: 1; } }
 
 .v-home {
   height: calc(100vh - 56px);
@@ -125,6 +121,9 @@ header {
     background-repeat: no-repeat;
     opacity: 0.3;
     z-index: 0; }
+  .v-home .home-buttons {
+    position: relative;
+    z-index: 1; }
 
 .btn {
   border: none; }

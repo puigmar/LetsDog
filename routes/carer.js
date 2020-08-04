@@ -78,9 +78,8 @@ router.use((req, res, next) => {
       next();
       return;
     }
-  
     res.redirect('/carer/login');
-  });
+});
 
 router.get('/dashboard', (req, res) => {
     res.render('carer/dashboard')
@@ -100,14 +99,13 @@ router.get('/profile/:id', async (req, res) => {
 })
 
 router.get('/reviews/:id', async (req, res) => {
-    const carerId = req.params.id;
-    console.log('carerId: ', carerId)
     try{
-        const reviews = await Review.findById({"userId": currentUserInfo.user._id})
-                                    .populate('clientId')
-                                    .populate('dogId')
-                                    .populate('userId')
-        res.render('carer/profile', {carer: theCarer})
+        const carerId = req.params.id;
+        const carerReview = await Review.find({carerId: carerId})
+                                    .populate('carerId')
+                                    .populate('dogId', '_id photo name')
+        console.log(carerReview[0].carerId);
+        res.render('carer/reviews', {review: carerReview})
     }
     catch(error){
         console.log(error)
