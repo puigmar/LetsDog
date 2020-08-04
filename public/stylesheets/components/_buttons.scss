@@ -1,0 +1,15 @@
+.btn {
+    
+    border: none;
+
+    &.btn-primary{
+        background-color: $primary-color;
+    }
+
+    &.btn-lg{
+        border-radius: 30px;
+        padding: 20px 30px;
+        height: 60px;
+    }
+
+}
