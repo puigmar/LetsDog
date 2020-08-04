@@ -1,0 +1,53 @@
+$headerheight: 56px;
+
+header{
+    background-color: $secondary-color;
+    height: $headerheight;
+    display: flex;
+    align-items: center;
+
+    .navbar{
+        background-color: transparent;
+        padding: 0;
+        
+        .navbar-logo{
+            max-width: 151px;
+
+            img{
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    }
+}
+
+@media (max-width: 991px){
+    .offcanvas-collapse {
+        position: fixed;
+        top: 56px;
+        bottom: 0;
+        left: 100%;
+        width: 100%;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        overflow-y: auto;
+        visibility: hidden;
+        background-color: #343a40;
+        transition-timing-function: ease-in-out;
+        transition-duration: .3s;
+        transition-property: left, visibility;
+    }
+
+    .offcanvas-collapse.open {
+        left: 20vw;
+        visibility: visible;
+        z-index: 1;
+        top: 0;
+        padding: 40px;
+        background: #38C6F4;
+        box-sizing: border-box;
+        font-size: 1.8rem;
+        color: #fff;
+    }
+}

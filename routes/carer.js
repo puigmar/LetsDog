@@ -90,7 +90,7 @@ router.get('/profile/:id', async (req, res) => {
     const carerId = req.params.id;
     console.log('carerId: ', carerId)
     try{
-        const theCarer = await Carer.findById({"_id": carerId})
+        const theCarer = await Carer.findOne({"_id": carerId})
                                     .populate('userId')
         res.render('carer/profile', {carer: theCarer})
     }

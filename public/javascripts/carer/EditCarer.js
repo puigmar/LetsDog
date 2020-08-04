@@ -3,30 +3,34 @@ class EditCarer{
         this.emailInput = document.getElementById('carerEmailInput');
         this.nameInput = document.getElementById('carerNameInput');
         this.descriptionInput = document.getElementById('carerDescriptionInput');
-        this.phoneNumber = document.getElementById('carerPhoneNumber');
+        this.phoneNumber = document.getElementById('carerPhoneInput');
 
         this.photoCarerAvatarPreview = document.getElementById('photoCarerAvatarPreview');
         this.photoCarerAvatarInputFile = document.getElementById('photoCarerAvatarInputFile');
-        this.photoCarerAvatarBtnSubmit = document.getElementById('photoCArerAvatarBtnSubmit');
+        this.photoCarerAvatarInputFileUrl = document.getElementById('photoCarerAvatarInputFileUrl');
+        this.photoCarerAvatarBtnSubmit = document.getElementById('photoCarerAvatarBtnSubmit');
         this.photoCarerAvatarForm = document.getElementById('photoCarerAvatarForm');
 
         this.photoCarerBannerProfilePreview = document.getElementById('photoCarerBannerProfilePreview');
         this.photoCarerBannerProfileInputFile = document.getElementById('photoCarerBannerProfileInputFile');
         this.photoCarerBannerProfileBtnSubmit = document.getElementById('photoCarerBannerProfileBtnSubmit');
         this.photoCarerBannerProfileForm = document.getElementById('photoCarerBannerProfileForm');
+
+        this.editableFields = document.querySelectorAll("[data-field='editable']");
+        this.modifyButton = document.querySelectorAll("[data-btn='modify']");
     }
 
     sendAvatarPhoto = (e) => {
         e.preventDefault();
         this.updatePhoto(
-            this.photoCarerAvatarInputFile, this.photoCarerAvatarPreview, '/manage/validate-photo', 'profilePhoto'
+            this.photoCarerAvatarInputFile, this.photoCarerAvatarPreview, '/manage/validate-photo'
         )
     }
 
     sendBannerProfilePhoto = (e) => {
         e.preventDefault();
         this.updatePhoto(
-            this.photoCarerBannerProfileInputFile, this.photoCarerBannerProfilePreview, '/manage/validate-photo', 'gallery'
+            this.photoCarerBannerProfileInputFile, this.photoCarerBannerProfilePreview, '/manage/validate-photo'
         )
     }
 
@@ -42,11 +46,13 @@ class EditCarer{
 
         axios.post(postUrl, data, config)
             .then((response) => {
-                this.carerData[objKeyName] = response.data;
-                wrapperPreview.style.backgroundImage = `url(${this.carerData[objKeyName]})`;
+                const url = response.data;
+                const inputHiddenId = inputFile.getAttribute('id')+'Url';
+                document.getElementById(inputHiddenId).value = url;
+                wrapperPreview.style.backgroundImage = `url(${url})`;
                 wrapperPreview.classList.add('cover')
             })
-            .catch(err => {c
+            .catch(err => {
                 console.error("Image post failed: ", err)
             })
     }
@@ -68,38 +74,65 @@ class EditCarer{
     handleEmail = (e) => {
         const email = e.target.value;
         carerValidator.validateEmail(e, email);
-        this.checkSubmitButton(this.signupCarerBtnForm, 'UserErrorForms');
+    }
+
+    handlePhone = (e) => {
+        const phone = e.target.value;
+        carerValidator.validatePhone(e, phone);
     }
 
     handleDescription = (e) => {
         const description = e.target.value;
         carerValidator.validateEmail(e, description);
-        this.checkSubmitButton(this.signupCarerBtnForm, 'UserErrorForms');
     }
 
     handleName = (e) => {
         const name = e.target.value;
         carerValidator.validateName(e, name);
-        this.checkSubmitButton(this.signupCarerBtnForm, 'UserErrorForms');
     }
 
     handleDescription = (e) => {
         const desc = e.target.value;
         carerValidator.validateDescription(e, desc);
-        this.checkSubmitButton(this.signupCarerBtnForm, 'UserErrorForms');
     }
 
-    handlePassword = (e) => {
-        const password = e.target.value;
-        carerValidator.validatePassWord(e, password);
-        this.checkSubmitButton(this.signupCarerBtnForm, 'UserErrorForms');
+    handdleModifyButton = (e) => {
+        const parent = e.currentTarget.parentNode;
+        console.log(parent);
+        const btn = parent.querySelector('[data-btn]')
+        if(Object.keys(carerValidator.UserErrorForms).length === 0){
+            btn.disabled = false;
+        } else {
+            btn.disabled = true;
+        }
+        console.log(Object.keys(carerValidator.UserErrorForms).length)
     }
 
-    handleRepeatPassword = (e) => {
-        const repeatPassword = e.target.value;
-        const password = this.passwordInput.value;
-        carerValidator.validateRepeatPassword(e, password, repeatPassword);
-        this.checkSubmitButton(this.signupCarerBtnForm, 'UserErrorForms');
+    modifyField = (e) => {
+
+        if(Object.keys(carerValidator.UserErrorForms).length > 0){
+            console.log('> 0')
+            e.target.disabled = true;
+            return
+        }
+        const targetId = e.target.getAttribute("data-id");
+        const inputTarget = document.getElementById(targetId);
+        const key = document.getElementById(targetId).getAttribute('name');
+        let value = document.getElementById(targetId).value;
+        const model = e.target.getAttribute("data-model");
+
+        let query = '';
+        console.log('key: ',key)
+        if(key.includes('phone')){
+            query = '?phone';
+        }
+
+        axios.post(`/manage/updateField/carer${query}`, { model, key, value})
+            .then((res) => {
+                inputTarget.value = res.data;
+                e.target.disabled = true;
+            })
+            .catch( err => console.log(err));
     }
 
     addUserData = () => {
@@ -141,21 +174,13 @@ class EditCarer{
 
     }
 
-    checkSubmitButton = (button, errors) => {
-        const pendentErrors = Object.keys(carerValidator[errors]);
-        console.log(pendentErrors)
-        if(pendentErrors.length !== 0){
-            button.disabled = true;
-        } else {
-            button.disabled = false;
-        }
-    }
-
     addListeners = () => {
 
-        this.emailInput.addEventListener('input', this.handleEmail)
+        this.emailInput.addEventListener('input', this.handleEmail);
         this.nameInput.addEventListener('input', this.handleName)
         this.descriptionInput.addEventListener('input', this.handleDescription)
+        this.descriptionInput.addEventListener('input', this.handleDescription)
+        this.phoneNumber.addEventListener('input', this.handlePhone)
 
         this.photoCarerAvatarPreview.addEventListener('click', () => {
             this.photoCarerAvatarInputFile.click()
@@ -172,13 +197,20 @@ class EditCarer{
         this.photoCarerBannerProfileInputFile.addEventListener('change', () => {
             this.photoCarerBannerProfileBtnSubmit.click()
         });
-        
 
-        this.signupCarerBtnForm.addEventListener('input', this.handleIfEmailExists);
-        this.signupCarerBtnForm.addEventListener('click', this.sendSignupFormData);
+        this.modifyButton.forEach( button => {
+            button.disabled = true;
+            button.addEventListener('click', this.modifyField)
+        });
+
+        this.editableFields.forEach( field => {
+            field.addEventListener('change', this.handdleModifyButton)
+            field.addEventListener('input', this.handdleModifyButton)
+        })
     }
 
     init = () => {
+        carerValidator.UserErrorForms = {}
         this.addListeners();
     }
 

@@ -15,17 +15,7 @@ require("dotenv").config();
 require('./helpers/handlebars')(hbs);
 
 // DB Config Connection
-mongoose
-  .connect("mongodb://localhost/letsdog", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Connected to Mongo!");
-  })
-  .catch((err) => {
-    console.error("Error connecting to mongo", err);
-  });
+require('./config/db.js');
 
 const app_name = require("./package.json").name;
 const debug = require("debug")(

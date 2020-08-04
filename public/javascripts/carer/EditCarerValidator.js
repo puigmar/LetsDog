@@ -1,6 +1,6 @@
 'use strict';
 
-class SignupCarerValidator {
+class EditCarerValidator {
     constructor(){
 
         this.emailExistError = 'Your email already exist!';
@@ -14,14 +14,25 @@ class SignupCarerValidator {
 
         this.invalidEmailError = 'Write a valid email';
         this.emptyDescriptionError = 'This field cannot be empty';
-        this.emptyNameError = 'This field cannot be empty';
+        this.emptyError = 'This field cannot be empty';
         
         this.UserErrorForms = {
+            emptyPhoneError: this.emptyError,
             errorEmailMsg: this.invalidEmailError,
             emptyDescriptionError: this.emptyDescriptionError,
-            emptyNameError: this.emptyNameError
+            emptyNameError: this.emptyError
         }
         
+    }
+
+    validatePhone = (e) => {
+        if(e.currentTarget.value === ''){
+            this.UserErrorForms.emptyNameError = this.emptyError
+        } else {
+            delete this.UserErrorForms.emptyNameError
+        }
+
+        this.checkValidationMsg(e, this.UserErrorForms.emptyNameError || null)
     }
 
     validateEmail = (e, str) => {
@@ -108,4 +119,4 @@ class SignupCarerValidator {
     
 }
 
-const carerValidator = new SignupCarerValidator();
+const carerValidator = new EditCarerValidator();
