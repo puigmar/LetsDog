@@ -6,7 +6,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="subHeader_content">
-                        <a href="/"><span class="icon-back_arrow"></span></a>
+                        <a id="backLink" href="/"><span class="icon-back_arrow"></span></a>
+                        <button id="backSplide"class="d-none"><span class="icon-back_arrow"></span></button>
                         <h1>Regístrate</h1>
                     </div>
                 </div>
@@ -41,7 +42,7 @@
                                 <input id="photoDogSubmit" type="submit">
                             </form>
                             <div class="form-group compact hideAutocomplete">
-                                <label for="signupDogName">Nombre</label>
+                                <label for="signupDogName">Nombre de tu perro</label>
                                 <input class="form-control" id="signupDogName" type="text">
                             </div>
 
@@ -120,7 +121,8 @@
                 </div>
             </div>
         </div>
-        <button type="button" id="btnContinueSignup" class="btn btn-primary btn-lg" disabled="disabled">Continuar</button>
+        <button type="button" id="btnValidateEmail" class="btn btn-primary btn-lg" disabled="disabled">Continuar</button>
+        <button type="button" id="btnContinueSignup" class="btn btn-primary btn-lg d-none" disabled="disabled">Continuar</button>
         <p class="small-link">¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a></p>
     </section>
 </main>
@@ -128,16 +130,20 @@
 <script src="/javascripts/libraries/splide.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/javascripts/SignupValidator.js"></script>
-<script src="/javascripts/Signup.js"></script>
-<script src="/javascripts/Forms.js"></script>
+<script src="/javascripts/SignupSplide.js"></script>
 <script>
     var splide = new Splide( '#splide', {
         arrows   : false,
         height: '100%',
         drag: false
     } ).mount();
+    
+    const slider = new Slider();
 
-    document.getElementById('btnContinueSignup').addEventListener('click', () => {
-        splide.go( '+1' ); 
-    });
+    splide.on('move', () => {
+        console.log('ei...')
+        slider.backLink(splide.index);
+    })
 </script>
+<script src="/javascripts/Signup.js"></script>
+<script src="/javascripts/Forms.js"></script>

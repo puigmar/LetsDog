@@ -15,13 +15,18 @@
             font-size: 2rem;
         }
     
-        a{
+        a,
+        button{
             color: white;
             position: absolute;
             left: 0;
             top: 50%;
             transform: translateY(-50%);
             font-size: 1.6rem;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background-color: transparent;
         }
     }
 }
