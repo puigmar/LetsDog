@@ -3,18 +3,66 @@
     <p>Hola {{currentUserInfo.carer.name}}!</p>
 </main>
 
-
-<script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 <script src="/javascripts/User.js"></script>
 <script>
-    
-    const thecarer = new User('{{currentUserInfo.user._id}}');
-    thecarer.sendEmitCoords('carer-online');
-    thecarer.sendEmitWatchPosition('carer-online-moving');
+    //const thecarer = new User('{{currentUserInfo.user._id}}');
+    //thecarer.sendEmitCoords('carer-online');
+    //thecarer.sendEmitWatchPosition('carer-online-moving');
+
+    var socket = io.connect('http://localhost:3000', { 
+        'forceNew': true 
+    }); 
+
+    socket.on('Resendmessage', function(data) { 
+        console.log(data);
+    });
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            socket.emit('carer-online', 
+                { 
+                    socket: socket.id,
+                    carerId: '{{currentUserInfo.user._id}}', 
+                    geometry: {
+                        coordinates: [position.coords.longitude, position.coords.latitude],
+                        type: 'Point'
+                    }
+                }
+            );
+        }
+    );
+
+    /*navigator.geolocation.getCurrentPosition(
+        (position) => {
+            socket.emit('carer-online', 
+                { 
+                    carerId: '{{currentUserInfo.user._id}}', 
+                    geometry: {
+                        coordinates: [position.coords.longitude, position.coords.latitude],
+                        type: 'Point'
+                    }
+                }
+            );
+        }
+    );
+
+    navigator.geolocation.watchPosition(
+        (position) => {
+            socket.emit('carer-online-moving', 
+                { 
+                    carerId: '{{currentUserInfo.user._id}}', 
+                    geometry: {
+                        coordinates: [position.coords.longitude, position.coords.latitude],
+                        type: 'Point'
+                    }
+                }
+            );
+        }
+    ); 
 
     window.onload = () => {
-    socket.on ('message', (requestData) => {
-        console.log(requestData)
-    });
-    }
+        socket.on ('message', (requestData) => {
+            console.log(requestData)
+        });
+    }*/
 </script>

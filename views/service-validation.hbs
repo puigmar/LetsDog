@@ -12,17 +12,23 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 <script>
 
+    var socket = io.connect('http://localhost:3000', { 
+        'forceNew': true 
+    });
+
     let isLoading = true;
 
     window.onload = () => {
     let retrievedObject = localStorage.getItem("contract");
     let contract = JSON.parse(retrievedObject);
 
+    console.log(contract);
+
     document.getElementById('carer-name').innerHTML = contract.carerName
 
     const testButton = document.getElementById("test")
-
-    socket.emit ('request', {carerId: contract.carerId})
+    
+    socket.emit ('request', {carerId: contract.userId})
 
    // testButton.addEventListener('click', () => {
     //     socket.emit ('request')
