@@ -36,8 +36,9 @@ router.get("/carer-profile/:id", (req, res, next) => {
     });
 });
 
-router.get("/service-validation", (req, res, next) => {
-  res.render("service-validation");
+router.get('/servicevalidation', (req, res, next) => {
+  res.render('servicevalidation')
 });
+
 
 module.exports = router;
