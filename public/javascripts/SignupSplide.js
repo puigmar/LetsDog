@@ -26,13 +26,15 @@ class Slider {
     }
 
     addListeners = () => {
-        signupBtnContinue.addEventListener('click', () => {
+
+        this.signupBtnContinue.addEventListener('click', () => {
+            console.log('hola')
             splide.go( '+1' );
-            const button = document.getElementById("btnContinueSignup")
+
             if(splide.index === 2){
-                signupBtnContinue.innerHTML = 'Lets Dog!'
+                this.signupBtnContinue.innerHTML = 'Lets Dog!'
             } else {
-                signupBtnContinue.innerHTML = 'Continuar'
+                this.signupBtnContinue.innerHTML = 'Continuar'
             }
     
             if(splide.index > 0){
@@ -41,6 +43,17 @@ class Slider {
                 document.querySelector('h1').innerHTML = 'Regístrate';
             }
         })
+
+        splide.on('move', () => {
+            slider.backLink(splide.index);
+            if(splide.index > 0){
+                this.signupBtnContinue.classList.remove('d-none');
+                this.signupBtnStep1.classList.add('d-none');
+            } else {
+                this.signupBtnContinue.classList.add('d-none');
+                this.signupBtnStep1.classList.remove('d-none');
+            }
+        });
     }
 
     init = () => {

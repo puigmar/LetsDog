@@ -4,7 +4,6 @@ class Signup{
         this.emailInput = document.getElementById('signupEmailInput');
         this.passwordInput = document.getElementById('signupPasswordInput');
         this.repeatPasswordInput = document.getElementById('signupPasswordRepeatInput');
-        this.signupBtnStep1 = document.getElementById('btnContinueSignup');
 
         this.photoDogAvatarPreview = document.getElementById('photoDogAvatar');
         this.photoDogUrl = '';
@@ -16,7 +15,7 @@ class Signup{
         this.dogSexInput = document.querySelector('input[name="signupDogSex"]:checked');
         this.dogBreedInput = document.getElementById('signupDogBreed');
         this.dogAgeInput = document.getElementById('signupDogAge');
-        this.dogSizeInput = document.querySelector('input[name="signupDogSize"]:checked');
+        this.dogSizeInput = document.getElementById('signupDogAge');
         this.dogBehaviorPeopleInput = document.getElementById('signupDogBehaviorPeople');
         this.dogBehaviorDogsInput = document.getElementById('signupDogBehaviorDogs');
 
@@ -73,14 +72,14 @@ class Signup{
         // validamos con validator
         validator.validateEmail(e, email);
 
-        this.checkSubmitButton(this.signupBtnStep1, 'UserErrorForms');
+        this.checkSubmitButton(this.signupBtnStep1, 'UserErrorFormsStep1');
     }
 
     handlePassword = (e) => {
         const password = e.target.value;
         // Validamos campo
         validator.validatePassWord(e, password);
-        this.checkSubmitButton(this.signupBtnStep1, 'UserErrorForms');
+        this.checkSubmitButton(this.signupBtnStep1, 'UserErrorFormsStep1');
     }
 
     handleRepeatPassword = (e) => {
@@ -88,7 +87,13 @@ class Signup{
         const password = this.passwordInput.value;
         // Validamos campo
         validator.validateRepeatPassword(e, password, repeatPassword);
-        this.checkSubmitButton(this.signupBtnStep1, 'UserErrorForms');
+        this.checkSubmitButton(this.signupBtnStep1, 'UserErrorFormsStep1');
+    }
+
+    handleDogName = (e) => {
+        const name = e.target.value;
+        validator.validateDogName(e, name);
+        this.checkSubmitButton(this.signupBtnContinue, 'UserErrorFormsStep2');
     }
 
     sendAvatarPhoto = (e) => {
@@ -133,6 +138,8 @@ class Signup{
         this.dogData.size = this.dogSizeInput.value;
         this.dogData.behavior.withPeople = this.dogBehaviorPeopleInput.value;
         this.dogData.behavior.withDogs = this.dogBehaviorDogsInput.value;
+
+        console.log('sex: ', this.dogSexInput.value)
     }
 
     sendSignupFormData = (e) => {
@@ -165,10 +172,17 @@ class Signup{
     }
 
     checkSubmitButton = (button, errors) => {
+
+        console.log('validano...')
         const pendentErrors = Object.keys(validator[errors]);
+
         console.log(pendentErrors)
+
         if(pendentErrors.length !== 0){
             button.disabled = true;
+            if(splide.index === 0){
+                
+            }
         } else {
             button.disabled = false;
         }
@@ -179,6 +193,7 @@ class Signup{
         this.emailInput.addEventListener('input', this.handleEmail)
         this.passwordInput.addEventListener('input', this.handlePassword)
         this.repeatPasswordInput.addEventListener('input', this.handleRepeatPassword)
+        this.dogNameInput .addEventListener('input', this.handleDogName)
 
         this.photoDogAvatarPreview.addEventListener('click', () => {
             this.photoDogInputFile.click()

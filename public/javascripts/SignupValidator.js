@@ -7,24 +7,28 @@ class SignupValidator {
         this.passwordError = 'Your password must have at least 6 letters';
         this.repeatPasswordError = `This field doesn't match with your password`;
         this.invalidAccess = 'Your email or your password are incorrect';
+        this.emptyNameError = 'This field cannot be empty';
         
-
-        this.UserErrorForms = {
+        this.UserErrorFormsStep1 = {
             errorEmailMsg: this.invalidEmailError,
             errorPassMsg: this.passwordError,
-            errorPassRepeatMsg: this.repeatPasswordError
+            errorPassRepeatMsg: this.repeatPasswordError,
+        }
+
+        this.UserErrorFormsStep2 = {
+            emptyNameError: this.emptyNameError,
         }
     }
 
     validateEmail = (e, str) => {
 
         if(!this.emailIsValid(str)){
-            this.UserErrorForms.errorEmailMsg = this.invalidEmailError;
+            this.UserErrorFormsStep1.errorEmailMsg = this.invalidEmailError;
         } else {
-            delete this.UserErrorForms.errorEmailMsg;
+            delete this.UserErrorFormsStep1.errorEmailMsg;
         }
 
-        this.checkValidationMsg(e, this.UserErrorForms.errorEmailMsg || null)
+        this.checkValidationMsg(e, this.UserErrorFormsStep1.errorEmailMsg || null)
 
     }
 
@@ -42,22 +46,33 @@ class SignupValidator {
 
     validatePassWord = (e, str) => {
         if(str.length < 6){
-            this.UserErrorForms.errorPassMsg = this.passwordError
+            this.UserErrorFormsStep1.errorPassMsg = this.passwordError
         } else {
-            delete this.UserErrorForms.errorPassMsg
+            delete this.UserErrorFormsStep1.errorPassMsg
         }
 
-        this.checkValidationMsg(e, this.UserErrorForms.errorPassMsg || null)
+        this.checkValidationMsg(e, this.UserErrorFormsStep1.errorPassMsg || null)
     }
 
     validateRepeatPassword = (e, password, repeatPassword) => {
         if(password !== repeatPassword){
-            this.UserErrorForms.errorPassRepeatMsg = this.repeatPasswordError
+            this.UserErrorFormsStep1.errorPassRepeatMsg = this.repeatPasswordError
         } else {
-            delete this.UserErrorForms.errorPassRepeatMsg
+            delete this.UserErrorFormsStep1.errorPassRepeatMsg
         }
 
-        this.checkValidationMsg(e, this.UserErrorForms.errorPassRepeatMsg || null)
+        this.checkValidationMsg(e, this.UserErrorFormsStep1.errorPassRepeatMsg || null)
+    }
+
+    validateDogName = (e) => {
+        if(e.currentTarget.value === ''){
+            console.log('valor: ', e.currentTarget.value)
+            this.UserErrorFormsStep2.emptyNameError = this.emptyNameError
+        } else {
+            delete this.UserErrorFormsStep2.emptyNameError
+        }
+
+        this.checkValidationMsg(e, this.UserErrorFormsStep2.emptyNameError || null)
     }
 
     checkValidationMsg = (e, msgErr) => {
@@ -70,7 +85,10 @@ class SignupValidator {
         }
         
         // Comprobamos si sigue existiendo el error
-        if(this.getErrors(this.UserErrorForms).find(error => error === msgErr) && msgErr !== null){
+        const findErrorStep1 = this.getErrors(this.UserErrorFormsStep1).find(error => error === msgErr);
+        const findErrorStep2 = this.getErrors(this.UserErrorFormsStep2).find(error => error === msgErr);
+
+        if(findErrorStep1 || findErrorStep2 && msgErr !== null){
             if(parent.querySelectorAll('.invalid-feedback').length === 0){
                 let msg = document.createElement('div');
                 msg.setAttribute('class','invalid-feedback');
