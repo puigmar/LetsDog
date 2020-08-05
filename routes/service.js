@@ -4,6 +4,7 @@ const router = express.Router();
 const prices = require("./../config/prices");
 const User = require("../models/User");
 const Carer = require("../models/Carer");
+const { trasformToRegularTime } = require("../helpers/methods");
 
 // router.use((req, res, next) => {
 //     if (req.session.currentUser) {
@@ -15,7 +16,16 @@ const Carer = require("../models/Carer");
 //   });
 
 router.get("/service", (req, res, next) => {
-  res.render("service", { intervalList: prices });
+
+  let transformPrices = prices.map(interval => {
+    let transformTime = trasformToRegularTime(interval.intervalTime);
+    return {
+      intervalTime: transformTime,
+      price: interval.price,
+    }
+  })
+
+  res.render("service", { intervalList: transformPrices });
 });
 
 router.get("/setup", (req, res, next) => {

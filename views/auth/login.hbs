@@ -11,31 +11,36 @@
             </div>
         </div>
     </section>
-    <section class="box-main">
-        <div class="login-content">
-          <form action="/login" method="post">
-            <div class="form-group compact hideAutocomplete">
-                <label for="signupEmailInput"> Email </label>
-                <input class="form-control" type="email" name="email" id="signupEmailInput">
-            </div>
+    <form action="/login" method="post">
+      <section class="box-main">
+      
+          <div class="login-content">
+            
+              <div class="form-group compact hideAutocomplete">
+                  <label for="loginCarerEmailInput"> Email </label>
+                  <input class="form-control" type="email" name="email" id="loginCarerEmailInput">
+              </div>
 
-            <div class="form-group compact hideAutocomplete">
-                <label for="signupPasswordInput"> Password </label>
-                <input class="form-control" type="password" name="password" id="signupPasswordInput">
-            </div>
-          </form>
-        </div>
-        {{#if err}}
-        <p class="invalid-feedback">
-          {{ err }}
-        </p>
-      {{/if}}
-      <div class="box-main_footer">
-        <a id="btnContinueSignup" class="btn btn-primary btn-lg">Inciniciar sesión</a>
-        <p class="small-link">No estamos registrados <a href="/signup">Registrarse</a></p>
-      </div>
+              <div class="form-group compact hideAutocomplete">
+                  <label for="loginCarerPasswordInput"> Password </label>
+                  <input class="form-control" type="password" name="password" id="loginCarerPasswordInput">
+              </div>
 
-    </section>
+              <div class="form-group">
+                {{#if err}}
+                  <p class="invalid-feedback">
+                    {{ err }}
+                  </p>
+                {{/if}}
+              </div>
+          </div>
+          <div class="box-main_footer">
+            <button id="btnContinueSignup" type="submit" class="btn btn-primary btn-lg">Inciniciar sesión</button>
+            <p class="small-link">No estamos registrados <a href="/signup">Registrarse</a></p>
+          </div>
+      
+      </section>
+    </form>
 </main>
 
-<script src="/javascripts/Form.js"></script>
+<script src="/javascripts/Forms.js"></script>

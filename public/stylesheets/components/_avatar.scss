@@ -6,54 +6,54 @@
     button{
         display: none;
     }
+}
 
-    .avatar {
+.avatar {
 
-        border-radius: 100%;
-        width: 120px;
-        height: 120px;
-        background-position: center;
-        background-color: $beige-color;
-        background-size: 70px 70px;
-        background-repeat: no-repeat;
-        margin: 0 auto 20px;
+    border-radius: 100%;
+    width: 120px;
+    height: 120px;
+    background-position: center;
+    background-color: $beige-color;
+    background-size: 70px 70px;
+    background-repeat: no-repeat;
+    margin: 0 auto 20px;
+    transition: all 0.3s ease-in-out;
+    transition-property: background-color, box-shadow;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    &:before{
+        content: "\e904";
+        font-family: icomoon;
+        position: absolute;
+        font-size: 5rem;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: $dark-color;
+        opacity: 1;
         transition: all 0.3s ease-in-out;
-        transition-property: background-color, box-shadow;
-        cursor: pointer;
-        position: relative;
+    }
+    
+    &.avatar-banner{
+        width: 400px;
+        height: 200px;
+        border-radius: 5px;
+    }
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    &.cover {
+        background-color: rgba(255, 255, 255, 1);
+        background-size: cover;
+        box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.32);
 
         &:before{
-            content: "\e904";
-            font-family: icomoon;
-            position: absolute;
-            font-size: 5rem;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: $dark-color;
-            opacity: 1;
-            transition: all 0.3s ease-in-out;
-        }
-        
-        &.avatar-banner{
-            width: 400px;
-            height: 200px;
-            border-radius: 5px;
-        }
-    
-        &:hover {
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-    
-        &.cover {
-            background-color: rgba(255, 255, 255, 1);
-            background-size: cover;
-            box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.32);
-
-            &:before{
-                opacity: 0;
-            }
+            opacity: 0;
         }
     }
 }
-

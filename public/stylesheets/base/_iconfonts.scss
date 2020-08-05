@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'icomoon';
-    src:  url('../../fonts/icomoon.eot?b03c79');
-    src:  url('../../fonts/icomoon.eot?b03c79#iefix') format('embedded-opentype'),
-      url('../../fonts/icomoon.woff2?b03c79') format('woff2'),
-      url('../../fonts/icomoon.ttf?b03c79') format('truetype'),
-      url('../../fonts/icomoon.woff?b03c79') format('woff'),
-      url('../../fonts/icomoon.svg?b03c79#icomoon') format('svg');
+    src:  url('../../fonts/icomoon.eot?ojupu8');
+    src:  url('../../fonts/icomoon.eot?ojupu8#iefix') format('embedded-opentype'),
+      url('../../fonts/icomoon.woff2?ojupu8') format('woff2'),
+      url('../../fonts/icomoon.ttf?ojupu8') format('truetype'),
+      url('../../fonts/icomoon.woff?ojupu8') format('woff'),
+      url('../../fonts/icomoon.svg?ojupu8#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -27,6 +27,9 @@
   }
   
 
+  .icon-huella:before {
+    content: "\e905";
+  }
   .icon-addPhoto:before {
     content: "\e904";
     color: #b7ac9a;
@@ -46,4 +49,5 @@
     content: "\e903";
     color: #f97350;
   }
+  
   

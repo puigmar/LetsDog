@@ -85,6 +85,11 @@ input:-webkit-autofill:active  {
         left: 0;
         width: 100%;
         bottom: -22px;
+        display: block;
+
+        &:empty{
+            display: none;
+        }
     }
     
     .custom-select{
