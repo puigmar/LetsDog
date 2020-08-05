@@ -36,7 +36,8 @@ router.get("/carer-profile/:id", (req, res, next) => {
     });
 });
 
-router.get("/waiting-for-service", (req, res, next) => {
-  res.render("/service-validation");
+router.get("/service-validation", (req, res, next) => {
+  res.render("service-validation");
 });
+
 module.exports = router;
