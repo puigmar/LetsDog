@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
         
       }
     })
-    //console.log('después de: ', carers_connected[0].geometry)
+    console.log('después de: ', carers_connected[0].geometry)
   })
 
   socket.on ('request', requestData => {

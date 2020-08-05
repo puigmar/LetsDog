@@ -37,12 +37,14 @@ class User{
                         ...this.startPosition
                     }
                 );
+
             }
         );
         return this.startPosition;
     }
 
     sendEmitWatchPosition = (event) => {
+
         navigator.geolocation.watchPosition(
             (position) => {
                 this.currentPosition.geometry.coordinates[0] = position.coords.longitude;
@@ -59,6 +61,8 @@ class User{
                     }
                 );
             }
+
+            
         ); 
     }
 

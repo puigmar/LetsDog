@@ -118,7 +118,7 @@ router.post("/check/available-carers", async (req, res, next) => {
     let userCoords = req.body;
     console.log(req.body)
     const SEARCHLIMIT = 20;
-    const MAXTIME = 30; // minutes
+    const MAXTIME = 1000; // minutes
 
     const falseCarers = [{
         carerId: '5f299e1fbc5a2a31e4c545ab',
@@ -134,9 +134,7 @@ router.post("/check/available-carers", async (req, res, next) => {
         }
     }]
 
-
-    
-    carers_connected.push(...falseCarers);
+    //carers_connected.push(...falseCarers);
 
     const orderCarerByTime = (array) => {
         const orderByDuration = array.sort((a, b) => a.duration - b.duration);
@@ -154,6 +152,8 @@ router.post("/check/available-carers", async (req, res, next) => {
 
                 let minutes = Math.ceil((duration / 60).toFixed(0));
 
+                console.log(minutes)
+
                 if(minutes < MAXTIME) {
                     carers_connected[i].duration = minutes;
                     availableCarers.push(carers_connected[i]);
@@ -168,7 +168,7 @@ router.post("/check/available-carers", async (req, res, next) => {
     await nearestOnlineCarers()
     const queryCarerList = orderCarerByTime(availableCarers);
 
-    console.log(queryCarerList);
+    console.log('queryList: ', queryCarerList);
 
     const carerDetails = [];
 
@@ -200,7 +200,7 @@ router.post("/check/available-carers", async (req, res, next) => {
     }
 
     await getCarerDetails();
-    
+
     res.send(carerDetails)
     
 });
