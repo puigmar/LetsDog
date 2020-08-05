@@ -4,6 +4,9 @@
     flex-direction: column;
     justify-content: flex-end;
     min-height: calc(100vh - 56px);
+    background-image: url('../../images/home-bg.jpg');
+    background-size: contain;
+    background-position: center 40px;
 
     .box-main{
         min-height: auto;
