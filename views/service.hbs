@@ -21,8 +21,12 @@
                             <div class="splide__slide">
                                 <a href="#" class="intervalButton intervalCard">
                                     <h3 class="intervalTime">
+                                        {{#if this.intervalTime.hours}}
                                         <div>{{this.intervalTime.hours}}<span>h</span></div>
+                                        {{/if}}
+                                        {{#if this.intervalTime.minutes}}
                                         <div>{{this.intervalTime.minutes}}<span>min</span></div>
+                                        {{/if}}
                                     </h3>
                                     <h4 class="price">{{this.price}}€</h4>
                                 </a>
@@ -53,7 +57,7 @@
 	    perMove: 1,
         trimSpace: 'move',
         autoWidth: true,
-        type: 'slide',
+        type: 'loop',
         autoWidth: true,
         gap: 13
     } ).mount();

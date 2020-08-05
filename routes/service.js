@@ -22,9 +22,9 @@ router.get("/service", (req, res, next) => {
     return {
       intervalTime: transformTime,
       price: interval.price,
-    };
-  });
-
+    }
+  })
+  console.log(transformPrices)
   res.render("service", { intervalList: transformPrices });
 });
 
@@ -59,7 +59,8 @@ router.get("/payment", (req, res, next) => {
 });
 
 router.post("/payment", (req, res, next) => {
-  const { name, number, expiresMonth, expiresYear, cvv } = req.body;
+  const { name, number, expiresMonth, expiresYear, cvv, saveCard } = req.body;
+  
   console.log(req.body);
 
   if (
@@ -76,10 +77,10 @@ router.post("/payment", (req, res, next) => {
   }
 
   Card.create({
-    userId: currentUserInfo._id,
+    //userId: currentUserInfo._id,
     ownerName: name,
     cardNumber: number,
-    expiration: expiresMonth,
+    expiration: expiresMonth + expiresYear ,
     cvv: cvv,
   })
     .then(() => {

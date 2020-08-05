@@ -304,17 +304,19 @@ main {
     justify-content: space-between; }
 
 .v-service-home {
-  min-height: calc(100vh - 56px);
+  min-height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; }
+  justify-content: flex-end;
+  min-height: calc(100vh - 56px); }
   .v-service-home .box-main {
-    min-height: calc(100vh - 150px);
+    min-height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between; }
   .v-service-home .service-home_wellcome {
-    display: flex; }
+    display: flex;
+    margin-bottom: 20px; }
     .v-service-home .service-home_wellcome_text {
       padding-right: 20px; }
     .v-service-home .service-home_wellcome p {
@@ -323,15 +325,20 @@ main {
       line-height: 1.2; }
     .v-service-home .service-home_wellcome .avatar {
       width: 73px;
-      height: 73px; }
-  .v-service-home .splide__slide {
-    height: 204px;
-    width: 100px;
-    position: relative; }
-    .v-service-home .splide__slide:hover .intervalCard {
-      background-color: #FAD06C; }
-  .v-service-home .splide .intervalCard {
-    height: 200px !important; }
+      height: 73px;
+      margin: 0; }
+  .v-service-home .splide {
+    margin-bottom: 15px; }
+    .v-service-home .splide__slide {
+      height: 204px;
+      width: 125px;
+      position: relative; }
+      .v-service-home .splide__slide:hover .intervalCard {
+        background-color: #FAD06C; }
+    .v-service-home .splide .intervalCard {
+      height: 200px !important; }
+      .v-service-home .splide .intervalCard .intervalTime > div {
+        display: inline-block; }
 
 .btn {
   width: 100%;
@@ -520,7 +527,7 @@ input:-webkit-autofill:active {
       opacity: 0; }
 
 .intervalCard {
-  padding: 24px 15px;
+  padding: 24px 12px;
   border-radius: 20px;
   background-color: #F7F2E5;
   margin: 0;
@@ -541,6 +548,15 @@ input:-webkit-autofill:active {
   .intervalCard h4 {
     font-size: 1.9rem;
     color: #B7AC9A;
-    font-weight: 500; }
+    font-weight: 500;
+    color: #897a62; }
+  .intervalCard .intervalTime {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #897a62; }
+    .intervalCard .intervalTime span {
+      font-size: 1.6rem;
+      font-weight: 300;
+      padding-left: 3px; }
 
 /*# sourceMappingURL=style.css.map */
