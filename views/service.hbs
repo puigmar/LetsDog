@@ -22,11 +22,12 @@
                                 <a href="#" class="intervalButton intervalCard">
                                     <h3 class="intervalTime">
                                         {{#if this.intervalTime.hours}}
-                                        <div>{{this.intervalTime.hours}}<span>h</span></div>
+                                            <div><span class="intervalTime_hours">{{this.intervalTime.hours}}</span><span>h</span></div>
                                         {{/if}}
                                         {{#if this.intervalTime.minutes}}
-                                        <div>{{this.intervalTime.minutes}}<span>min</span></div>
+                                            <div><span class="intervalTime_minutes">{{this.intervalTime.minutes}}</span><span>min</span></div>
                                         {{/if}}
+                                        <input type="hidden" data-type="{{this.intervalRaw}}">    
                                     </h3>
                                     <h4 class="price">{{this.price}}€</h4>
                                 </a>
@@ -66,15 +67,13 @@
     intervalButtons.forEach((elem) => {
         elem.addEventListener("click", (event) => {
             const card = event.target.parentNode
-            const interval = card.querySelector('.intervalTime').innerHTML
-            const price = card.querySelector('.price').innerHTML
-
-
+            const interval = card.querySelector('[data-type]').getAttribute('data-type');
+            const price = card.querySelector('.price').innerHTML;
             const contract = { userId: `{{currentUserInfo.user._id}}`, carerId: "", interval_time: interval, price: price, meeting_point: "", card_number: "" };
             localStorage.setItem('contract', JSON.stringify(contract));
-
         });
 
     });
+    
 
 </script>

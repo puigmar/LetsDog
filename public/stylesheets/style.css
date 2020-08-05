@@ -554,7 +554,11 @@ input:-webkit-autofill:active {
     font-size: 2.5rem;
     font-weight: 700;
     color: #897a62; }
+<<<<<<< HEAD
     .intervalCard .intervalTime span {
+=======
+    .intervalCard .intervalTime span:last-child {
+>>>>>>> 14d0161f91f8653fac9de4559a8886d35d31982f
       font-size: 1.6rem;
       font-weight: 300;
       padding-left: 3px; }
