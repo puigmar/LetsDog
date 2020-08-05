@@ -149,7 +149,6 @@ class Signup{
     }
 
     addDogData = () => {
-        this.dogData.photo = this.photoDogUrl;
         this.dogData.name = this.dogNameInput.value;
         this.dogData.sex = this.dogSexInput.value;
         this.dogData.breed = this.breedInput.value;

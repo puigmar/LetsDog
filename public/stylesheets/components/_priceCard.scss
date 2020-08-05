@@ -1,0 +1,29 @@
+.intervalCard{
+    padding: 24px 15px;
+    border-radius: 20px;
+    background-color: $beige-color;
+    margin: 0;
+    display: block;
+
+    top: 0;
+    left: 0;
+    height: 100%;
+    position: relative;
+
+    &:before{
+        content: "\e905";
+        font-family: icomoon;
+        position: absolute;
+        right: 14px;
+        bottom: 3px;
+        font-size: 3.5rem;
+        opacity: 0.1;
+        color: black;
+    }
+
+    h4{
+        font-size: 1.9rem;
+        color: $dark-color;
+        font-weight: 500;
+    }
+}

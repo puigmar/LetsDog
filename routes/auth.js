@@ -42,59 +42,59 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-
 router.get("/login", (req, res, next) => {
   res.render("auth/login", { err: "" });
 });
 
-router.post("/login", (req, res, next) => {
-  const { email, password } = req.body;
+router.post("/login", async (req, res, next) => {
 
-  console.log(req.body)
+  try {
 
-  if (email === "" || password === "") {
-    res.render("auth/login", { err: "Type something" });
-    return;
+    const { email, password } = req.body;
+
+    if (email === "" || password === "") {
+      res.render("auth/signup", { err: "Type something" });
+      return;
+    }
+
+    const userQuery = await User.findOne({ email, isCarer: false });
+
+    console.log('user: ', userQuery)
+
+    if (!userQuery) {
+      res.render("auth/login", { err: "Email doesn't exist" });
+      return;
+    }
+
+    if (bcrypt.compareSync(password, userQuery.password)) {
+
+      const queryDog = await Dog.findOne({ clientId: userQuery.userId});
+
+      console.log('Dog: ', queryDog)
+
+      const queryClient = await Client.findOne({ userId: queryDog.userId })
+
+      req.session.currentUser = {
+        user: userQuery,
+        dog: queryDog,
+        client: queryClient,
+      }
+
+      //console.log("Aqui -------->", req.session.currentUser);
+      
+      res.redirect("/service");
+
+    } else {
+
+      res.render("auth/login", { err: "Incorrect password" });
+
+    }
+
+  }
+  catch(err) {
+    next(err)
   }
 
-  User.findOne({ email })
-    .then((user) => {
-      if (!user) {
-        res.render("auth/login", { err: "Email doesn't exist" });
-        return;
-      }
-
-      if (bcrypt.compareSync(password, user.password)) {
-        //var sessionData = {user}
-        Dog.findOne({ userId: user._id })
-          .then((dog) => {
-            //sessionData = {user, dog}
-
-            Client.findOne({ userId: user._id })
-              .then((client) => {
-                //sessionData = {user, dog, client}
-                req.session.currentUser = {
-                  user: user,
-                  dog: dog,
-                  client: client,
-                };
-                console.log("Aqui -------->", req.session.currentUser);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        res.redirect("/service");
-      } else {
-        res.render("auth/login", { err: "Incorrect password" });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 });
 
 module.exports = router;

@@ -5,6 +5,7 @@ const prices = require("./../config/prices");
 const User = require("../models/User");
 const Carer = require("../models/Carer");
 const Card = require("../models/Card");
+const { trasformToRegularTime } = require("../helpers/methods");
 
 // router.use((req, res, next) => {
 //     if (req.session.currentUser) {
@@ -16,7 +17,15 @@ const Card = require("../models/Card");
 //   });
 
 router.get("/service", (req, res, next) => {
-  res.render("service", { intervalList: prices });
+  let transformPrices = prices.map((interval) => {
+    let transformTime = trasformToRegularTime(interval.intervalTime);
+    return {
+      intervalTime: transformTime,
+      price: interval.price,
+    };
+  });
+
+  res.render("service", { intervalList: transformPrices });
 });
 
 router.get("/setup", (req, res, next) => {
@@ -50,9 +59,9 @@ router.get("/payment", (req, res, next) => {
 });
 
 router.post("/payment", (req, res, next) => {
-  const { name, number, expiresMonth, expiresYear, cvv, saveCard } = req.body;
-  console.log(name)
-  
+  const { name, number, expiresMonth, expiresYear, cvv } = req.body;
+  console.log(req.body);
+
   if (
     name === "" ||
     number === "" ||
@@ -60,28 +69,27 @@ router.post("/payment", (req, res, next) => {
     expiresYear === "" ||
     cvv === ""
   ) {
-    res.render("/payment", { err: "Te faltan campos, por favor llenalos" });
+    res.render("/payment-method", {
+      err: "Te faltan campos, por favor llenalos",
+    });
     return;
   }
 
-  if (saveCard == true) {
-    Card.createOne({
-      ownerName: name,
-      cardNumber: number,
-      expiration: expiresMonth + expiresYear,
-      cvv: cvv,
+  Card.create({
+    userId: currentUserInfo._id,
+    ownerName: name,
+    cardNumber: number,
+    expiration: expiresMonth,
+    cvv: cvv,
+  })
+    .then(() => {
+      res.redirect("/login");
     })
-      .then (() => {
-        res.redirect('/login')
-      })
-      .catch((err) => {
-        console.log(err)
-      });
-  } else {
-    console.log('No se guardo nada nadita nada')
-  }
-  
+    .catch((err) => {
+      console.log(err);
+    });
 });
+
 // ownerName: String,
 //   cardNumber: Number,
 //   expiration:Number,

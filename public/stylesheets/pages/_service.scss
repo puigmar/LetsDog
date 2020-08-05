@@ -1,0 +1,53 @@
+.v-service-home{
+    min-height: calc(100vh - #{$headerheight});
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    .box-main{
+        min-height: calc(100vh - 150px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .service-home_wellcome{
+        display: flex;
+
+        &_text{
+            padding-right: 20px;
+        }
+        
+        p{
+            font-size: 2rem;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .avatar{
+            width: 73px;
+            height: 73px;
+        }
+
+
+    }
+
+    .splide{
+
+        &__slide{
+            height: 204px;
+            width: 100px;
+            position: relative;
+
+            &:hover{
+                .intervalCard{
+                    background-color: $secondary-color;
+                }
+            }
+        }
+
+        .intervalCard{
+            height: 200px!important;
+        }
+    }
+}

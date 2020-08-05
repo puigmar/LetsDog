@@ -1,19 +1,62 @@
-<!--{{#if isUserLoggedIn}}-->
-<p> Hello, {{currentUserInfo.dog.name}}. </p>
-<!--{{/if}}-->
+<link rel="stylesheet" href="./stylesheets/splide.min.css">
 
-{{#each intervalList}}
-<div class="intervalCard">
-    <h2 class="intervalTime">{{this.intervalTime}}</h2>
-    <h4 class="price">{{this.price}}</h4>
-    <a href="#" class="intervalButton">click</a>
-</div>
-{{/each}}
+<main class="v-service-home">
 
-<a href="/setup">Marca tu punto de encuentro</a>
+    <section class="box-main">
+        <div class="service-home_content">
+            <section class="service-home_wellcome">
+                <div class="service-home_wellcome_text">
+                    <p>¿Cuánto tiempo quieres que cuidemos de {{currentUserInfo.dog.name}}?</p>
+                </div>
+                <div class="service-home_wellcome_avatar">
+                    <div class="avatar cover" style="background-image: url('{{currentUserInfo.dog.photo}}');"></div>
+                </div>
+            </section>
 
+            <section class="service-home_priceList">
+                <div id="splide" class="splide">
+                    <div class="splide__track">
+                        <div class="splide__list">
+                            {{#each intervalList}}
+                            <div class="splide__slide">
+                                <a href="#" class="intervalButton intervalCard">
+                                    <h3 class="intervalTime">
+                                        <div>{{this.intervalTime.hours}}<span>h</span></div>
+                                        <div>{{this.intervalTime.minutes}}<span>min</span></div>
+                                    </h3>
+                                    <h4 class="price">{{this.price}}€</h4>
+                                </a>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="service-home_footer">
+            <a href="/setup" id="btnContinueSignup3" class="btn btn-primary btn-lg">Marca tu punto de encuentro</a>
+        </div>
+        
+
+    </section>
+
+</main>
+
+<script src="/javascripts/libraries/splide.min.js"></script>
 <script>
 
+    var splide = new Splide( '#splide', {
+        arrows   : false,
+        pagination: false,
+	    perPage: 3,
+	    perMove: 1,
+        trimSpace: 'move',
+        autoWidth: true,
+        type: 'slide',
+        autoWidth: true,
+        gap: 13
+    } ).mount();
 
     const intervalButtons = document.querySelectorAll(".intervalButton");
     intervalButtons.forEach((elem) => {
