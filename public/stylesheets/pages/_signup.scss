@@ -1,40 +1,74 @@
-.profile {
-    background-image: url(https://cdn2.iconfinder.com/data/icons/flat-ui-4/100/Camera-512.png);
-    border-radius: 100%;
-    width: 150px;
-    height: 150px;
-    background-position: center;
-    background-color: rgba(0, 0, 0, 0.1);
-    background-size: 70px 70px;
-    background-repeat: no-repeat;
-    margin: 0 auto 20px;
-    transition: all 0.3s ease-in-out;
-    transition-property: background-color, box-shadow;
-    cursor: pointer;
+.v-signup{
+    min-height: calc(100vh - #{$headerheight});
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-    &.profile-banner{
-        width: 400px;
-        height: 200px;
-        border-radius: 5px;
+    .box-main{
+        min-height: calc(100vh - 150px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
-    &:hover {
-        background-color: rgba(0, 0, 0, 0.4);
+    .splide{
+        display: flex;
+        flex-direction: column;
+
+        &__slide{
+            height: auto!important;
+        }
+
+        &__pagination{
+            order: 0;
+            position: relative;
+            bottom: auto;
+
+            li{
+                position: relative;
+                min-width: 45px;
+                display: flex;
+                justify-content: center;
+                flex-flow: column;
+            }
+
+            &__page{
+
+                background-color: transparent;
+                margin-top: 20px;
+                position: relative;
+
+                &:before{
+                    content: '\e902';
+                    font-family: 'icomoon';
+                    font-size: 2rem;
+                    position: absolute;
+                    top: -30px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    color: $dark-color;
+                }
+
+
+                &.is-active {
+                    transform: none;
+                    background: $primary-color;
+
+                    &:before{
+                        color: $primary-color;
+                        
+                    }
+                }
+            }
+        }
+
+        &__track{
+            order: 1;
+            
+        }
     }
 
-    &.cover {
-        background-color: rgba(255, 255, 255, 1);
-        background-size: cover;
-        box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.32);
+    .avatar{
+        margin-top: 20px;
     }
-}
-
-#formBtn {
-    margin: 0 auto;
-    display: block;
-}
-
-#photo,
-#submitBtn {
-    display: none;
 }

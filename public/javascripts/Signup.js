@@ -4,7 +4,7 @@ class Signup{
         this.emailInput = document.getElementById('signupEmailInput');
         this.passwordInput = document.getElementById('signupPasswordInput');
         this.repeatPasswordInput = document.getElementById('signupPasswordRepeatInput');
-        this.signupBtnStep1 = document.getElementById('signupBtnStep1');
+        this.signupBtnStep1 = document.getElementById('btnContinueSignup');
 
         this.photoDogAvatarPreview = document.getElementById('photoDogAvatar');
         this.photoDogUrl = '';
@@ -192,9 +192,9 @@ class Signup{
         });
         
 
-        this.signupBtnStep1.addEventListener('click', this.handleIfEmailExists);
+        /*this.signupBtnStep1.addEventListener('click', this.handleIfEmailExists);
         this.signupBtnStep3.addEventListener('click', this.sendSignupFormData);
-        /*this.signupBtnStep2.addEventListener('click', )
+        this.signupBtnStep2.addEventListener('click', )
         this.signupBtnStep2.addEventListener('click', )*/
     }
 
