@@ -70,7 +70,7 @@ function getPointData(lngLat) {
   };
 }
 
-var socket = io("");
+//var socket = io("");
 
 
 map.on("load", function () {

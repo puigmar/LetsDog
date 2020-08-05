@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
         
       }
     })
-    console.log('después de: ', carers_connected[0].geometry)
+    //console.log('después de: ', carers_connected[0].geometry)
   })
 
   socket.on ('request', requestData => {
@@ -59,7 +59,7 @@ io.on('connection', (socket) => {
    console.log("Aqui------->", requestData)
    console.log('Otro------>', carers_connected)
    
-  carers_connected.find((carerSocket) => {
+    carers_connected.find((carerSocket) => {
     
       
      if (carerSocket.carerId === requestData.carerId) {
