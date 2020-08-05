@@ -8,6 +8,7 @@ class SignupValidator {
         this.repeatPasswordError = `This field doesn't match with your password`;
         this.invalidAccess = 'Your email or your password are incorrect';
         this.emptyNameError = 'This field cannot be empty';
+        this.emptySelectValue = 'You have to choose one option';
         
         this.UserErrorFormsStep1 = {
             errorEmailMsg: this.invalidEmailError,
@@ -17,6 +18,12 @@ class SignupValidator {
 
         this.UserErrorFormsStep2 = {
             emptyNameError: this.emptyNameError,
+        }
+
+        this.UserErrorFormsStep3 = {
+            emptyBreedValue: this.emptySelectValue,
+            emptyAgeValue: this.emptySelectValue,
+            emptySizeValue: this.emptySelectValue,
         }
     }
 
@@ -30,6 +37,36 @@ class SignupValidator {
 
         this.checkValidationMsg(e, this.UserErrorFormsStep1.errorEmailMsg || null)
 
+    }
+
+    validateBreedSelect = (e) => {
+        if(e.currentTarget.value === 'init'){
+            this.UserErrorFormsStep3.emptyBreedValue = this.emptySelectValue
+        } else {
+            delete this.UserErrorFormsStep3.emptyBreedValue
+        }
+
+        this.checkValidationMsg(e, this.UserErrorFormsStep3.emptyBreedValue || null)
+    }
+
+    validateAgeSelect = (e) => {
+        if(e.currentTarget.value === 'init'){
+            this.UserErrorFormsStep3.emptyAgeValue = this.emptySelectValue
+        } else {
+            delete this.UserErrorFormsStep3.emptyAgeValue
+        }
+
+        this.checkValidationMsg(e, this.UserErrorFormsStep3.emptyAgeValue || null)
+    }
+
+    validateSizeSelect = (e) => {
+        if(e.currentTarget.value === 'init'){
+            this.UserErrorFormsStep3.emptySizeValue = this.emptySizeValue
+        } else {
+            delete this.UserErrorFormsStep3.emptySizeValue
+        }
+
+        this.checkValidationMsg(e, this.UserErrorFormsStep3.emptySizeValue || null)
     }
 
     emailIsValid = (email) => {

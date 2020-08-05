@@ -5,6 +5,10 @@ class Signup{
         this.passwordInput = document.getElementById('signupPasswordInput');
         this.repeatPasswordInput = document.getElementById('signupPasswordRepeatInput');
 
+        this.breedInput = document.getElementById('signupDogBreed');
+        this.ageInput = document.getElementById('signupDogAge');
+        this.sizeInput = document.getElementById('signupDogSize');
+
         this.photoDogAvatarPreview = document.getElementById('photoDogAvatar');
         this.photoDogUrl = '';
         this.photoDogInputFile = document.getElementById('photoDogInputFile');
@@ -12,15 +16,15 @@ class Signup{
         this.photoDogForm = document.getElementById('photoDogForm');
 
         this.dogNameInput = document.getElementById('signupDogName');
-        this.dogSexInput = document.querySelector('input[name="signupDogSex"]:checked');
-        this.dogBreedInput = document.getElementById('signupDogBreed');
-        this.dogAgeInput = document.getElementById('signupDogAge');
-        this.dogSizeInput = document.getElementById('signupDogAge');
+        this.dogSexInput = document.querySelector('input[name="signupDogSex"]:checked').getAttribute('data-value');
+        console.log('sex: ', document.querySelector('input[name="signupDogSex"]:checked').getAttribute('data-value'))
         this.dogBehaviorPeopleInput = document.getElementById('signupDogBehaviorPeople');
         this.dogBehaviorDogsInput = document.getElementById('signupDogBehaviorDogs');
+        
 
         this.signupBtnStep1 = document.getElementById('btnValidateEmail');
-        this.signupBtnContinue = document.getElementById('btnContinueSignup');
+        this.signupBtnContinue = document.getElementById('btnContinueSignup2');
+        this.signupBtnSubmit = document.getElementById('btnContinueSignup3');
 
         this.userData = {
             email: '',
@@ -96,6 +100,21 @@ class Signup{
         this.checkSubmitButton(this.signupBtnContinue, 'UserErrorFormsStep2');
     }
 
+    handleBreed = (e) => {
+        validator.validateBreedSelect(e);
+        this.checkSubmitButton(this.signupBtnSubmit, 'UserErrorFormsStep3');
+    }
+
+    handleAge = (e) => {
+        validator.validateAgeSelect(e);
+        this.checkSubmitButton(this.signupBtnSubmit, 'UserErrorFormsStep3');
+    }
+
+    handleSize = (e) => {
+        validator.validateSizeSelect(e);
+        this.checkSubmitButton(this.signupBtnSubmit, 'UserErrorFormsStep3');
+    }
+
     sendAvatarPhoto = (e) => {
         e.preventDefault();
         this.updatePhoto(
@@ -133,13 +152,11 @@ class Signup{
         this.dogData.photo = this.photoDogUrl;
         this.dogData.name = this.dogNameInput.value;
         this.dogData.sex = this.dogSexInput.value;
-        this.dogData.breed = this.dogBreedInput.value;
-        this.dogData.age = Number(this.dogAgeInput.value);
-        this.dogData.size = this.dogSizeInput.value;
+        this.dogData.breed = this.breedInput.value;
+        this.dogData.age = Number(this.ageInput.value);
+        this.dogData.size = this.sizeInput.value;
         this.dogData.behavior.withPeople = this.dogBehaviorPeopleInput.value;
         this.dogData.behavior.withDogs = this.dogBehaviorDogsInput.value;
-
-        console.log('sex: ', this.dogSexInput.value)
     }
 
     sendSignupFormData = (e) => {
@@ -164,8 +181,9 @@ class Signup{
         console.log(signupData)
 
         axios.post('/signup', signupData)
-            .then( () => {
-                window.location.href = '/service'
+            .then( (res) => {
+                console.log(res);
+                window.location.href = '/service';
             })
             .catch( err => console.log(err));
 
@@ -202,9 +220,17 @@ class Signup{
         this.photoDogInputFile.addEventListener('change', () => {
             this.photoDogSubmit.click()
         });
+
+        this.breedInput.addEventListener('change', this.handleBreed)
+        this.ageInput.addEventListener('change', this.handleAge)
+        this.sizeInput.addEventListener('change', this.handleSize)
         
         this.signupBtnStep1.addEventListener('click', this.handleIfEmailExists);
-        this.signupBtnContinue.addEventListener('click', this.sendSignupFormData);
+        this.signupBtnSubmit.addEventListener('click', this.sendSignupFormData);
+
+        this.dogSexInput.addEventListener('change', (e) => {
+            console.log(this.dogSexInput.querySelector(':checked').getAttribute('data-value'))
+        })
     }
 
     init = () => {

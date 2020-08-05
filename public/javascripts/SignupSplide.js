@@ -1,7 +1,8 @@
 class Slider {
     constructor(){
         this.signupBtnStep1 = document.getElementById('btnValidateEmail');
-        this.signupBtnContinue = document.getElementById('btnContinueSignup');
+        this.signupBtnContinue = document.getElementById('btnContinueSignup2');
+        this.signupBtnSubmit = document.getElementById('btnContinueSignup3');
     }
 
     disablePagination = () => {
@@ -46,11 +47,17 @@ class Slider {
 
         splide.on('move', () => {
             slider.backLink(splide.index);
-            if(splide.index > 0){
+            if(splide.index === 1){
                 this.signupBtnContinue.classList.remove('d-none');
+                this.signupBtnSubmit.classList.add('d-none');
                 this.signupBtnStep1.classList.add('d-none');
-            } else {
+            } else if(splide.index === 2){
                 this.signupBtnContinue.classList.add('d-none');
+                this.signupBtnStep1.classList.add('d-none');
+                this.signupBtnSubmit.classList.remove('d-none');
+            } else{
+                this.signupBtnContinue.classList.add('d-none');
+                this.signupBtnSubmit.classList.add('d-none');
                 this.signupBtnStep1.classList.remove('d-none');
             }
         });
