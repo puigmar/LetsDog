@@ -51,7 +51,8 @@ router.get("/payment", (req, res, next) => {
 
 router.post("/payment", (req, res, next) => {
   const { name, number, expiresMonth, expiresYear, cvv, saveCard } = req.body;
-  console.log(req.body)
+  console.log(name)
+  
   if (
     name === "" ||
     number === "" ||

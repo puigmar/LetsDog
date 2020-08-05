@@ -42,55 +42,6 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// router.post("/signup", (req, res, next) => {
-
-//   const { userData, dogData, clientData } = req.body;
-
-//   const salt = bcrypt.genSaltSync(bcryptSalt);
-//   const hashPass = bcrypt.hashSync(userData.password, salt);
-
-//   userData.password = hashPass;
-
-//   User.create(userData)
-//     .then(() => {
-
-//       User.findOne({ email: userData.email })
-//         .then((user) => {
-//           const userId = user._id;
-//           console.log(userId)
-//           dogData.userId = userId;
-//           clientData.userId = userId;
-//           //console.log(dogData)
-
-//           Dog.create(dogData)
-//             .then(() => {
-//               Dog.findOne({ userId: dogData.userId }).then((dog) => {
-//                 const dogId = dog._id;
-//                 clientData.dogId = dogId;
-
-//                 Client.create(clientData)
-//                   .then(() => {
-//                     req.session.currentUser = {userData, dogData, clientData}
-//                     console.log(req.session.currentUser);
-//                     res.send(true)
-//                   })
-//                   .catch((err) => {
-//                     console.log(err);
-//                   });
-//               });
-//             })
-//             .catch((err) => {
-//               console.log(err);
-//             });
-//         })
-//         .catch((err) => {
-//           console.log(err);
-//         });
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// });
 
 router.get("/login", (req, res, next) => {
   res.render("auth/login", { err: "" });
@@ -99,10 +50,10 @@ router.get("/login", (req, res, next) => {
 router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
 
-  //console.log(req.body)
+  console.log(req.body)
 
   if (email === "" || password === "") {
-    res.render("auth/signup", { err: "Type something" });
+    res.render("auth/login", { err: "Type something" });
     return;
   }
 
