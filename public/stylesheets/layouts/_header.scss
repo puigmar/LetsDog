@@ -5,6 +5,8 @@ header{
     height: $headerheight;
     display: flex;
     align-items: center;
+    position: relative;
+    z-index: 2;
 
     .navbar{
         background-color: transparent;
@@ -36,9 +38,51 @@ header{
         transition-property: left, visibility;
         font-size: 1.8rem;
         padding: 40px;
-        background: #38C6F4;
+        background: $beige-color;
         top: 0;
         color: #fff;
+
+        .navbar-toggler{
+            top: 20px;
+            position: absolute;
+            right: 20px;
+            font-size: 26px;
+        }
+
+        &:before,
+        &:after{
+            content: '';
+            position: absolute;
+            opacity: 0.2;
+        }
+
+        &:before{
+            width: 249px;
+            height: 89px;
+            top: -30px;
+            left: 0;
+            background-image: url('../../images/mancha_2.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        &:after{
+            width: 105px;
+            height: 282px;
+            top: 50%;
+            right: 0;
+            background-image: url('../../images/mancha_1.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .navbar-nav{
+            margin-top: 40px
+        }
+
+        .navbar-nav .nav-link{
+            color: $primary-color;
+        }
     }
 
     .offcanvas-collapse.open {

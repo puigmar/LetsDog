@@ -21,22 +21,21 @@ const {
 const Review = require("../models/Review");
 
 router.post('/validate-user', (req, res, next) => {
-    const query = '';
+
+    const { email } = req.body;
+    
+    let query = { email };
+    
     if (req.query.type === 'carer') {
         console.log('hay query ?key=value')
         query = {
             email,
             isCarer: true
         }
-    } else {
-        query = {
-            email
-        }
     }
 
-    const {
-        email
-    } = req.body
+    console.log(query);
+
     User.findOne(query)
         .then((userEmail) => {
             res.send({
@@ -203,6 +202,7 @@ router.post("/check/available-carers", async (req, res, next) => {
     await getCarerDetails();
     
     res.send(carerDetails)
+    
 });
 
 

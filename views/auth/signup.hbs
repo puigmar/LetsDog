@@ -1,123 +1,149 @@
-<h1> Sign Up </h1>
+<link rel="stylesheet" href="./stylesheets/splide.min.css">
 
-<section>
-    <form action="/signup" method="post" id="form-step1">
-
-        <div>
-            <label for="signupEmailInput"> Email </label>
-            <input type="email" name="email" id="signupEmailInput" placeholder="e.g., hola@hola.com">
-        </div>
-
-        <div>
-            <label for="signupPasswordInput"> Password </label>
-            <input type="password" name="password" id="signupPasswordInput" placeholder="">
-        </div>
-
-        <div>
-            <label for="signupPasswordRepeatInput"> Repeat Password </label>
-            <input type="password" name="repeatPassword" id="signupPasswordRepeatInput" placeholder="">
-        </div>
-
-        <button id="signupBtnStep1" type="button" disabled> Continuar </button>
-    </form>
-</section>
-<section>
-    <form enctype="multipart/form-data" id="photoDogForm">
-        <div id="photoDogAvatar" class="profile"></div>
-        <input id="photoDogInputFile" type="file" name="photo">
-        <input id="photoDogSubmit" type="submit">
-    </form>
-    <form id="form-step2">
-        <label for="signupDogName">Nombre</label>
-        <input id="signupDogName" type="text" placeholder="Escribe el nombre de tu perr@">
-
-        <div>
-            <label>Es perro</label>
-            <input type="radio" name="signupDogSex" value="male" checked>
-        </div>
-        <div>
-            <label>Es perra</label>
-            <input type="radio" name="signupDogSex" value="female">
-        </div>
-    </form>
-</section>
-<section>
-    <form id="form-step3">
-        <select id="signupDogBreed">
-            <option value="init">Selecciona una raza para tu perro</option>
-            <option value="caniche">Caniche</option>
-            <option value="chihuahua">Chihuahua</option>
-        </select>
-
-        <select id="signupDogAge">
-            <option value="init">Selecciona una edad</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-        </select>
-
-        <div>
-            <div>
-                <label>Pequeño</label>
-                <input type="radio" name="signupDogSize" value="small">
-            </div>
-            <div>
-                <label>Mediano</label>
-                <input type="radio" name="signupDogSize" value="medium" checked>
-            </div>
-            <div>
-                <label>Grande</label>
-                <input type="radio" name="signupDogSize" value="big">
+<main class="v-signup">
+    <section class="subHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="subHeader_content">
+                        <a id="backLink" href="/"><span class="icon-back_arrow"></span></a>
+                        <button id="backSplide"class="d-none"><span class="icon-back_arrow"></span></button>
+                        <h1>Regístrate</h1>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
+    <section class="box-main">
+        <div class="signup-content">
+            <div id="splide" class="splide">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide">
+                            <div class="form-group compact hideAutocomplete">
+                                <label for="signupEmailInput"> Email </label>
+                                <input class="form-control" type="email" name="email" id="signupEmailInput">
+                            </div>
 
-        <div>
-            <label>¿Cómo es con las personas?</label>
-            <select id="signupDogBehaviorPeople">
-                <option value="social">Social</option>
-                <option value="shy">Timido</option>
-                <option value="agressive">Agresivo</option>
-            </select> 
+                            <div class="form-group compact hideAutocomplete">
+                                <label for="signupPasswordInput"> Password </label>
+                                <input class="form-control" type="password" name="password" id="signupPasswordInput">
+                            </div>
+
+                            <div class="form-group compact hideAutocomplete">
+                                <label for="signupPasswordRepeatInput"> Repeat Password </label>
+                                <input class="form-control" type="password" name="repeatPassword" id="signupPasswordRepeatInput">
+                            </div>
+                        </li>
+                        <li class="splide__slide">
+                            <form enctype="multipart/form-data" id="photoDogForm" class="form-avatar">
+                                <div id="photoDogAvatar" class="avatar"></div>
+                                <input class="d-none" id="photoDogInputFile" type="file" name="photo">
+                                <input id="photoDogSubmit" type="submit">
+                            </form>
+                            <div class="form-group compact hideAutocomplete">
+                                <label for="signupDogName">Nombre de tu perro</label>
+                                <input class="form-control" id="signupDogName" type="text">
+                            </div>
+
+                            <div class="form-group wrapper-big-radio">
+                                <div class="big-radio">
+                                    <input class="form-control" type="radio" name="signupDogSex" value="female" checked>
+                                    <label>Es perra</label>
+                                </div>
+                                <div class="big-radio">
+                                    <input class="form-control" type="radio" name="signupDogSex" value="male">
+                                    <label>Es perro</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="splide__slide">
+                            <div class="form-group">
+                                <select class="custom-select" id="signupDogBreed">
+                                    <option value="init">Selecciona una raza para tu perro</option>
+                                    <option value="caniche">Caniche</option>
+                                    <option value="chihuahua">Chihuahua</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <select id="signupDogAge" class="custom-select">
+                                    <option value="init">Selecciona una edad</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select id="signupDogAge" class="custom-select">
+                                    <option value="init">Selecciona una Tamaño</option>
+                                    <option value="small">Pequeño</option>
+                                    <option value="medium">Mediano</option>
+                                    <option value="big">Grande</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>¿Cómo es con las personas?</label>
+                                <select id="signupDogBehaviorPeople" class="custom-select">
+                                    <option value="social">Social</option>
+                                    <option value="shy">Timido</option>
+                                    <option value="agressive">Agresivo</option>
+                                </select> 
+                            </div>
+
+                            <div class="form-group">
+                                <label>¿Cómo es con otros perros?</label>
+                                <select id="signupDogBehaviorDogs" class="custom-select">
+                                    <option value="social">Social</option>
+                                    <option value="shy">Timido</option>
+                                    <option value="agressive">Agresivo</option>
+                                </select> 
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
+        <button type="button" id="btnValidateEmail" class="btn btn-primary btn-lg" disabled="disabled">Continuar</button>
+        <button type="button" id="btnContinueSignup" class="btn btn-primary btn-lg d-none" disabled="disabled">Continuar</button>
+        <p class="small-link">¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a></p>
+    </section>
+</main>
 
-        <div>
-            <label>¿Cómo es con otros perros?</label>
-            <select id="signupDogBehaviorDogs">
-                <option value="social">Social</option>
-                <option value="shy">Timido</option>
-                <option value="agressive">Agresivo</option>
-            </select> 
-        </div>
-        <button id="signupBtnStep3" type="submit">Continuar</button>
-    </form>
-</section>
-
-
-
-
-    
-<p>
-    Already have an account?
-    <a href="/login">
-        Log in.
-    </a>
-</p>
-
+<script src="/javascripts/libraries/splide.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/javascripts/SignupValidator.js"></script>
+<script src="/javascripts/SignupSplide.js"></script>
+<script>
+    var splide = new Splide( '#splide', {
+        arrows   : false,
+        height: '100%',
+        drag: false
+    } ).mount();
+    
+    const slider = new Slider();
+
+    splide.on('move', () => {
+        console.log('ei...')
+        slider.backLink(splide.index);
+    })
+</script>
 <script src="/javascripts/Signup.js"></script>
+<script src="/javascripts/Forms.js"></script>

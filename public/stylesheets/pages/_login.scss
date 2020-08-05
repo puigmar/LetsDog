@@ -1,0 +1,13 @@
+.v-login{
+    min-height: calc(100vh - #{$headerheight});
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .box-main{
+        min-height: calc(100vh - 150px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}

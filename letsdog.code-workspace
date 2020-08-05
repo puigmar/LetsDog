@@ -7,5 +7,7 @@
 			"path": "../w4-Day3/code-along-uber-for-laundry/starter_code"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
 }

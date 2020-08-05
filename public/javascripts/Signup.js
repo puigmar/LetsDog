@@ -4,7 +4,7 @@ class Signup{
         this.emailInput = document.getElementById('signupEmailInput');
         this.passwordInput = document.getElementById('signupPasswordInput');
         this.repeatPasswordInput = document.getElementById('signupPasswordRepeatInput');
-        this.signupBtnStep1 = document.getElementById('signupBtnStep1');
+        this.signupBtnStep1 = document.getElementById('btnContinueSignup');
 
         this.photoDogAvatarPreview = document.getElementById('photoDogAvatar');
         this.photoDogUrl = '';
@@ -20,11 +20,8 @@ class Signup{
         this.dogBehaviorPeopleInput = document.getElementById('signupDogBehaviorPeople');
         this.dogBehaviorDogsInput = document.getElementById('signupDogBehaviorDogs');
 
-
-
-        this.signupDogName = document.getElementById('signupDogName');
-        
-        this.signupBtnStep3 = document.getElementById('signupBtnStep3');
+        this.signupBtnStep1 = document.getElementById('btnValidateEmail');
+        this.signupBtnContinue = document.getElementById('btnContinueSignup');
 
         this.userData = {
             email: '',
@@ -64,7 +61,7 @@ class Signup{
                     validator.UserErrorForms.errorEmailMsg = validator.emailExistError;
                     validator.checkValidationMsg(e, validator.emailExistError)
                 } else {
-                    console.log('no existes')
+                    splide.go( '+1' );
                 }
             })
             .catch( err => console.log(err));
@@ -191,11 +188,8 @@ class Signup{
             this.photoDogSubmit.click()
         });
         
-
         this.signupBtnStep1.addEventListener('click', this.handleIfEmailExists);
-        this.signupBtnStep3.addEventListener('click', this.sendSignupFormData);
-        /*this.signupBtnStep2.addEventListener('click', )
-        this.signupBtnStep2.addEventListener('click', )*/
+        this.signupBtnContinue.addEventListener('click', this.sendSignupFormData);
     }
 
     init = () => {
