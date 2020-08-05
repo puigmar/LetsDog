@@ -18,7 +18,7 @@
         {{/times}}
     </ul>
     {{/each}}
-    <button id="get-service"class="btn btn-primary btn-primary">Contratar el servicio</button>
+    <button id="get-service"class="btn btn-primary btn-primary" >Contratar el servicio</button>
 
 </section>
 
@@ -37,6 +37,9 @@
     console.log(contract);
     localStorage.setItem("contract", JSON.stringify(contract));
 
+    window.location.assign("/validation")
+
     });
+
 
 </script>

@@ -1,3 +1,5 @@
+//const socket = require("../../socket");
+
 class User{
 
     constructor(id){
@@ -30,6 +32,7 @@ class User{
                 
                 socket.emit(event, 
                     { 
+                        socketId: socket.id,
                         carerId: this.id, 
                         ...this.startPosition
                     }
@@ -48,6 +51,7 @@ class User{
                 this.currentPosition.geometry.coordinates[1] = position.coords.latitude;
                 socket.emit(event, 
                     { 
+                        socketId: socket.id,
                         carerId: this.id, 
                         geometry: {
                             coordinates: [this.currentPosition.geometry.coordinates[0],this.currentPosition.geometry.coordinates[1]],

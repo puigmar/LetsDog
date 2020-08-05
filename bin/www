@@ -51,8 +51,24 @@ io.on('connection', (socket) => {
         
       }
     })
-    console.log('después de: ', carers_connected[0].geometry)
+    //console.log('después de: ', carers_connected[0].geometry)
   })
+
+  socket.on ('request', requestData => {
+   // socket.emit('message', requestData)
+   console.log("Aqui------->", requestData)
+   console.log('Otro------>', carers_connected)
+   
+    carers_connected.find((carerSocket) => {
+    
+      
+     if (carerSocket.carerId === requestData.carerId) {
+      io.to(carerSocket.socketId).emit('message', {text: 'text'})
+     }
+   })
+
+
+  });
 
   socket.on('disconnect', userId => {
     carers_connected.splice( carers_connected.indexOf(userId), 1);

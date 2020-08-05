@@ -11,6 +11,7 @@ const updateContractMeetingPoint = (meetingPoint) => {
   contract = {
     ...contract,
     meeting_point: meetingPoint.result.place_name,
+    geometry: meetingPoint.result.geometry.coordinates
   };
   console.log(contract);
   localStorage.setItem("contract", JSON.stringify(contract));
@@ -69,7 +70,7 @@ function getPointData(lngLat) {
   };
 }
 
-var socket = io("");
+//var socket = io("");
 
 
 map.on("load", function () {

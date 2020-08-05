@@ -189,7 +189,7 @@ router.post("/check/available-carers", async (req, res, next) => {
                 carerObj.duration = duration;
                 carerObj.reviews = reviews;
                 carerObj.numReviews = reviews.length;
-
+                console.log('Aca', carerObj)
                 carerDetails.push(carerObj);
 
             }
@@ -200,7 +200,8 @@ router.post("/check/available-carers", async (req, res, next) => {
     }
 
     await getCarerDetails();
-
+    console.log('Aqui', carerDetails)
+    //console.log('Detalles ----->', carerDetails[0].geometry.coordinates)
     res.send(carerDetails)
     
 });

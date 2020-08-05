@@ -4,6 +4,7 @@ const router = express.Router();
 const prices = require("./../config/prices");
 const User = require("../models/User");
 const Carer = require("../models/Carer");
+const Card = require("../models/Card");
 const { trasformToRegularTime } = require("../helpers/methods");
 
 // router.use((req, res, next) => {
@@ -16,8 +17,7 @@ const { trasformToRegularTime } = require("../helpers/methods");
 //   });
 
 router.get("/service", (req, res, next) => {
-
-  let transformPrices = prices.map(interval => {
+  let transformPrices = prices.map((interval) => {
     let transformTime = trasformToRegularTime(interval.intervalTime);
     return {
       intervalTime: transformTime,
@@ -47,7 +47,54 @@ router.get("/carer-profile/:id", (req, res, next) => {
     });
 });
 
-router.get("/waiting-for-service", (req, res, next) => {
-  res.render("/service-validation");
+router.get("/validation", (req, res, next) => {
+  res.render("service-validation");
 });
+
+router.get("/confirmation", (req, res, next) => {
+  res.render("service-confirmation");
+});
+
+router.get("/payment", (req, res, next) => {
+  res.render("payment-method");
+});
+
+router.post("/payment", (req, res, next) => {
+  const { name, number, expiresMonth, expiresYear, cvv, saveCard } = req.body;
+  
+  console.log(req.body);
+
+  if (
+    name === "" ||
+    number === "" ||
+    expiresMonth === "" ||
+    expiresYear === "" ||
+    cvv === ""
+  ) {
+    res.render("/payment-method", {
+      err: "Te faltan campos, por favor llenalos",
+    });
+    return;
+  }
+
+  Card.create({
+    //userId: currentUserInfo._id,
+    ownerName: name,
+    cardNumber: number,
+    expiration: expiresMonth + expiresYear ,
+    cvv: cvv,
+  })
+    .then(() => {
+      res.redirect("/login");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// ownerName: String,
+//   cardNumber: Number,
+//   expiration:Number,
+//   cvv: Number,
+
 module.exports = router;
