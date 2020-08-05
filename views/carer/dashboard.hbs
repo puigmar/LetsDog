@@ -4,8 +4,14 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 <script src="/javascripts/User.js"></script>
 <script>
-    var socket = io('');
+    
     const thecarer = new User('{{currentUserInfo.user._id}}');
     thecarer.sendEmitCoords('carer-online');
     thecarer.sendEmitWatchPosition('carer-online-moving');
+
+    window.onload = () => {
+    socket.on ('message', (requestData) => {
+        console.log(requestData)
+    });
+    }
 </script>

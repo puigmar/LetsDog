@@ -1,3 +1,5 @@
+
+
 <h2>Contratar Servicio</h1>
 
 <div>
@@ -6,11 +8,35 @@
 
 <p>Esperando la confirmación de </br><span id="carer-name"></span></p>
 
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 <script>
+
+    let isLoading = true;
+
     window.onload = () => {
     let retrievedObject = localStorage.getItem("contract");
     let contract = JSON.parse(retrievedObject);
 
     document.getElementById('carer-name').innerHTML = contract.carerName
-    }
+
+    const testButton = document.getElementById("test")
+
+    socket.emit ('request', {carerId: contract.carerId})
+
+   // testButton.addEventListener('click', () => {
+    //     socket.emit ('request')
+    //     console.log('Aqui ------->', socket)
+    //})
+
+    
+
+
+    //socket.on('connect', () => {
+    //    socket.emit ('request')
+   // })
+
+    };
+
+
 </script>
