@@ -24,7 +24,7 @@ router.get("/service", (req, res, next) => {
       price: interval.price,
     }
   })
-
+  console.log(transformPrices)
   res.render("service", { intervalList: transformPrices });
 });
 

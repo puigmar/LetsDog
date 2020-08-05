@@ -1,11 +1,12 @@
 .v-service-home{
-    min-height: calc(100vh - #{$headerheight});
+    min-height: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    min-height: calc(100vh - 56px);
 
     .box-main{
-        min-height: calc(100vh - 150px);
+        min-height: auto;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -13,6 +14,7 @@
 
     .service-home_wellcome{
         display: flex;
+        margin-bottom: 20px;
 
         &_text{
             padding-right: 20px;
@@ -27,6 +29,7 @@
         .avatar{
             width: 73px;
             height: 73px;
+            margin: 0;
         }
 
 
@@ -34,9 +37,11 @@
 
     .splide{
 
+        margin-bottom: 15px;
+
         &__slide{
             height: 204px;
-            width: 100px;
+            width: 125px;
             position: relative;
 
             &:hover{
@@ -48,6 +53,10 @@
 
         .intervalCard{
             height: 200px!important;
+
+           .intervalTime > div{
+                display: inline-block;
+            }
         }
     }
 }
