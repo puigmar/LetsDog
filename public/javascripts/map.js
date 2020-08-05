@@ -55,8 +55,8 @@ geocoder.on("result", (e) => {
   document.getElementById("search-carers").addEventListener("click", () => {
     apiService
       .sendUserLocation(userLocArr)
-      .then((response) => {
-        console.log(response)
+      .then((res) => {
+        console.log('respuesta de vuelta: ', res)
       })
       .catch((err) => console.log(err));
   });
@@ -71,11 +71,17 @@ function getPointData(lngLat) {
 
 var socket = io("");
 
+
 map.on("load", function () {
   var startPos;
   var latitude;
   var longitude;
   var coordsClick;
+
+  document.querySelector('.mapboxgl-ctrl-geocoder--input').addEventListener('click', (e)=> {
+    const inputBtn = e.currentTarget.parentNode;
+    inputBtn.querySelector('.suggestions-wrapper').classList.add('show');
+  })
 
   navigator.geolocation.getCurrentPosition(
     function (position) {

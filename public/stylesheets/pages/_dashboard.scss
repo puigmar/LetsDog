@@ -1,0 +1,18 @@
+.v-dashboard{
+    min-height: calc(100vh - #{$headerheight});
+    position: relative;
+    padding: 24px;
+    background-color: $beige-color;
+
+    .home-buttons{
+        position: relative;
+        z-index:1;
+        width: 100%;
+        padding-bottom: 32px;
+
+        .btn{
+            margin-top: 16px;
+            box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.49);
+        }
+    }
+}
