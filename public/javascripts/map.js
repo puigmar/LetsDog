@@ -11,6 +11,7 @@ const updateContractMeetingPoint = (meetingPoint) => {
   contract = {
     ...contract,
     meeting_point: meetingPoint.result.place_name,
+    geometry: meetingPoint.result.geometry.coordinates
   };
   console.log(contract);
   localStorage.setItem("contract", JSON.stringify(contract));

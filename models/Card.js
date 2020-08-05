@@ -4,14 +4,8 @@ const Schema = mongoose.Schema;
 const cardSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User" },
   ownerName: String,
-  cardType: {
-    type: String,
-    enum: ["visa", "master", "american"],
-  },
-  cardNumber: String,
-  expiration: {
-    type: Date,
-  },
+  cardNumber: Number,
+  expiration:Number,
   cvv: Number,
 });
 

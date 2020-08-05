@@ -1,0 +1,39 @@
+<h2>Datos de la tarjeta</h2>
+
+<form>
+    <label for="name">¿Eres el titular? Danos tu nombre</label>
+    <input name="name" class="name" type="text">
+    <label for="number">Numero de tu tarjeta</label>
+    <input name="number" class="number" type="tel" pattern="\d*" maxlength="19" placeholder="Ingresa tu tarjeta aquí">
+    <label for="expiresMonth">Fecha de expiración</label>
+    <input name="expiresMonth" class="expires" type="tel" pattern="\d*" maxlength="2" placeholder="Mes">
+    <span>/</span>
+    <input name="expiresYear" class="expires" type="tel" pattern="\d*" maxlength="2" placeholder="Año">
+    <label for="cvv">Codigo de seguridad</label>
+    <input name="cvv" class="cvv" type="tel" pattern="\d*" maxlength="3" placeholder="CVV">
+</form>
+
+{{#if err}}
+<p class="error-message">
+    {{ err }}
+</p>
+{{/if}}
+
+<form>
+    <p>Si lo deseas, guadarmos tus datos de pago para futuras ocasiones</p>
+    <label for="save-card"></label>
+    <input type="checkbox" id="save-card" name="saveCard">
+    <p id="no-save-text" style="display:none">Tus datos no se guardaran!</p>
+
+    <div>
+        <img src="#" alt="search icon">
+        <p>Tu pago se realizará una vez que haya un aceptación mutua entre el cuidador y tú durante el perido de prueba
+        </p>
+    </div>
+    <button id="add-card" class="btn btn-primary btn-md">Añadir tarjeta</button>
+</form>
+
+<script>
+
+
+</script>
