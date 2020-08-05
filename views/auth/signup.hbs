@@ -139,11 +139,8 @@
     } ).mount();
     
     const slider = new Slider();
-
-    splide.on('move', () => {
-        console.log('ei...')
-        slider.backLink(splide.index);
-    })
+    slider.init();
+    
 </script>
 <script src="/javascripts/Signup.js"></script>
 <script src="/javascripts/Forms.js"></script>

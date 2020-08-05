@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-
+require('dotenv').config()
 mongoose
-  .connect("mongodb://localhost/letsdog", {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
