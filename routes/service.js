@@ -21,6 +21,7 @@ router.get("/service", (req, res, next) => {
     let transformTime = trasformToRegularTime(interval.intervalTime);
     return {
       intervalTime: transformTime,
+      intervalRaw: interval.intervalTime,
       price: interval.price,
     }
   })
