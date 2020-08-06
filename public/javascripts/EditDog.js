@@ -2,11 +2,11 @@ class EditDog{
     constructor(){
         this.nameInput = document.getElementById('dogNameInput');
 
-        this.photoCarerAvatarPreview = document.getElementById('photoCarerAvatarPreview');
-        this.photoCarerAvatarInputFile = document.getElementById('photoCarerAvatarInputFile');
-        this.photoCarerAvatarInputFileUrl = document.getElementById('photoCarerAvatarInputFileUrl');
-        this.photoCarerAvatarBtnSubmit = document.getElementById('photoCarerAvatarBtnSubmit');
-        this.photoCarerAvatarForm = document.getElementById('photoCarerAvatarForm');
+        this.photoDogAvatarPreview = document.getElementById('photoDogAvatarPreview');
+        this.photoDogAvatarInputFile = document.getElementById('photoDogAvatarInputFile');
+        this.photoDogAvatarInputFileUrl = document.getElementById('photoDogAvatarInputFileUrl');
+        this.photoDogAvatarBtnSubmit = document.getElementById('photoDogAvatarBtnSubmit');
+        this.photoDogAvatarForm = document.getElementById('photoDogAvatarForm');
 
         this.editableBtn = document.querySelectorAll("[data-type='editable']");
         this.editableFields = document.querySelectorAll("[data-field='editable']");
@@ -16,7 +16,7 @@ class EditDog{
     sendAvatarPhoto = (e) => {
         e.preventDefault();
         this.updatePhoto(
-            this.photoCarerAvatarInputFile, this.photoCarerAvatarPreview, '/manage/validate-photo'
+            this.photoDogAvatarInputFile, this.photoDogAvatarPreview, '/manage/validate-photo'
         )
     }
 
@@ -45,12 +45,12 @@ class EditDog{
 
     handleName = (e) => {
         const name = e.target.value;
-        carerValidator.validateName(e, name);
+        dogValidator.validateName(e, name);
     }
 
     modifyField = (e) => {
 
-        if(Object.keys(carerValidator.UserErrorForms).length > 0){
+        if(Object.keys(dogValidator.DogErrorForms).length > 0){
             e.target.disabled = true;
             return
         }
@@ -92,21 +92,14 @@ class EditDog{
 
         this.nameInput.addEventListener('input', this.handleName)
 
-        this.photoCarerAvatarPreview.addEventListener('click', () => {
-            this.photoCarerAvatarInputFile.click()
+        this.photoDogAvatarPreview.addEventListener('click', () => {
+            this.photoDogAvatarInputFile.click()
         })
-        this.photoCarerAvatarForm.addEventListener('submit', this.sendAvatarPhoto);
-        this.photoCarerAvatarInputFile.addEventListener('change', () => {
-            this.photoCarerAvatarBtnSubmit.click()
+        this.photoDogAvatarForm.addEventListener('submit', this.sendAvatarPhoto);
+        this.photoDogAvatarInputFile.addEventListener('change', () => {
+            this.photoDogAvatarBtnSubmit.click()
         });
 
-        this.photoCarerBannerProfilePreview.addEventListener('click', () => {
-            this.photoCarerBannerProfileInputFile.click()
-        })
-        this.photoCarerBannerProfileForm.addEventListener('submit', this.sendBannerProfilePhoto);
-        this.photoCarerBannerProfileInputFile.addEventListener('change', () => {
-            this.photoCarerBannerProfileBtnSubmit.click()
-        });
 
         this.editableFields.forEach( field => {
             field.addEventListener('change', this.handdleModifyButton)
