@@ -45,7 +45,7 @@ class EditDog{
 
     handleName = (e) => {
         const name = e.target.value;
-        dogValidator.validateName(e, name);
+        dogValidator.validateDogName(e, name);
     }
 
     modifyField = (e) => {
@@ -60,7 +60,7 @@ class EditDog{
         let value = document.getElementById(targetId).value;
         const model = e.target.getAttribute("data-model");
 
-        axios.post(`/manage/updateField/carer`, { model, key, value})
+        axios.post(`/manage/updateField/dog`, { model, key, value})
             .then((res) => {
                 inputTarget.value = res.data;
                 inputTarget.disabled = true;
