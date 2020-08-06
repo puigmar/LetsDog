@@ -34,20 +34,6 @@ router.get("/setup", (req, res, next) => {
   res.render("setup");
 });
 
-router.get("/carer-profile/:id", (req, res, next) => {
-  const userId = req.params.id;
-  console.log(userId);
-
-  Carer.findOne({ userId: userId })
-    .then((carer) => {
-      console.log(carer);
-      res.render("carer-profile", { selectedCarer: carer });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
 router.get("/validation", (req, res, next) => {
   res.render("service-validation");
 });
@@ -123,5 +109,19 @@ router.post("/service-map", (req, res, next) => {
       console.log(err);
     });
 });
+
+router.get("/carer-profile/:id", async (req, res, next) => {
+  const carerId = req.params.id;
+  console.log(carerId);
+  try {
+    const carer = await Carer.findOne({ _id: carerId });
+    console.log('carer: ', carer);
+    res.render("carer-profile", { selectedCarer: carer });
+  }
+  catch(err) {
+    console.log(err)
+  }
+});
+
 
 module.exports = router;

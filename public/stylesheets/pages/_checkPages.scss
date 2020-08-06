@@ -1,0 +1,55 @@
+.v-checkPages {
+    min-height: calc(100vh - #{$headerheight});
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: $beige-color; 
+
+    .subHeader{
+        position: fixed;
+        top: $headerheight;
+        width: 100%;
+    }
+
+    .box-main{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 35px;
+        height: 59vh;
+        text-align: center;
+
+        .illustration{
+            margin-top: -160px;
+            margin-bottom: 20px;
+
+            img{
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+            }
+        }
+
+        .transition-message{
+            font-size: 18px;
+            padding: 0 40px;
+        }
+
+        .loading{
+            max-width: 70px;
+            margin: 18px auto;
+        }
+
+        .footer-buttons{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+            bottom: 25px;
+            padding: 35px 35px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+}

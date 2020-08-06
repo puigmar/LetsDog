@@ -69,8 +69,6 @@ router.post('/login', async (req, res) => {
                 req.session.currentUser = { user: theUser, carer: theCarer};
                 res.redirect('/carer/dashboard');
             }
-        } else {
-            console.log('theUser: ', theUser)
         }
     }
     catch(err) {
@@ -109,10 +107,9 @@ router.get('/reviews/:id', async (req, res) => {
         const carerReview = await Review.find({carerId: carerId})
                                     .populate('carerId')
                                     .populate('dogId', '_id photo name')
-
+        //console.log(carerReview[0].carerId);
         res.render('carer/reviews', {review: carerReview})
     }
-    
     catch(error){
         console.log(error)
     }

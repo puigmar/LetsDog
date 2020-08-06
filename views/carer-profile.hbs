@@ -1,27 +1,64 @@
-<div>
-    <img scr="{{selectedCarer.profilePhoto}}" alt="Carer's profile photo">
-</div>
+<main class="v-profile">
+    <div class="profile-background" style="background: url('{{selectedCarer.gallery}}')"></div>
+    <div class="box-main">
+        <div class="profile_header">
+            <div class="profile_data">
+                <div class="profile_name">{{selectedCarer.name}}</div>
+                <div class="profile_wrapperAvatar">
+                    <div class="avatar cover" style="background: url('{{selectedCarer.profilePhoto}}')"></div>
+                    <div class="carerCard_bubleTime">
+                        <div class="carerCard_buble">
+                            <span class="icon-countDownClok"></span>
+                        </div>
+                        <span class="carerCard_bubleTime_timeTo">en 20'</span>
+                    </div>
+                </div>
+            </div>
+            <div class="profile_reviewsResume">
 
-<section>
-    <h2>{{selectedCarer.name}}</h2>
-    <ul>
-        {{#times selectedCarer.rate}}
-        <span>Huesito</span>
-        {{/times}}
-    </ul>
-    <p>{{selectedCarer.description}}</p>
-    {{#each selectedCarer.items}}
-    <p>{{this.name}}</p>
-    <ul>
-        {{#times this.score}}
-        <span>Huesito</span>
-        {{/times}}
-    </ul>
-    {{/each}}
-    <button id="get-service"class="btn btn-primary btn-primary" >Contratar el servicio</button>
+                <div class="carerCard_feedback">
+                    <div class="carerCard_feedback_averageBones">
+                        {{#times selectedCarer.rate}}
+                            <span class="icon-bone"></span>
+                        {{/times}}
+                    </div>
+                    <div class="carerCard_feedback_nums">
+                        <div class="carerCard_feedback_averageScore">4.8</div>
+                        <div class="carerCard_feedback_numReviews">40 reseñas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile_content">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">Información</a>
+                    <a class="nav-item nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab" aria-controls="nav-reviews" aria-selected="false">Reseñas</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <p class="profile-description">{{selectedCarer.description}}</p>
+                    <div class="profile_items">
+                        <ul>
+                        {{#each selectedCarer.items}}
+                        <li>
+                            <h4>{{this.name}}</h4>
+                            {{#times this.score}}
+                                <span class="icon-bone"></span>
+                            {{/times}}
+                        </li>
+                        {{/each}}
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+            </div>
+        </div>
 
-</section>
-
+        <button id="get-service"class="btn btn-primary btn-lg mt-4" >Contratar el servicio</button>
+</main>
 <script>
     const getServiceButton = document.getElementById('get-service')
 

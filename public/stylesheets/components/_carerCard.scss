@@ -1,6 +1,12 @@
 .carerCard{
 
     overflow: hidden;
+    display: block;
+
+    *{
+        text-decoration: none;
+        color: #000;
+    }
 
     &_details{
         display: flex;
@@ -17,18 +23,6 @@
             align-items: center;
             overflow: hidden;
             position: relative;
-
-            .carerCard_buble{
-                width: 40px;
-                height: 40px;
-                background-color: $primary-color;
-                border-radius: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 2.4rem;
-                color: $beige-color;
-            }
 
             .carerCard_bubleTime_timeTo{
                 font-size: 1.4rem;
@@ -127,4 +121,17 @@
             }
         }
     }
+}
+
+
+.carerCard_buble{
+    width: 40px;
+    height: 40px;
+    background-color: $primary-color;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.4rem;
+    color: $beige-color;
 }
