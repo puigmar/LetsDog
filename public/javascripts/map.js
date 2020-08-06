@@ -11,7 +11,7 @@ const updateContractMeetingPoint = (meetingPoint) => {
   contract = {
     ...contract,
     meeting_point: meetingPoint.result.place_name,
-    geometry: meetingPoint.result.geometry.coordinates
+    geometry: meetingPoint.result.geometry.coordinates,
   };
   console.log(contract);
   localStorage.setItem("contract", JSON.stringify(contract));
@@ -43,8 +43,10 @@ map.addControl(
 
 var geocoder = new MapboxGeocoder({
   accessToken: mapboxgl.accessToken,
+  marker: false,
   mapboxgl: mapboxgl,
 });
+console.log("QUI------>", geocoder);
 
 document.getElementById("geocoder").appendChild(geocoder.onAdd(map));
 
@@ -53,10 +55,22 @@ geocoder.on("result", (e) => {
   updateContractMeetingPoint(meetingPoint);
   const userLocArr = generateCarersList(meetingPoint);
 
+  var el = document.createElement("div");
+  el.className = "marker";
+
+  var customMarkerCoord = e.result.geometry.coordinates;
+
+  // make a marker for each feature and add to the map
+  new mapboxgl.Marker(el)
+    // console.log('AQUI', customMarkerCoord)
+    .setLngLat(customMarkerCoord)
+    .addTo(map);
+
   document.getElementById("search-carers").addEventListener("click", () => {
     apiService
       .sendUserLocation(userLocArr)
       .then((res) => {
+        document.querySelector('.v-service-map-location').classList.add('toCarerList');
         console.log('respuesta de vuelta: ', res)
       })
       .catch((err) => console.log(err));
@@ -72,17 +86,18 @@ function getPointData(lngLat) {
 
 //var socket = io("");
 
-
 map.on("load", function () {
   var startPos;
   var latitude;
   var longitude;
   var coordsClick;
 
-  document.querySelector('.mapboxgl-ctrl-geocoder--input').addEventListener('click', (e)=> {
-    const inputBtn = e.currentTarget.parentNode;
-    inputBtn.querySelector('.suggestions-wrapper').classList.add('show');
-  })
+  document
+    .querySelector(".mapboxgl-ctrl-geocoder--input")
+    .addEventListener("click", (e) => {
+      const inputBtn = e.currentTarget.parentNode;
+      inputBtn.querySelector(".suggestions-wrapper").classList.add("show");
+    });
 
   navigator.geolocation.getCurrentPosition(
     function (position) {

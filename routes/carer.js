@@ -44,10 +44,18 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
 
     try {
-        const theUser =  await User.findOne({email: email, isCarer: true});
+        
+        const { email, password } = req.body;
+
+        if (email === "" || password === "") {
+          res.render("carer/login", { err: "Los campos no pueden estar vacíos" });
+          return;
+        }
+
+        const theUser =  await User.findOne({ email, isCarer: true});
+
         if(theUser){
             if(!bcrypt.compareSync(password, theUser.password)){
                 res.render('carer/login', {
@@ -61,17 +69,14 @@ router.post('/login', async (req, res) => {
                 req.session.currentUser = { user: theUser, carer: theCarer};
                 res.redirect('/carer/dashboard');
             }
+        } else {
+            console.log('theUser: ', theUser)
         }
     }
-    catch(error){
-        console.log(error)
-        res.render('carer/login', {
-            errorMessage: `User or Passoword are not correct. Try again.`
-        });
-        return;
+    catch(err) {
+        next(err)
     }
 })
-
 
 router.use((req, res, next) => {
     if (req.session.currentUser) {

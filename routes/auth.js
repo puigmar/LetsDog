@@ -97,4 +97,28 @@ router.post("/login", async (req, res, next) => {
 
 });
 
+router.get('/profile/:id', async (req, res) => {
+  const userId = req.params.id;
+  console.log('carerId: ', userId)
+  try{
+      const theUser = await User.findOne({"_id": userId})
+      res.render('profile', {user: theUser})
+  }
+  catch(error){
+      next(error)
+  }
+})
+
+router.get('/profile/dogs/:id', async (req, res) => {
+  const dogId = req.params.id;
+  console.log('dogId: ', dogId)
+  try{
+      const theDog = await Dog.findOne({"_id": dogId})
+      res.render('profile-dog', {dog: theDog})
+  }
+  catch(error){
+      next(error)
+  }
+})
+
 module.exports = router;

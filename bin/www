@@ -37,6 +37,10 @@ const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
 
+  for(let i = 0; i < carers_connected.length; i++) {
+    socket.emit("showOnlineUsers", carers_connected[i]);
+  }
+
   socket.on('carer-online', carerData => {
     console.log('Un Carer se ha conectado');
     let userExist = socketUsers.find( user => user.carerId === carerData.carerId);
@@ -51,10 +55,20 @@ io.on('connection', (socket) => {
     console.log('carers connected:' ,carers_connected)
     console.log('users:' , socketUsers)
 
+    socket.broadcast.emit('carersOnlineData', carers_connected)
+
     for(let i = 0; i < carers_connected.length; i++) {
       socket.broadcast.emit('messages', messages)
     }
+  })
 
+  socket.on('carer-online-moving', carerData => {
+    let arrayCarrerIndex = carers_connected.forEach( (carer, index) => {
+      if(carer.userId === carerData.userId){
+        carers_connected[index].geometry.coordinates[0] = carerData.geometry.coordinates[0];
+        carers_connected[index].geometry.coordinates[1] = carerData.geometry.coordinates[1];
+      }
+    })
   })
 
   socket.on('request', message => {
@@ -69,9 +83,7 @@ io.on('connection', (socket) => {
     console.log(carers_connected)
   })
 
-  /*for(let i = 0; i < carers_connected2.length; i++) {
-    socket.emit("showOnlineUsers", carers_connected2[i]);
-  }
+  /*
 
   socket.on('carer-online', carerData => {
     carers_connected2.push(carerData);

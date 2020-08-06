@@ -10,6 +10,7 @@ const {
 const User = require("../models/User");
 const Dog = require("../models/Dog");
 const Carer = require("../models/Carer");
+const Client = require("../models/Client");
 
 const parser = require('./../config/cloudinary.js');
 const {
@@ -64,18 +65,18 @@ router.post("/updateField/carer", async (req, res, next) => {
         value
     } = req.body;
 
-    if (req.query.phone) {
-        console.log('deteta query,,')
-        const key = req.query.phone.split('.');
+    const keyName = key.split('.')
+
+    if(keyName.length > 1){
         updateQuery = {
             phone: {
-                [key[1]]: value
+                [keyName[1]]: value
             }
         }
     } else {
         updateQuery = {
             $set: {
-                [key]: value
+                [keyName]: value
             }
         }
     }
@@ -91,7 +92,7 @@ router.post("/updateField/carer", async (req, res, next) => {
                 }, updateQuery, {
                     new: true
                 })
-                res.send(update[key])
+                res.send(update[keyName])
             } catch (err) {
                 console.log(err)
             }
@@ -111,6 +112,62 @@ router.post("/updateField/carer", async (req, res, next) => {
             }
             break;
     }
+});
+
+router.post("/updateField/dog", async (req, res, next) => {
+
+    try {
+        let userId,
+            updateQuery
+
+        const {
+            model,
+            key,
+            value
+        } = req.body;
+
+        const keyName = key.split('.')
+
+        console.log('keyname: ', keyName)
+
+        if(keyName.length > 1){
+            updateQuery = {
+                $set: {
+                    [keyName]: value
+                }
+            }
+        } else {
+            updateQuery = {
+                $set: {
+                    [keyName]: value
+                }
+            }
+        }
+
+        updateQuery = {
+            $set: {
+                [keyName]: value
+            }
+        }
+
+        console.log('updateQuery: ', updateQuery)
+
+        dogId = req.session.currentUser.dog._id;
+
+        const update = await Dog.findOneAndUpdate({
+            _id: dogId
+        }, updateQuery, {
+            new: true
+        })
+
+        console.log(update);
+
+        res.send(update[keyName].toString())
+
+    } catch (err) {
+        next(err)
+    }
+
 });
 
 router.post("/check/available-carers", async (req, res, next) => {

@@ -8,14 +8,44 @@
     }
 
     #map {
-        position: absolute;
+        position: relative;
         top: 0;
         bottom: 0;
         width: 100%;
+        height: 80vh;
+    }
+
+    .markerMeetingPoint {
+        background-image: url('./../images/meetingpoint.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .markerUser {
+        background-image: url('./../images/usuario.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .markerCarer {
+        background-image: url('./../images/dog_marker.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
     }
 </style>
 
 <div id="map"></div>
+<button type="button" id="end-service" class="btn btn-primary btn-lg">Finalizar el servicio</button>
+
 
 
 <script>
@@ -26,6 +56,8 @@
 
 
         const coordinates = contract.geometry
+
+        console.log(contract.carerId)
 
         mapboxgl.accessToken = 'pk.eyJ1IjoicHVpZ21hciIsImEiOiJja2Q1cTRjMHoyOWc1MzBwZzUxNnBqZjgzIn0.Dl_LIKPYzM72_QZAE0wZWQ';
         var map = new mapboxgl.Map({
@@ -53,9 +85,23 @@
             var longitude;
             var coordsClick;
 
-            var marker = new mapboxgl.Marker()
-                .setLngLat(contract.geometry)
+            var el = document.createElement("div");
+            el.className = "markerMeetingPoint";
+
+            var elUser = document.createElement("div");
+            elUser.className = "markerUser";
+
+            var elCarer = document.createElement("div");
+            elCarer.className = "markerCarer";
+
+            var meetingPointCoords = contract.geometry;
+
+            // Codigo del marker
+            new mapboxgl.Marker(el)
+                .setLngLat(meetingPointCoords)
                 .addTo(map);
+
+
 
             navigator.geolocation.getCurrentPosition(
                 function (position) {
@@ -72,16 +118,21 @@
                         'id': 'point',
                         'source': 'point_source',
                         'type': 'circle',
-                        'paint': {
-                            'circle-radius': 10,
-                            'circle-color': '#007cbf'
-                        }
                     });
 
-                    const user = '{{currentUserInfo.user._id}}';
+                    new mapboxgl.Marker(elUser)
+                        .setLngLat(coordsClick.coordinates)
+                        .addTo(map);
 
-                    socket.emit("onlineUser", { userId: user, latitude: position.coords.latitude, longitude: position.coords.longitude });
-                    socket.on('user:join', m => console.log('Exist a new user: ', m));
+
+                    socket.on('carersOnlineData', carerData => {
+                        console.log('Datos del carer conectado ', carerData)
+                        new mapboxgl.Marker(elCarer)
+                            .setLngLat(carerData[0].geometry.coordinates)
+                            .addTo(map);
+                    });
+
+
 
                 }, function (error) {
                     alert('Error occurred. Error code: ' + error.code);
@@ -91,9 +142,9 @@
             navigator.geolocation.watchPosition(
                 function (position) {
 
-                    socket.on("showOnlineUsers", data => {
+                    socket.on("carersOnlineData", carerData => {
 
-                        console.log('data from socket.io: ', data)
+                        console.log('data from socket.io: ', carerData)
 
                         map.getSource('point_source').setData({
                             "type": "FeatureCollection",
@@ -102,15 +153,17 @@
                                 "properties": {},
                                 "geometry": {
                                     "type": "Point",
-                                    "coordinates": [data.longitude, data.latitude]
+                                    "coordinates": carerData[0].geometry.coordinates
                                 }
                             }]
                         });
 
+                        console.log(carerData[0].geometry.coordinates[0])
+
                         map.flyTo({
                             center: [
-                                data.longitude,
-                                data.latitude
+                                carerData[0].geometry.coordinates[0],
+                                carerData[0].geometry.coordinates[1]
                             ],
                             speed: 0.5
                         });
@@ -125,6 +178,32 @@
         });
 
         socket.on('user:left', data => console.log('usario ha dejado la sesion: ', data));
+
+        const endServiceButton = document.getElementById('end-service')
+
+        axios.post('/service-map', { contractData: contract })
+            .then((data) => {
+                console.log("hecho")
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+        endServiceButton.addEventListener('click', () => {
+
+            //Poner en funcion 
+            //Nombrar rutas como colecciones de backend
+
+
+            location.href = `/feedback/${contract.carerId}`
+        })
+
+
+
+
+
     }
+
+
 
 </script>

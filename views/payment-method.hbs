@@ -1,6 +1,7 @@
 <h2>Datos de la tarjeta</h2>
 
 <form action="/payment" method="post">
+    <input name="userId" id="user-id" type="text" style="display: none;">
     <label for="name">¿Eres el titular? Danos tu nombre</label>
     <input name="name" class="name" type="text">
     <label for="number">Numero de tu tarjeta</label>
@@ -30,3 +31,15 @@
 </p>
 {{/if}}
 
+<script>
+    window.onload = () => {
+    let retrievedObject = localStorage.getItem("contract");
+    let contract = JSON.parse(retrievedObject);
+
+    console.log(contract.userId)
+
+    document.getElementById('user-id').value = contract.userId
+
+
+    }
+</script>

@@ -16,6 +16,7 @@ class EditCarer{
         this.photoCarerBannerProfileBtnSubmit = document.getElementById('photoCarerBannerProfileBtnSubmit');
         this.photoCarerBannerProfileForm = document.getElementById('photoCarerBannerProfileForm');
 
+        this.editableBtn = document.querySelectorAll("[data-type='editable']");
         this.editableFields = document.querySelectorAll("[data-field='editable']");
         this.modifyButton = document.querySelectorAll("[data-btn='modify']");
     }
@@ -76,11 +77,6 @@ class EditCarer{
         carerValidator.validateEmail(e, email);
     }
 
-    handlePhone = (e) => {
-        const phone = e.target.value;
-        carerValidator.validatePhone(e, phone);
-    }
-
     handleDescription = (e) => {
         const description = e.target.value;
         carerValidator.validateEmail(e, description);
@@ -111,7 +107,6 @@ class EditCarer{
     modifyField = (e) => {
 
         if(Object.keys(carerValidator.UserErrorForms).length > 0){
-            console.log('> 0')
             e.target.disabled = true;
             return
         }
@@ -121,18 +116,24 @@ class EditCarer{
         let value = document.getElementById(targetId).value;
         const model = e.target.getAttribute("data-model");
 
-        let query = '';
-        console.log('key: ',key)
-        if(key.includes('phone')){
-            query = '?phone';
-        }
-
-        axios.post(`/manage/updateField/carer${query}`, { model, key, value})
+        axios.post(`/manage/updateField/carer`, { model, key, value})
             .then((res) => {
                 inputTarget.value = res.data;
-                e.target.disabled = true;
+                inputTarget.disabled = true;
+                inputTarget.classList.toggle('is-valid');
+                inputTarget.parentNode.classList.toggle('disabledField')
+                e.target.classList.toggle('d-none');
             })
             .catch( err => console.log(err));
+    }
+
+    enableEdit = (e) => {
+        const elId = e.currentTarget.getAttribute('data-id');
+        console.log(elId)
+        document.getElementById(elId).disabled = !document.getElementById(elId).disabled;
+        e.currentTarget.parentNode.parentNode.classList.toggle('disabledField')
+        const parent = e.currentTarget.parentNode.parentNode;
+        parent.querySelector('[data-btn]').classList.toggle('d-none')
     }
 
     addUserData = () => {
@@ -176,11 +177,17 @@ class EditCarer{
 
     addListeners = () => {
 
+        document.querySelectorAll('.disabledField input').forEach( input => input.disabled = true )
+        document.querySelectorAll('.disabledField select').forEach( input => input.disabled = true )
+        document.querySelectorAll('.disabledField textarea').forEach( input => input.disabled = true )
+        this.modifyButton.forEach(button => button.classList.add('d-none'));
+        this.modifyButton.forEach(button => button.addEventListener('click', this.modifyField));
+        this.editableBtn.forEach(button => button.addEventListener('click', this.enableEdit));
+
         this.emailInput.addEventListener('input', this.handleEmail);
         this.nameInput.addEventListener('input', this.handleName)
         this.descriptionInput.addEventListener('input', this.handleDescription)
         this.descriptionInput.addEventListener('input', this.handleDescription)
-        this.phoneNumber.addEventListener('input', this.handlePhone)
 
         this.photoCarerAvatarPreview.addEventListener('click', () => {
             this.photoCarerAvatarInputFile.click()
@@ -196,11 +203,6 @@ class EditCarer{
         this.photoCarerBannerProfileForm.addEventListener('submit', this.sendBannerProfilePhoto);
         this.photoCarerBannerProfileInputFile.addEventListener('change', () => {
             this.photoCarerBannerProfileBtnSubmit.click()
-        });
-
-        this.modifyButton.forEach( button => {
-            button.disabled = true;
-            button.addEventListener('click', this.modifyField)
         });
 
         this.editableFields.forEach( field => {
