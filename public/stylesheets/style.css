@@ -451,6 +451,7 @@ main {
   .v-service-map-location .mapboxgl-ctrl-geocoder {
     min-width: 100%; }
 
+<<<<<<< HEAD
 .v-service-map-location.toCarerList {
   height: 100vh; }
   .v-service-map-location.toCarerList header {
@@ -465,6 +466,13 @@ main {
     height: 87vh;
     background-color: transparent; }
   .v-service-map-location.toCarerList #search-carers {
+=======
+.v-service-map-location.toCarerList .box-main:not(.box-main--carerList) {
+  height: calc(100% - 63px);
+  z-index: 10;
+  background-color: #FAD06C; }
+  .v-service-map-location.toCarerList .box-main:not(.box-main--carerList) #search-carers {
+>>>>>>> 430af53d02545da2dbb401433a46bf62518e26f6
     opacity: 0; }
 
 .v-dashboard {

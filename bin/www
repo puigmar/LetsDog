@@ -55,6 +55,8 @@ io.on('connection', (socket) => {
     console.log('carers connected:' ,carers_connected)
     console.log('users:' , socketUsers)
 
+    socket.broadcast.emit('carersOnlineData', carers_connected)
+
     for(let i = 0; i < carers_connected.length; i++) {
       socket.broadcast.emit('messages', messages)
     }

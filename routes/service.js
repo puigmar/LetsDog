@@ -5,6 +5,7 @@ const prices = require("./../config/prices");
 const User = require("../models/User");
 const Carer = require("../models/Carer");
 const Card = require("../models/Card");
+const Contract = require("../models/Contract");
 const { trasformToRegularTime } = require("../helpers/methods");
 
 // router.use((req, res, next) => {
@@ -60,7 +61,7 @@ router.get("/payment", (req, res, next) => {
 });
 
 router.post("/payment", (req, res, next) => {
-  const { name, number, expiresMonth, expiresYear, cvv, saveCard } = req.body;
+  const { name, number, expiresMonth, expiresYear, cvv, userId } = req.body;
   
   console.log(req.body);
 
@@ -78,14 +79,14 @@ router.post("/payment", (req, res, next) => {
   }
 
   Card.create({
-    //userId: '{{currentUserInfo.user._id}}',
+    userId: userId,
     ownerName: name,
     cardNumber: number,
     expiration: expiresMonth + expiresYear ,
     cvv: cvv,
   })
     .then(() => {
-      res.redirect("/login");
+      res.redirect("/service-map");
     })
     .catch((err) => {
       console.log(err);
@@ -94,6 +95,33 @@ router.post("/payment", (req, res, next) => {
 
 router.get("/service-map", (req, res, next) => {
   res.render("service-map");
+});
+
+router.post('/service-map', (req, res, next) => {
+  const {contractData} = req.body
+
+  Card.findById({userId: contractData.id})
+    .then((card) => {
+      Contract.create ({
+        card_number: card.cardNumber,
+        userId: contractData.userId,
+        carerId: contractData.carerId,
+        price: contractData.price,
+        interval_time: contractData.interval_time,
+        meeting_point: contractData.meeting_point,
+        card_number: contractData.card_number
+      })
+      .then(() => {
+        console.log('exito');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    })
+    .catch ((err) => {
+      console.log(err)
+    });
+  
 });
 
 
