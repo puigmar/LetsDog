@@ -30,3 +30,15 @@
         }
     }
 }
+
+.light-mode{
+
+    .subHeader_content{
+        h1,
+        a.backLink,
+        button{
+            color: #fff!important;
+            text-shadow: 1px 1px 12px rgba(150, 150, 150, 1);
+        }
+    }
+}

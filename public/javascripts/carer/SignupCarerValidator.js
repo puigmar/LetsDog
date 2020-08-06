@@ -122,6 +122,7 @@ class SignupCarerValidator {
             }
             formEl.classList.toggle('is-valid');
             formEl.classList.add('is-invalid');
+            formEl.parentNode.classList.toggle('is-error');
 
         } else if(parent.querySelectorAll('.invalid-feedback').length !== 0){
             
@@ -129,6 +130,7 @@ class SignupCarerValidator {
             errorMsg.parentNode.removeChild(errorMsg);
             
             formEl.classList.remove('is-invalid')
+            formEl.parentNode.classList.remove('is-error')
             formEl.classList.add('is-valid')
 
         } else {
