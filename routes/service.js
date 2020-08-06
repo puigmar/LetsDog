@@ -99,8 +99,9 @@ router.get("/service-map", (req, res, next) => {
 
 router.post('/service-map', (req, res, next) => {
   const {contractData} = req.body
+  console.log(req.body)
 
-  Card.findById({userId: contractData.id})
+  Card.findOne({userId: contractData.userId})
     .then((card) => {
       Contract.create ({
         card_number: card.cardNumber,

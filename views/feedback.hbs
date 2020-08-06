@@ -23,9 +23,9 @@
     <br><br>
 
     {{#if err}}
-        <p class="invalid-feedback">
+    <p class="invalid-feedback">
         {{ err }}
-        </p>
+    </p>
     {{/if}}
 
     <button class="btn btn-primary btn-lg" class="submit" value="Submit">Enviar</button>
@@ -35,9 +35,11 @@
 <script>
 
     window.onload = () => {
-    let retrievedObject = localStorage.getItem("contract");
-    let contract = JSON.parse(retrievedObject);
+        let retrievedObject = localStorage.getItem("contract");
+        let contract = JSON.parse(retrievedObject);
 
-     document.getElementById('user-id').value = contract.userId
-     document.getElementById('carer-id').value = contract.carerId
+        document.getElementById('user-id').value = contract.userId
+        document.getElementById('carer-id').value = contract.carerId
+
+    }
 </script>

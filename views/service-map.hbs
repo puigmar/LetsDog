@@ -48,8 +48,9 @@
 
 
 
-<script>
 
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
     window.onload = () => {
         let retrievedObject = localStorage.getItem("contract");
         let contract = JSON.parse(retrievedObject);
@@ -182,6 +183,8 @@
         const endServiceButton = document.getElementById('end-service')
 
         axios.post('/service-map', { contractData: contract })
+
+        
             .then((data) => {
                 console.log("hecho")
             })
