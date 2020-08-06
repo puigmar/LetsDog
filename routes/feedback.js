@@ -7,10 +7,10 @@ const Review = require("../models/Review");
 
 router.get("/feedback/:id", (req, res, next) => {
   const carerId = req.params.id;
-  console.log(carerId);
+  
   Carer.findOne({ _id: carerId })
     .then((carer) => {
-      console.log(carer);
+      
       res.render("feedback", { selectedCarer: carer });
     })
     .catch((err) => {
