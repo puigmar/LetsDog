@@ -272,8 +272,13 @@ router.post("/send/contract-petition", async (req, res, next) => {
 
 router.get('/get/pending-petitions', async (req, res, next) => {
 
-    const getPendingContracts = await Contract.find({pending: false});
-    res.json({contracts: getPendingContracts});
+    const getContracts = await Contract.find({pending: false})
+
+    const getDogs = await Dog.find({userId: getContracts.userId})
+
+    console.log('getDogs: ', getDogs);
+
+    //res.json({contracts: getPendingContracts});
 
 })
 

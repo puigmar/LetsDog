@@ -69,7 +69,8 @@
             const card = event.target.parentNode
             const interval = card.querySelector('[data-type]').getAttribute('data-type');
             const price = card.querySelector('.price').innerHTML;
-            const contract = { userId: `{{currentUserInfo.user._id}}`, carerId: "", interval_time: interval, price: price, meeting_point: "", card_number: "" };
+            console.log(`{{currentUserInfo}}`)
+            const contract = { userId: `{{currentUserInfo.user._id}}`, carerId: "", dogId: `{{currentUserInfo.dog._id}}`, interval_time: interval, price: price, meeting_point: "", card_number: "" };
             localStorage.setItem('contract', JSON.stringify(contract));
         });
 
