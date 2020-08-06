@@ -442,7 +442,6 @@ main {
   .v-service-map-location .box-main--carerList {
     transition: all .3s ease-in-out;
     height: 100%;
-    pointer-events: none;
     width: 100%;
     bottom: 0;
     position: relative;
@@ -962,7 +961,11 @@ textarea.form-control:disabled {
       padding-left: 3px; }
 
 .carerCard {
-  overflow: hidden; }
+  overflow: hidden;
+  display: block; }
+  .carerCard * {
+    text-decoration: none;
+    color: #000; }
   .carerCard_details {
     display: flex;
     justify-content: space-between; }

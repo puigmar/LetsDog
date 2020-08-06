@@ -1,6 +1,12 @@
 .carerCard{
 
     overflow: hidden;
+    display: block;
+
+    *{
+        text-decoration: none;
+        color: #000;
+    }
 
     &_details{
         display: flex;

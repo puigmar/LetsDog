@@ -34,20 +34,6 @@ router.get("/setup", (req, res, next) => {
   res.render("setup");
 });
 
-router.get("/carer-profile/:id", (req, res, next) => {
-  const carerId = req.params.id;
-  console.log(carerId);
-
-  Carer.findOne({ _id: carerId })
-    .then((carer) => {
-      console.log(carer);
-      res.render("carer-profile", { selectedCarer: carer });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
 router.get("/validation", (req, res, next) => {
   res.render("service-validation");
 });
@@ -122,6 +108,20 @@ router.post('/service-map', (req, res, next) => {
       console.log(err)
     });
   
+});
+
+router.get("/carer-profile/:id", (req, res, next) => {
+  const carerId = req.params.id;
+  console.log(carerId);
+
+  Carer.findOne({ _id: carerId })
+    .then((carer) => {
+      console.log('carer: ', carer);
+      res.render("carer-profile", { selectedCarer: carer });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 

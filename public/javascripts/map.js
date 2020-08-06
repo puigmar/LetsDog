@@ -67,7 +67,7 @@ geocoder.on("result", (e) => {
     .addTo(map);
 
   document.getElementById("search-carers").addEventListener("click", () => {
-    apiService
+    /*apiService
       .sendUserLocation(userLocArr)
       .then( async (res) => {
         console.log(res)
@@ -75,7 +75,8 @@ geocoder.on("result", (e) => {
         document.querySelector('.v-service-map-location').classList.add('toCarerList');
 
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err));*/
+      document.querySelector('.v-service-map-location').classList.add('toCarerList');
   });
 });
 
