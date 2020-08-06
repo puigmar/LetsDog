@@ -771,6 +771,19 @@ main {
   color: #F97350;
 }
 
+#carerArea.v-profile .profile-phoneSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#carerArea.v-profile .profile-phoneSection > * {
+  width: 40%;
+}
+
 .btn {
   width: 100%;
   display: -webkit-inline-box;
@@ -1040,10 +1053,16 @@ input:-webkit-autofill:active {
   color: #fff;
 }
 
+.editField_label {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
 .editField_label label {
   width: auto;
   padding-right: 10px;
   font-size: 1.6rem;
+  margin: 0;
 }
 
 .editField_label button {
@@ -1065,10 +1084,18 @@ input:-webkit-autofill:active {
   line-height: 1;
 }
 
-.editField input {
+.editField input,
+.editField textarea,
+.editField .custom-select {
   font-size: 1.7rem;
   padding: 0;
   border: 0;
+  font-weight: 300;
+  min-height: 35px;
+}
+
+.editField textarea {
+  margin-top: 10px;
 }
 
 .editField_label,

@@ -44,27 +44,27 @@
                 </div>
             </div>
         </section>
-        <section class="form-row">
+        <section class="form-row editField">
             <div class="editField_label">
                 <label for="carerEmailInput"> Email </label>
-                <button data-btn="modify" data-model="User" data-id="carerEmailInput" type="button">Modificar</button>
+                <button data-btn="modify" data-model="User" data-id="carerEmailInput" type="button"><span class="icon-editar"></span></button>
             </div>
-            <input data-field="editable"  type="email" data-model="User" name="email" id="carerEmailInput" placeholder="Escribe unemail" value="{{carer.userId.email}}">
+            <input class="form-control" data-field="editable"  type="email" data-model="User" name="email" id="carerEmailInput" placeholder="Escribe unemail" value="{{carer.userId.email}}">
         </section>
-        <section class="form-row">
+        <section class="form-row editField">
             <div class="editField_label">
                 <label>Descripción</label>
-                <button data-btn="modify" data-model="Carer" type="button" data-id="carerDescriptionInput">Modificar</button>
+                <button data-btn="modify" data-model="Carer" type="button" data-id="carerDescriptionInput"><span class="icon-editar"></span></button>
             </div>
-            <textarea data-field="editable"  name="description" id="carerDescriptionInput">{{carer.description}}</textarea>
+            <textarea class="form-control" data-field="editable"  name="description" id="carerDescriptionInput">{{carer.description}}</textarea>
         </section>
-        <section class="form-row">
+        <section class="form-row editField profile-phoneSection">
             <div class="prefixCol">
                 <div class="editField_label">
                     <label>Prefijo</label>
-                    <button data-btn="modify" data-model="Carer" data-id="carerPrefixPhoneInput" type="button">Modificar</button>
+                    <button data-btn="modify" data-model="Carer" data-id="carerPrefixPhoneInput" type="button"><span class="icon-editar"></span></button>
                 </div>
-                <select id="carerPrefixPhoneInput" name="phone.prefix" data-field="editable" >
+                <select class="custom-select" id="carerPrefixPhoneInput" name="phone.prefix" data-field="editable" >
                     {{#select carer.phone.prefix}}
                     <option data-countryCode="DZ" value="213">Algeria (+213)</option>
                     <option data-countryCode="AD" value="376">Andorra (+376)</option>
@@ -286,9 +286,9 @@
             <div class="phoneCol">
                 <div class="editField_label">
                     <label>Teléfono</label>
-                    <button data-btn="modify" data-model="Carer" data-id="carerPrefixPhoneInput" type="button">Modificar</button>
+                    <button data-btn="modify" data-model="Carer" data-id="carerPrefixPhoneInput" type="button"><span class="icon-editar"></span></button>
                 </div>
-                <input data-field="editable"  type="number" name="phone.number" id="carerPhoneInput" placeholder="Escribe tu teléfono" value="{{carer.phone.number}}">
+                <input data-field="editable"  type="number" name="phone.number" id="carerPhoneInput" value="{{carer.phone.number}}">
             </div>
         </section>
     </div>
