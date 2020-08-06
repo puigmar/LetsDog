@@ -1,12 +1,10 @@
 .v-service-map-location{
-    min-height: auto;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    min-height: calc(100vh - 56px);
+    height: calc(100vh - 56px);
+    overflow: hidden;
+    position: relative;
 
     .subHeader{
-        position: fixed;
         top: 56px;
         width: 100%;
         z-index: 10;
@@ -23,7 +21,7 @@
         top: 0;
         bottom: 0;
         width: 100%;
-        margin-top: 112px;
+        margin-top: 56px;
         transition: all 0.3s ease-in;
         opacity: 1;
     }
@@ -90,11 +88,30 @@
         
     }
 
+    .carerList-block{
+        width: 100%;
+        height: calc(100vh - 0px);
+        top: 100vh;
+        position: absolute;
+        transition: all 0.3s ease-in-out;
+        z-index: 20;
+
+        > p{
+            padding: 0 24px 10px;
+        }
+    }
+
     .box-main--carerList{
         transition: all .3s ease-in-out;
-        height: 20px;
-        bottom: -100%;
-        height: calc(100vh - 100px);
+        height: 100%;
+        pointer-events: none;
+        width: 100%;
+        bottom: 0;
+        position: relative;
+        z-index: 100;
+        background-color: #fff;
+        padding: 18px;
+        
     }
 
     .mapboxgl-ctrl-geocoder {
@@ -104,14 +121,10 @@
 
 .v-service-map-location.toCarerList{
 
-    .box-main:not(.box-main--carerList){
-        height: calc(100% - 63px);
-        z-index: 10;
-        background-color: $secondary-color;
+    height: 100vh;
 
-        #search-carers{
-            opacity: 0;
-        }
+    header{
+        z-index: 20px;
     }
 
     #map {
@@ -122,8 +135,17 @@
         background-color: transparent;
     }
 
-    .box-main--carerList{
-        bottom: 0;
+    .carerList-block{
+        top: 30vh;
+    }
+
+    .box-main:not(.box-main--carerList){
+        height: 87vh;
+        background-color: transparent;
+    }
+
+    #search-carers{
+        opacity: 0;
     }
     
 }

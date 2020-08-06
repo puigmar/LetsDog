@@ -7,7 +7,7 @@ class ApiService {
 
     sendUserLocation (userLocArr) {
 
-        return this.api.post("/manage/check/available-carers", userLocArr)
+        return this.api.post(`/manage/check/available-carers?timestamps=${Date.now()}`, userLocArr)
             
     }
 

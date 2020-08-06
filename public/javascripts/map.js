@@ -69,9 +69,11 @@ geocoder.on("result", (e) => {
   document.getElementById("search-carers").addEventListener("click", () => {
     apiService
       .sendUserLocation(userLocArr)
-      .then((res) => {
+      .then( async (res) => {
+        console.log(res)
+        await generateDOMCarersList(res.data, 'availableCarersList');
         document.querySelector('.v-service-map-location').classList.add('toCarerList');
-        console.log('respuesta de vuelta: ', res)
+
       })
       .catch((err) => console.log(err));
   });
@@ -156,3 +158,49 @@ map.on("load", function () {
 socket.on("user:left", (data) =>
   console.log("usario ha dejado la sesion: ", data)
 );
+
+const generateDOMCarersList = (arr, wrapper) => {
+
+  const carer = arr.result
+
+  const parent = document.getElementById(wrapper);
+  const carerBlock = document.createElement('div');
+  carerBlock.className = 'carerCard';
+
+  /*
+  carer.forEach( carer => {
+    carerBlock += `
+      <div class="carerCard_details">
+        <div class="carerCard_bubleTime">
+            <div class="carerCard_buble">
+                <span class="icon-countDownClok"></span>
+            </div>
+            <span class="carerCard_bubleTime_timeTo">en ${carer.name}'</span>
+        </div>
+        <div class="carerCard_Intro">
+            <div class="carerCard_Intro_content">
+                <div class="carerCard_Intro_detail">
+                    <h3 class="carerCard_Intro_name">${carer.carers.name}</h3>
+                    <p class="carerCard_Intro_lastReview">“${carer.carers.profilePhoto}”</p>
+                </div>
+                <div class="carerCard_Intro_avatar">
+                    <div class="avatar" style="background-image: url('${carer.carers.profilePhoto}')></div>
+                </div>
+            </div>
+            <div class="carerCard_feedback">
+                <div class="carerCard_feedback_averageBones">
+                    <span class="icon-bone"></span><span class="icon-bone"></span><span class="icon-bone"></span><span class="icon-bone"></span><span class="icon-bone"></span>
+                </div>
+                <div class="carerCard_feedback_nums">
+                    <div class="carerCard_feedback_averageScore">${carer.carers.rate}</div>
+                    <div class="carerCard_feedback_numReviews">40 reseñas</div>
+                </div>
+            </div>
+        </div>
+      </div>
+    `
+  })
+
+  parent.appendChild(carerBlock);*/
+
+}

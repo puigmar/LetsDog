@@ -1,0 +1,130 @@
+.carerCard{
+
+    overflow: hidden;
+
+    &_details{
+        display: flex;
+        justify-content: space-between;
+        
+
+        .carerCard_bubleTime{
+
+            width: 80px;
+            padding-right: 20px;
+            display: flex;
+            justify-content: flex-start;
+            flex-flow: column;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+
+            .carerCard_buble{
+                width: 40px;
+                height: 40px;
+                background-color: $primary-color;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 2.4rem;
+                color: $beige-color;
+            }
+
+            .carerCard_bubleTime_timeTo{
+                font-size: 1.4rem;
+                color: black;
+                padding-top: 8px;
+                font-weight: 500;
+            }
+
+            &:before{
+                content: "";
+                position: absolute;
+                width: 1px;
+                height: 39%;
+                border: 1px solid #F97350;
+                bottom: -10px;
+                opacity: 0.3;
+            }
+
+        }
+
+        .carerCard_Intro{
+            display: flex;
+            width: 84%;
+            flex-direction: column;
+
+            &_content{
+                padding-right: 5px;
+                display: flex;
+            }
+
+            &_name{
+                font-size: 1.8rem;
+                padding-bottom: 5px;
+            }
+
+            &_avatar{
+                margin-bottom: 3px;
+                display: flex;
+                align-items: center;
+
+                .avatar{
+                    width: 60px;
+                    height: 60px;
+                    margin: 4px;
+
+                    &:before{
+                        display: none;
+                        margin: 0;
+                    }
+                }
+
+            }
+
+            &_lastReview{
+                font-size: 1.4rem;
+                line-height: 1.2;
+                font-style: italic;
+            }
+        }
+    }
+
+    &_feedback{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        &_averageBones{
+            font-size: 2.4rem;
+
+            > *{
+                margin-right: 4px;
+            }
+            
+        }
+
+        &_nums{
+            display: flex;
+            font-size: 1.2rem;
+            padding-right: 3px;
+
+            > * {
+                margin: 0 3px;
+            }
+
+            >:first-child{
+                font-weight: 800;
+                position: relative;
+                padding-right: 5px;
+
+                &:before{
+                    content: "";
+                    top: 39%;
+                    border-radius: 50%;
+                    right: -6px;
+                }
+            }
+        }
+    }
+}
