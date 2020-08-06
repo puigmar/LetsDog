@@ -16,6 +16,15 @@
         margin-top: 40px;
         height: 200px;
     }
+
+        .markerMeetingPoint {
+        background-image: url('./../images/meetingpoint.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
 </style>
 
 <h2>Resumen de Servicio</h2>
@@ -32,7 +41,7 @@
 <h3>Punto de encuentro y recogida</h3>
 <p id="meeting-point"></p>
 
-<button class="btn btn-primary btn-lg">Continuar</button>
+<button class="btn btn-primary btn-lg" href="/payment">Continuar</button>
 <a href="/service">Cancelar servicio</a>
 
 <script>
@@ -51,11 +60,17 @@
             zoom: 14
         });
 
-        var marker = new mapboxgl.Marker()
+        var el = document.createElement("div");
+            el.className = "markerMeetingPoint";
+
+        new mapboxgl.Marker(el)
             .setLngLat(contract.geometry)
             .addTo(map);
 
         document.getElementById('carer-name').innerHTML = contract.carerName
+        document.getElementById('interval').innerHTML = contract.intervalTime
+        document.getElementById('price').innerHTML = contract.price
+        document.getElementById('meeting-point').innerHTML = contract.meeting_point
 
     }
 

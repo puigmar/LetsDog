@@ -35,10 +35,10 @@ router.get("/setup", (req, res, next) => {
 });
 
 router.get("/carer-profile/:id", (req, res, next) => {
-  const carerId = req.params.id;
-  console.log(carerId);
+  const userId = req.params.id;
+  console.log(userId);
 
-  Carer.findOne({ _id: carerId })
+  Carer.findOne({ userId: userId })
     .then((carer) => {
       console.log(carer);
       res.render("carer-profile", { selectedCarer: carer });
@@ -72,7 +72,7 @@ router.post("/payment", (req, res, next) => {
     expiresYear === "" ||
     cvv === ""
   ) {
-    res.render("/payment-method", {
+    res.render("/payment", {
       err: "Te faltan campos, por favor llenalos",
     });
     return;
