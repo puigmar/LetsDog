@@ -24,9 +24,9 @@ router.get("/service", (req, res, next) => {
       intervalTime: transformTime,
       intervalRaw: interval.intervalTime,
       price: interval.price,
-    }
-  })
-  console.log(transformPrices)
+    };
+  });
+  console.log(transformPrices);
   res.render("service", { intervalList: transformPrices });
 });
 
@@ -48,7 +48,7 @@ router.get("/payment", (req, res, next) => {
 
 router.post("/payment", (req, res, next) => {
   const { name, number, expiresMonth, expiresYear, cvv, userId } = req.body;
-  
+
   console.log(req.body);
 
   if (
@@ -58,7 +58,7 @@ router.post("/payment", (req, res, next) => {
     expiresYear === "" ||
     cvv === ""
   ) {
-    res.render("/payment-method", {
+    res.render("/payment", {
       err: "Te faltan campos, por favor llenalos",
     });
     return;
@@ -68,7 +68,7 @@ router.post("/payment", (req, res, next) => {
     userId: userId,
     ownerName: name,
     cardNumber: number,
-    expiration: expiresMonth + expiresYear ,
+    expiration: expiresMonth + expiresYear,
     cvv: cvv,
   })
     .then(() => {
@@ -83,38 +83,38 @@ router.get("/service-map", (req, res, next) => {
   res.render("service-map");
 });
 
-router.post('/service-map', (req, res, next) => {
-  const {contractData} = req.body
+router.post("/service-map", (req, res, next) => {
+  const { contractData } = req.body;
+  console.log(req.body);
 
-  Card.findById({userId: contractData.id})
+  Card.findOne({ userId: contractData.userId })
     .then((card) => {
-      Contract.create ({
+      Contract.create({
         card_number: card.cardNumber,
         userId: contractData.userId,
         carerId: contractData.carerId,
         price: contractData.price,
         interval_time: contractData.interval_time,
         meeting_point: contractData.meeting_point,
-        card_number: contractData.card_number
+        card_number: contractData.card_number,
       })
-      .then(() => {
-        console.log('exito');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then(() => {
+          console.log("exito");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
-    .catch ((err) => {
-      console.log(err)
+    .catch((err) => {
+      console.log(err);
     });
-  
 });
 
 router.get("/carer-profile/:id", async (req, res, next) => {
-  const carerId = req.params.id;
-  console.log(carerId);
+  const userId = req.params.id;
+ 
   try {
-    const carer = await Carer.findOne({ _id: carerId });
+    const carer = await Carer.findOne({ userId: userId });
     console.log('carer: ', carer);
     res.render("carer-profile", { selectedCarer: carer });
   }

@@ -16,6 +16,15 @@
         margin-top: 40px;
         height: 200px;
     }
+
+    .markerMeetingPoint {
+        background-image: url('./../images/meetingpoint.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
 </style>
 
 <h2>Resumen de Servicio</h2>
@@ -32,16 +41,17 @@
 <h3>Punto de encuentro y recogida</h3>
 <p id="meeting-point"></p>
 
-<button class="btn btn-primary btn-lg">Continuar</button>
+<button class="btn btn-primary btn-lg" href="/payment">Continuar</button>
 <a href="/service">Cancelar servicio</a>
+
 
 <script>
 
     window.onload = () => {
-    let retrievedObject = localStorage.getItem("contract");
-    let contract = JSON.parse(retrievedObject);
+        let retrievedObject = localStorage.getItem("contract");
+        let contract = JSON.parse(retrievedObject);
 
-    const coordinates = contract.geometry
+        const coordinates = contract.geometry
 
         mapboxgl.accessToken = 'pk.eyJ1IjoiYWxlamFuZHJvY29sbyIsImEiOiJja2Q3MXNyamQwbmJ5MnRyYW15bjh4OTN2In0.aDG3a4zapy_fDvwNq-Wgqw';
         var map = new mapboxgl.Map({
@@ -51,11 +61,29 @@
             zoom: 14
         });
 
-        var marker = new mapboxgl.Marker()
+        var el = document.createElement("div");
+        el.className = "markerMeetingPoint";
+
+        new mapboxgl.Marker(el)
             .setLngLat(contract.geometry)
             .addTo(map);
 
+        const result = {}
+        let num = contract.interval_time
+        let rawTotal = num / (1000 * 3600);
+        let hours = Math.floor(rawTotal);
+        let minutes = (Math.ceil(rawTotal) - rawTotal) * 60;
+
+        if (hours !== 0) result.hours = hours + "h";
+        if (minutes !== 0) result.minutes = Number(minutes.toFixed(0)) + "min";
+
+
+
+
         document.getElementById('carer-name').innerHTML = contract.carerName
+        document.getElementById('interval').innerHTML = result.hours + result.minutes
+        document.getElementById('price').innerHTML = contract.price
+        document.getElementById('meeting-point').innerHTML = contract.meeting_point
 
     }
 
