@@ -61,19 +61,17 @@ geocoder.on("result", (e) => {
   var customMarkerCoord = e.result.geometry.coordinates;
 
   // make a marker for each feature and add to the map
-  new mapboxgl.Marker(el)
-    // console.log('AQUI', customMarkerCoord)
-    .setLngLat(customMarkerCoord)
-    .addTo(map);
+  new mapboxgl.Marker(el).setLngLat(customMarkerCoord).addTo(map);
 
   document.getElementById("search-carers").addEventListener("click", () => {
     apiService
       .sendUserLocation(userLocArr)
-      .then( async (res) => {
-        console.log(res)
-        // descomentar cuando esté hecha la funcionalidad await generateDOMCarersList(res.data, 'availableCarersList');
-        document.querySelector('.v-service-map-location').classList.add('toCarerList');
-
+      .then(async (res) => {
+        console.log(res);
+        await generateDOMCarersList(res.data, "availableCarersList");
+        document
+          .querySelector(".v-service-map-location")
+          .classList.add("toCarerList");
       })
       .catch((err) => console.log(err));
   });
@@ -160,30 +158,37 @@ socket.on("user:left", (data) =>
 );
 
 const generateDOMCarersList = (arr, wrapper) => {
-
-  const carer = arr.result
+  
+  const carer = arr.result;
+  console.log(carer)
+  
+  
 
   const parent = document.getElementById(wrapper);
-  const carerBlock = document.createElement('div');
-  carerBlock.className = 'carerCard';
+  //let carerBlock = document.createElement("div");
+  //carerBlock.className = "carerCard";
+  //carerBlock.setAttribute("href", `/carer-profile`);
+  let counter = "";
 
-  carer.forEach( carer => {
-    carerBlock += `
+  carer.forEach((carers, i) => {
+    console.log(carers.carers['0'].name)
+    counter += `
+    <a class="carerCard" href="/carer-profile/${carers.carers['0'].userId}">
       <div class="carerCard_details">
         <div class="carerCard_bubleTime">
             <div class="carerCard_buble">
                 <span class="icon-countDownClok"></span>
             </div>
-            <span class="carerCard_bubleTime_timeTo">en ${carer.name}'</span>
+            <span class="carerCard_bubleTime_timeTo">en ${carers.duration}</span>
         </div>
         <div class="carerCard_Intro">
             <div class="carerCard_Intro_content">
                 <div class="carerCard_Intro_detail">
-                    <h3 class="carerCard_Intro_name">${carer.carers.name}</h3>
-                    <p class="carerCard_Intro_lastReview">“${carer.carers.profilePhoto}”</p>
+                    <h3 class="carerCard_Intro_name">${carers.carers['0'].name}</h3>
+                    <p class="carerCard_Intro_lastReview">${carers.carers['0'].name}</p>
                 </div>
                 <div class="carerCard_Intro_avatar">
-                    <div class="avatar" style="background-image: url('${carer.carers.profilePhoto}')></div>
+                    <div class="avatar" style="background-image: url(${carers.carers['0'].profilePhoto})"></div>
                 </div>
             </div>
             <div class="carerCard_feedback">
@@ -191,16 +196,17 @@ const generateDOMCarersList = (arr, wrapper) => {
                     <span class="icon-bone"></span><span class="icon-bone"></span><span class="icon-bone"></span><span class="icon-bone"></span><span class="icon-bone"></span>
                 </div>
                 <div class="carerCard_feedback_nums">
-                    <div class="carerCard_feedback_averageScore">${carer.carers.rate}</div>
+                    <div class="carerCard_feedback_averageScore">${carers.carers['0'].rate}</div>
                     <div class="carerCard_feedback_numReviews">40 reseñas</div>
                 </div>
             </div>
         </div>
       </div>
-    `
-  })
+    </a>
+    `;
 
-  parent.appendChild(carerBlock);
+  });
 
-
-}
+  
+  parent.innerHTML = counter ;
+};

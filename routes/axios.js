@@ -269,7 +269,7 @@ router.post("/check/available-carers", async (req, res, next) => {
     
     let availableCarers = [];
     let userCoords = req.body;
-    console.log(req.body)
+    
     const SEARCHLIMIT = 20;
     const MAXTIME = 1000; // minutes
 
@@ -287,6 +287,7 @@ router.post("/check/available-carers", async (req, res, next) => {
                 if(minutes < MAXTIME) {
                     array[i].duration = minutes;
                     availableCarers.push(array[i]);
+                    console.log('available',availableCarers)
                 }
             }
 
@@ -301,20 +302,69 @@ router.post("/check/available-carers", async (req, res, next) => {
     }
 
 
-    await nearestOnlineCarers() // <--- cargar array falso con datos tipo socket
+
+    const carerCoordsArr = [{
+        carerId: '5f2c311e9f76bd70da23b7c3',
+        geometry: { 
+            coordinates: [2.1608813, 41.3904655],
+            type: 'Point' 
+            }
+      },
+      {
+        carerId: '5f2c32c59f76bd70da23b7c5',
+        geometry: { 
+            coordinates: [2.162688, 41.399681],
+            type: 'Point' 
+            }
+      },
+      {
+        carerId: '5f2c330e9f76bd70da23b7c7',
+        geometry: { 
+            coordinates: [2.161111, 41.398541],
+            type: 'Point' 
+            }
+      },
+      {
+        carerId: '5f2c33ef9f76bd70da23b7c9',
+        geometry: { 
+            coordinates: [2.163320, 41.397000],
+            type: 'Point' 
+            }
+      },
+      {
+        carerId: '5f2c34a79f76bd70da23b7cb',
+        geometry: { 
+            coordinates: [2.164444, 41.397500],
+            type: 'Point' 
+            }
+      },
+      {
+        carerId: '5f2c35129f76bd70da23b7cd',
+        geometry: { 
+            coordinates: [2.165555, 41.398000],
+            type: 'Point' 
+            }
+      }];
+
+    
+
+    await nearestOnlineCarers(carerCoordsArr) // <--- cargar array falso con datos tipo socket
     const queryCarerList = orderCarerByTime(availableCarers);
 
+    //console.log('Es esto---------------->',queryCarerList)
+      
     const carerDetails = [];
 
     const getCarerDetails = async () => {
         try{
             for(let i= 0; i<queryCarerList.length; i++){
 
-                const carers = await Carer.find({userId: queryCarerList[i].carerId})
+                const carers = await Carer.find({_id: queryCarerList[i].carerId})
                                           .populate('liked.reviews', 'description')
+                console.log(carers)
                                           
 
-                const carerId = await Carer.find({ userId: queryCarerList[i].carerId }, { carerId:1 })
+                const carerId = await Carer.find({ _id: queryCarerList[i].carerId }, { carerId:1 })
                 const reviews = await Review.find({ carerId }, { description: 1 })
 
                 const newObj = {
@@ -324,7 +374,11 @@ router.post("/check/available-carers", async (req, res, next) => {
                     numReviews: reviews.length
                 }
 
-                carerDetails.push(newObj);  
+                carerDetails.push(newObj);
+
+                console.log('hola--------->',carerDetails)
+                
+                
 
             }
         } 
@@ -335,7 +389,7 @@ router.post("/check/available-carers", async (req, res, next) => {
 
     await getCarerDetails();
 
-
+    
     res.json({result:carerDetails})
     
 });
