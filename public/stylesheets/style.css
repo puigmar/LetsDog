@@ -502,6 +502,69 @@ main {
     width: 100%;
     margin-bottom: 25px; }
 
+.profile-dog {
+  position: relative;
+  padding: 0;
+  background-color: #F7F2E5; }
+  .profile-dog .box-main {
+    padding-top: 50px;
+    overflow: hidden;
+    margin-top: -60px; }
+    .profile-dog .box-main .profile-subHeader {
+      display: flex;
+      justify-content: space-between; }
+      .profile-dog .box-main .profile-subHeader_name {
+        width: 50%;
+        padding-right: 30px; }
+  .profile-dog .pofile-heroBanner {
+    position: relative;
+    overflow: visible;
+    min-height: 162px; }
+    .profile-dog .pofile-heroBanner .profile-banner {
+      border-radius: 0;
+      margin: 0;
+      height: 140px;
+      box-shadow: none; }
+    .profile-dog .pofile-heroBanner .profile-avatar {
+      position: absolute;
+      bottom: 0;
+      z-index: 2;
+      left: 50%;
+      transform: translateX(-50%); }
+      .profile-dog .pofile-heroBanner .profile-avatar .avatar {
+        margin: 0;
+        transform: translateY(16%);
+        width: 100px;
+        height: 100px;
+        box-shadow: none;
+        border: 6px solid #fff; }
+  .profile-dog .home-buttons {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding-bottom: 32px; }
+    .profile-dog .home-buttons .btn {
+      margin-top: 16px;
+      box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.49); }
+  .profile-dog .profile-score_bones {
+    font-size: 1.7rem;
+    height: 40px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center; }
+    .profile-dog .profile-score_bones > span:first-child {
+      padding-right: 10px;
+      font-weight: 500;
+      color: #F97350; }
+  .profile-dog .profile-phoneSection {
+    display: flex;
+    justify-content: space-between; }
+    .profile-dog .profile-phoneSection > * {
+      width: 48%; }
+  .profile-dog .profile-banner-photo {
+    width: 100%;
+    margin-bottom: 25px; }
+
 .btn {
   width: 100%;
   display: inline-flex;

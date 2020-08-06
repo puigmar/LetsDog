@@ -1,6 +1,6 @@
 'use strict';
 
-class SignupValidator {
+class DogValidator {
     constructor(){
         this.emailExistError = 'Your email already exist!';
         this.invalidEmailError = 'Write a valid email';
@@ -157,4 +157,4 @@ class SignupValidator {
 
 }
 
-const validator = new SignupValidator();
+const dogValidator = new DogValidator();
