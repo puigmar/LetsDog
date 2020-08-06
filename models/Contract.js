@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const contractSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User" },
-  carerId: [{ type: Schema.Types.ObjectId, ref: "User" }],
-  price: Number,
-  interval_price: Number,
+  carerId: { type: Schema.Types.ObjectId, ref: "User" },
+  price: String,
+  interval_time: String,
   meeting_point: String,
   card_number: String,
 });

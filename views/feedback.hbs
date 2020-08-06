@@ -4,25 +4,40 @@
 
 <p>¿Qué tal te ha ido con {{selectedCarer.name}}</p>
 
-<form action="/payment" method="post">
-
-    <input type="radio" id="huesito1" name="huesito" value="1">
+<form action="/feedback" method="post">
+    <input name="userId" id="user-id" type="text" style="display: none;">
+    <input name="carerId" id="carer-id" type="text" style="display: none;">
+    <input type="radio" id="huesito1" class="reviewButton" name="huesito" value="1">
     <label for="huesito1"></label><br>
-    <input type="radio" id="huesito2" name="huesito" value="2">
+    <input type="radio" id="huesito2" class="reviewButton" name="huesito" value="2">
     <label for="huesito2"></label><br>
-    <input type="radio" id="huesito3" name="huesito" value="3">
+    <input type="radio" id="huesito3" class="reviewButton" name="huesito" value="3">
     <label for="huesito3"></label><br>
-    <input type="radio" id="huesito4" name="huesito" value="4">
+    <input type="radio" id="huesito4" class="reviewButton" name="huesito" value="4">
     <label for="huesito4"></label><br>
-    <input type="radio" id="huesito5" name="huesito" value="5">
+    <input type="radio" id="huesito5" class="reviewButton" name="huesito" value="5">
     <label for="huesito5"></label><br><br>
 
-    <label for="review-area">Como te fue con {{selectedCarer.name}}</label>
-    <textarea name="message" rows="10" cols="30">Escribe aquí una pequeña reseña</textarea>
+    <label for="review-area">Cuentanos en pocas palabras tu experiencia</label>
+    <textarea name="review" rows="10" cols="30">Escribe aquí una pequeña reseña</textarea>
     <br><br>
+
+    {{#if err}}
+        <p class="invalid-feedback">
+        {{ err }}
+        </p>
+    {{/if}}
 
     <button class="btn btn-primary btn-lg" class="submit" value="Submit">Enviar</button>
 
-
-
 </form>
+
+<script>
+
+    window.onload = () => {
+    let retrievedObject = localStorage.getItem("contract");
+    let contract = JSON.parse(retrievedObject);
+
+     document.getElementById('user-id').value = contract.userId
+     document.getElementById('carer-id').value = contract.carerId
+</script>

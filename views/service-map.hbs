@@ -181,9 +181,27 @@
 
         const endServiceButton = document.getElementById('end-service')
 
+        axios.post('/service-map', { contractData: contract })
+            .then((data) => {
+                console.log("hecho")
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
         endServiceButton.addEventListener('click', () => {
+
+            //Poner en funcion 
+            //Nombrar rutas como colecciones de backend
+
+
             location.href = `/feedback/${contract.carerId}`
         })
+
+
+
+
+
     }
 
 
