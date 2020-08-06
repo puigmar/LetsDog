@@ -64,18 +64,18 @@ router.post("/updateField/carer", async (req, res, next) => {
         value
     } = req.body;
 
-    if (req.query.phone) {
-        console.log('deteta query,,')
-        const key = req.query.phone.split('.');
+    const keyName = key.split('.')
+
+    if(keyName.length > 1){
         updateQuery = {
             phone: {
-                [key[1]]: value
+                [keyName[1]]: value
             }
         }
     } else {
         updateQuery = {
             $set: {
-                [key]: value
+                [keyName]: value
             }
         }
     }
@@ -91,7 +91,7 @@ router.post("/updateField/carer", async (req, res, next) => {
                 }, updateQuery, {
                     new: true
                 })
-                res.send(update[key])
+                res.send(update[keyName])
             } catch (err) {
                 console.log(err)
             }

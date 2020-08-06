@@ -218,15 +218,37 @@ input:-webkit-autofill:active  {
 
 .editField{
 
+    input,
+    textarea,
+    .custom-select{
+        font-size: 1.7rem;
+        padding: 2px 10px;
+        border: 1px solid $dark-color;
+        font-weight: 300;
+        height: 40px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    textarea{
+        min-height: 50px;
+        margin-top: 0;
+    }
+
     &_label {
         width: 100%;
-        margin-bottom: 5px;;
+        margin-bottom: 5px;
+        padding-bottom: 10px;
 
         label{
             width: auto;
             padding-right: 10px;
             font-size: 1.6rem;
             margin: 0;
+            color: $dark-color;
+            font-weight: 500;
         }
     
         button{
@@ -243,18 +265,20 @@ input:-webkit-autofill:active  {
         }
     }
 
-    input,
-    textarea,
-    .custom-select{
-        font-size: 1.7rem;
-        padding: 0;
-        border: 0;
-        font-weight: 300;
-        min-height: 35px;
-    }
+    &.disabledField{
+        input,
+        textarea,
+        .custom-select{
+            font-size: 1.7rem;
+            padding: 0;
+            border: 0;
+            font-weight: 300;
+            height: 20px;
+        }
 
-    textarea{
-        margin-top:10px;
+        textarea{
+            height: auto;
+        }
     }
 }
 
@@ -274,4 +298,11 @@ input:-webkit-autofill:active  {
     margin-bottom: 0;
     padding-right: 10px;
     font-size: 1.6rem;
+}
+
+input.form-control:disabled, 
+select.custom-select:disabled, 
+textarea.form-control:disabled {
+    background-color: transparent;
+    color: rgba(0,0,0, 0.8)
 }

@@ -82,8 +82,13 @@
         justify-content: space-between;
 
         > * {
-            width: 40%;
+            width: 48%;
         } 
+    }
+
+    .profile-banner-photo{
+        width: 100%;
+        margin-bottom: 25px;
     }
 
 }

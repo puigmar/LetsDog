@@ -10,10 +10,6 @@ const carerSchema = new Schema({
   },
   gallery: String,
   description: String,
-  phone: {
-    prefix: String,
-    number: String
-  },
   items: {
     ontime: {
       name: String,
