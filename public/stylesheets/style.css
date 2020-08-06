@@ -81,8 +81,8 @@ p {
 
 @font-face {
   font-family: 'icomoon';
-  src: url("../../fonts/icomoon.eot?jcoxoe");
-  src: url("../../fonts/icomoon.eot?jcoxoe#iefix") format("embedded-opentype"), url("../../fonts/icomoon.woff2?jcoxoe") format("woff2"), url("../../fonts/icomoon.ttf?jcoxoe") format("truetype"), url("../../fonts/icomoon.woff?jcoxoe") format("woff"), url("../../fonts/icomoon.svg?jcoxoe#icomoon") format("svg");
+  src: url("../../fonts/icomoon.eot?e06txi");
+  src: url("../../fonts/icomoon.eot?e06txi#iefix") format("embedded-opentype"), url("../../fonts/icomoon.woff2?e06txi") format("woff2"), url("../../fonts/icomoon.ttf?e06txi") format("truetype"), url("../../fonts/icomoon.woff?e06txi") format("woff"), url("../../fonts/icomoon.svg?e06txi#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block; }
@@ -99,6 +99,10 @@ p {
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
+
+.icon-countDownClok:before {
+  content: "\e907";
+  color: #f7f2e5; }
 
 .icon-editar:before {
   content: "\e906"; }
@@ -366,10 +370,7 @@ main {
 
 .v-service-map-location {
   min-height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  min-height: calc(100vh - 56px); }
+  display: flex; }
   .v-service-map-location .subHeader {
     position: fixed;
     top: 56px;
@@ -428,28 +429,43 @@ main {
       position: relative;
       bottom: 0;
       transform: translateY(-100%); }
+  .v-service-map-location .carerList-block {
+    width: 100%;
+    height: calc(100vh - 0px);
+    top: 100vh;
+    position: absolute;
+    transition: all 0.3s ease-in-out;
+    z-index: 20; }
+    .v-service-map-location .carerList-block > p {
+      padding: 0 24px 10px; }
   .v-service-map-location .box-main--carerList {
     transition: all .3s ease-in-out;
-    height: 20px;
-    bottom: -100%;
-    height: calc(100vh - 100px); }
+    height: 100%;
+    pointer-events: none;
+    width: 100%;
+    bottom: 0;
+    position: relative;
+    z-index: 100;
+    background-color: #fff;
+    padding: 18px; }
   .v-service-map-location .mapboxgl-ctrl-geocoder {
     min-width: 100%; }
 
-.v-service-map-location.toCarerList .box-main:not(.box-main--carerList) {
-  height: calc(100% - 63px);
-  z-index: 10; }
-  .v-service-map-location.toCarerList .box-main:not(.box-main--carerList) #search-carers {
+.v-service-map-location.toCarerList {
+  height: 100vh; }
+  .v-service-map-location.toCarerList header {
+    z-index: 20px; }
+  .v-service-map-location.toCarerList #map {
     opacity: 0; }
-
-.v-service-map-location.toCarerList #map {
-  opacity: 0; }
-
-.v-service-map-location.toCarerList .subHeader {
-  background-color: transparent; }
-
-.v-service-map-location.toCarerList .box-main--carerList {
-  bottom: 0; }
+  .v-service-map-location.toCarerList .subHeader {
+    background-color: transparent; }
+  .v-service-map-location.toCarerList .carerList-block {
+    top: 30vh; }
+  .v-service-map-location.toCarerList .box-main:not(.box-main--carerList) {
+    height: 87vh;
+    background-color: transparent; }
+  .v-service-map-location.toCarerList #search-carers {
+    opacity: 0; }
 
 .v-dashboard {
   min-height: calc(100vh - 56px);
@@ -943,5 +959,91 @@ textarea.form-control:disabled {
       font-size: 1.6rem;
       font-weight: 300;
       padding-left: 3px; }
+
+.carerCard {
+  overflow: hidden; }
+  .carerCard_details {
+    display: flex;
+    justify-content: space-between; }
+    .carerCard_details .carerCard_bubleTime {
+      width: 80px;
+      padding-right: 20px;
+      display: flex;
+      justify-content: flex-start;
+      flex-flow: column;
+      align-items: center;
+      overflow: hidden;
+      position: relative; }
+      .carerCard_details .carerCard_bubleTime .carerCard_buble {
+        width: 40px;
+        height: 40px;
+        background-color: #F97350;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2.4rem;
+        color: #F7F2E5; }
+      .carerCard_details .carerCard_bubleTime .carerCard_bubleTime_timeTo {
+        font-size: 1.4rem;
+        color: black;
+        padding-top: 8px;
+        font-weight: 500; }
+      .carerCard_details .carerCard_bubleTime:before {
+        content: "";
+        position: absolute;
+        width: 1px;
+        height: 39%;
+        border: 1px solid #F97350;
+        bottom: -10px;
+        opacity: 0.3; }
+    .carerCard_details .carerCard_Intro {
+      display: flex;
+      width: 84%;
+      flex-direction: column; }
+      .carerCard_details .carerCard_Intro_content {
+        padding-right: 5px;
+        display: flex; }
+      .carerCard_details .carerCard_Intro_name {
+        font-size: 1.8rem;
+        padding-bottom: 5px; }
+      .carerCard_details .carerCard_Intro_avatar {
+        margin-bottom: 3px;
+        display: flex;
+        align-items: center; }
+        .carerCard_details .carerCard_Intro_avatar .avatar {
+          width: 60px;
+          height: 60px;
+          margin: 4px; }
+          .carerCard_details .carerCard_Intro_avatar .avatar:before {
+            display: none;
+            margin: 0; }
+      .carerCard_details .carerCard_Intro_lastReview {
+        font-size: 1.4rem;
+        line-height: 1.2;
+        font-style: italic; }
+  .carerCard_feedback {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .carerCard_feedback_averageBones {
+      font-size: 2.4rem; }
+      .carerCard_feedback_averageBones > * {
+        margin-right: 4px; }
+    .carerCard_feedback_nums {
+      display: flex;
+      font-size: 1.2rem;
+      padding-right: 3px; }
+      .carerCard_feedback_nums > * {
+        margin: 0 3px; }
+      .carerCard_feedback_nums > :first-child {
+        font-weight: 800;
+        position: relative;
+        padding-right: 5px; }
+        .carerCard_feedback_nums > :first-child:before {
+          content: "";
+          top: 39%;
+          border-radius: 50%;
+          right: -6px; }
 
 /*# sourceMappingURL=style.css.map */

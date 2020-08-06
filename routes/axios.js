@@ -171,6 +171,7 @@ router.post("/updateField/dog", async (req, res, next) => {
 });
 
 router.post("/check/available-carers", async (req, res, next) => {
+    
     let availableCarers = [];
     let userCoords = req.body;
     console.log(req.body)
@@ -225,7 +226,8 @@ router.post("/check/available-carers", async (req, res, next) => {
     await nearestOnlineCarers()
     const queryCarerList = orderCarerByTime(availableCarers);
 
-    console.log('queryList: ', queryCarerList);
+    //console.log('availableCarers: ', availableCarers)
+    //console.log('queryList: ', queryCarerList);
 
     const carerDetails = [];
 
@@ -235,19 +237,19 @@ router.post("/check/available-carers", async (req, res, next) => {
 
                 const carers = await Carer.find({userId: queryCarerList[i].carerId})
                                           .populate('liked.reviews', 'description')
-                                          .lean()
+                                          
 
                 const carerId = await Carer.find({ userId: queryCarerList[i].carerId }, { carerId:1 })
-                const reviews = await Review.find({ carerId }, { description: 1 }).lean()
+                const reviews = await Review.find({ carerId }, { description: 1 })
 
-                let carerObj = carers;
-            
-                let duration = queryCarerList[i].duration;
-                carerObj.duration = duration;
-                carerObj.reviews = reviews;
-                carerObj.numReviews = reviews.length;
-                console.log('Aca', carerObj)
-                carerDetails.push(carerObj);
+                const newObj = {
+                    carers,
+                    duration: queryCarerList[i].duration,
+                    reviews: reviews,
+                    numReviews: reviews.length
+                }
+
+                carerDetails.push(newObj);  
 
             }
         } 
@@ -257,9 +259,9 @@ router.post("/check/available-carers", async (req, res, next) => {
     }
 
     await getCarerDetails();
-    console.log('Aqui', carerDetails)
-    //console.log('Detalles ----->', carerDetails[0].geometry.coordinates)
-    res.send(carerDetails)
+
+
+    res.json({result:carerDetails})
     
 });
 
