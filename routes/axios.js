@@ -169,7 +169,7 @@ router.post("/updateField/dog", async (req, res, next) => {
     }
 
 });
-
+/*
 router.post("/check/available-carers", async (req, res, next) => {
     
     let availableCarers = [];
@@ -263,7 +263,84 @@ router.post("/check/available-carers", async (req, res, next) => {
 
     res.json({result:carerDetails})
     
+});*/
+
+router.post("/check/available-carers", async (req, res, next) => {
+    
+    let availableCarers = [];
+    let userCoords = req.body;
+    console.log(req.body)
+    const SEARCHLIMIT = 20;
+    const MAXTIME = 1000; // minutes
+
+    const nearestOnlineCarers = async (array) => {
+        try {
+            for (let i = 0; i < array.length; i++) {
+                let url = `https://api.mapbox.com/directions/v5/mapbox/walking/${userCoords[0]},${userCoords[1]};${array[i].geometry['coordinates'][0]},${array[i].geometry['coordinates'][1]}?geometries=geojson&access_token=pk.eyJ1IjoicHVpZ21hciIsImEiOiJja2Q1cTRjMHoyOWc1MzBwZzUxNnBqZjgzIn0.Dl_LIKPYzM72_QZAE0wZWQ`;
+
+                let queryApiDirection = await axios.get(url);
+
+                let duration = queryApiDirection.data.routes[0].duration;
+
+                let minutes = Math.ceil((duration / 60).toFixed(0));
+
+                if(minutes < MAXTIME) {
+                    array[i].duration = minutes;
+                    availableCarers.push(array[i]);
+                }
+            }
+
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    const orderCarerByTime = (array) => {
+        const orderByDuration = array.sort((a, b) => a.duration - b.duration);
+        return (orderByDuration < SEARCHLIMIT) ? orderByDuration : orderByDuration.splice(0, SEARCHLIMIT)
+    }
+
+
+    await nearestOnlineCarers() // <--- cargar array falso con datos tipo socket
+    const queryCarerList = orderCarerByTime(availableCarers);
+
+    const carerDetails = [];
+
+    const getCarerDetails = async () => {
+        try{
+            for(let i= 0; i<queryCarerList.length; i++){
+
+                const carers = await Carer.find({userId: queryCarerList[i].carerId})
+                                          .populate('liked.reviews', 'description')
+                                          
+
+                const carerId = await Carer.find({ userId: queryCarerList[i].carerId }, { carerId:1 })
+                const reviews = await Review.find({ carerId }, { description: 1 })
+
+                const newObj = {
+                    carers,
+                    duration: queryCarerList[i].duration,
+                    reviews: reviews,
+                    numReviews: reviews.length
+                }
+
+                carerDetails.push(newObj);  
+
+            }
+        } 
+        catch(err){
+            console.log(err)
+        }
+    }
+
+    await getCarerDetails();
+
+
+    res.json({result:carerDetails})
+    
 });
+
+
 
 
 module.exports = router

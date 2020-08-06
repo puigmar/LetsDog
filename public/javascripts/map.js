@@ -71,7 +71,7 @@ geocoder.on("result", (e) => {
       .sendUserLocation(userLocArr)
       .then( async (res) => {
         console.log(res)
-        await generateDOMCarersList(res.data, 'availableCarersList');
+        // descomentar cuando esté hecha la funcionalidad await generateDOMCarersList(res.data, 'availableCarersList');
         document.querySelector('.v-service-map-location').classList.add('toCarerList');
 
       })
@@ -167,7 +167,6 @@ const generateDOMCarersList = (arr, wrapper) => {
   const carerBlock = document.createElement('div');
   carerBlock.className = 'carerCard';
 
-  /*
   carer.forEach( carer => {
     carerBlock += `
       <div class="carerCard_details">
@@ -201,6 +200,7 @@ const generateDOMCarersList = (arr, wrapper) => {
     `
   })
 
-  parent.appendChild(carerBlock);*/
+  parent.appendChild(carerBlock);
+
 
 }
