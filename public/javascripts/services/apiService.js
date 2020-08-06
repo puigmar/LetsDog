@@ -15,6 +15,16 @@ class ApiService {
         
         return this.api.post("manage/check/nearest-carers", carersList)
     }
+
+    sendContractPetition (contract) {
+        
+        return this.api.post("manage/send/contract-petition", contract)
+    }
+
+    getPendingPetitions () {
+
+        return this.api.get("/manage/get/pending-petitions")
+    }
 }
 
 const apiService = new ApiService ()

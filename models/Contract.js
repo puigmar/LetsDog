@@ -8,6 +8,14 @@ const contractSchema = new Schema({
   interval_time: String,
   meeting_point: String,
   card_number: String,
+  pending: {
+    type: Boolean,
+    default: false
+  },
+  delivered: {
+    type: Boolean,
+    default: false
+  }
 });
 
 contractSchema.set("timestamps", true);

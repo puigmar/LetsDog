@@ -1,41 +1,56 @@
-<h2>Contratar Servicio</h1>
+<main class="v-checkPages"> 
+    <section class="subHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="subHeader_content">
+                        <a id="backLink" href="/service" class="text-dark"><span class="icon-back_arrow"></span></a>
+                        <button id="backSplide"class="d-none"><span class="icon-back_arrow"></span></button>
+                        <h1>Contratar servicio</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div>
-        <img src="#" alt="Waiting for service photo">
-    </div>
+    <section class="box-main">
+        <div class="illustration">
+            <img class="statusWaitting" src="images/dog_waitting.svg" alt="dog waitting">
+        </div>
+        <p class="transition-message">Esperando la confirmación de <span id="carer-name"></span></p>
+        <div class="loading">
+            <img src="images/Spinner-1s-200px.svg" alt="loader" />
+        </div>
 
-    <p>Esperando la confirmación de </br><span id="carer-name"></span></p>
+        <div class="footer-buttons">
+            <a href="" class="btn btn-lg btn-secondary btn-link">Cancelar servicio</a>
+        </div>
+    </section>
+</main>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./../javascripts/services/apiService.js"></script>
 
+<script>
+    
+    let isLoading = true;
 
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
-    <script>
+    window.onload = () => {
+
+        let retrievedObject = localStorage.getItem("contract");
+        let contract = JSON.parse(retrievedObject);
 
         let isLoading = true;
 
-        window.onload = () => {
-            let retrievedObject = localStorage.getItem("contract");
-            let contract = JSON.parse(retrievedObject);
-            //var socket = io.connect('http://localhost:3000', {
-            //    'forceNew': true
-            //});
+        console.log(contract);
 
-            let isLoading = true;
+        document.getElementById('carer-name').innerHTML = contract.carerName;
 
+        apiService
+            .sendContractPetition(contract)
+            .then( async (res) => {
+                console.log('res: ',res)
+            })
+            .catch((err) => console.log(err));
 
-
-            console.log(contract);
-
-            document.getElementById('carer-name').innerHTML = contract.carerName
-
-            const testButton = document.getElementById("test")
-
-            socket.emit('request', { carerId: contract.userId })
-
-
-
-
-
-        };
-
-
-    </script>
+    };
+</script>

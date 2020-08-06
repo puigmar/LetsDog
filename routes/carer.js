@@ -69,8 +69,6 @@ router.post('/login', async (req, res) => {
                 req.session.currentUser = { user: theUser, carer: theCarer};
                 res.redirect('/carer/dashboard');
             }
-        } else {
-            console.log('theUser: ', theUser)
         }
     }
     catch(err) {

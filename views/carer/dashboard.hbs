@@ -1,58 +1,47 @@
 <main class="v-dashboard">
     <h1>DahsBoard</h1>
     <p>Hola {{currentUserInfo.carer.name}}!</p>
-    <button id="confirm" data-contract="2345" type="button">Aceptar petición</button>
+    
+        {{#if contract}}
+            {{#each contract}}
+            <div class="petition">
+                <div class="petition_resume">
+                    <div class="petition_dogPhoto">
+                        <div class="avatar" style="background-image: url('{{contract.dog.photo}}'"></div>
+                    </div>
+                    <div class="petition_dogInfo">
+                        <h3>{{contract.dog.name}}</h3>
+                        <p>Edad: {{contract.dog.age}}</p>
+                        <p>Raza: {{contract.dog.age}}</p>
+                        <a href="/" class="btn btn-md btn-secondary">Ver detalles</a>
+                    </div>
+                </div>
+                <div class="petition_adress">
+                    <p>{{contact.adress}}</p>
+                </div>
+                <div class="petition_actions">
+                    <input type="hidden" name="carerId" value="{{currentUserInfo.carer._id}}">
+                    <a href="/" class="btn-primary btn-lg">Omitir</button>
+                    <a href="/" class="btn-secondary btn-lg">ACEPTAR</button>
+                </div>
+            </div>
+            {{/each}}
+        {{/if}}
 </main>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./../javascripts/services/apiService.js"></script>
 <script src="/javascripts/User.js"></script>
 <script>
+    window.addEventListener('load', ()=> {
 
-    const petition = [];
-
-    const sendAnswer = (e) => {
-        let petitionId = e.currentTarget.getAttribute('data-contract');
-        console.log(petitionId)
-        socket.emit('accept', { petitionId: petitionId})
-    }
-
-    document.getElementById('confirm').addEventListener('click', sendAnswer);
-
- 
-
-    socket.on('Resendmessage', function(data) { 
-        petition.push(data);
+        const checkPetitions = setTimeout( () => {
+            apiService
+                .getPendingPetitions()
+                .then( async (res) => {
+                    console.log(res)
+                })
+                .catch((err) => console.log(err));
+        }, 3000)
     });
-
-
-    
-
-
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            socket.emit('carer-online', 
-                { 
-                    socket: socket.id,
-                    carerId: '{{currentUserInfo.user._id}}', 
-                    geometry: {
-                        coordinates: [position.coords.longitude, position.coords.latitude],
-                        type: 'Point'
-                    }
-                }
-            );
-        }
-    );
-
-    navigator.geolocation.watchPosition(
-        (position) => {
-            socket.emit('carer-online-moving', 
-                { 
-                    carerId: '{{currentUserInfo.user._id}}', 
-                    geometry: {
-                        coordinates: [position.coords.longitude, position.coords.latitude],
-                        type: 'Point'
-                    }
-                }
-            );
-        }
-    );
 
 </script>
