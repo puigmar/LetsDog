@@ -24,9 +24,9 @@ router.get("/service", (req, res, next) => {
       intervalTime: transformTime,
       intervalRaw: interval.intervalTime,
       price: interval.price,
-    }
-  })
-  console.log(transformPrices)
+    };
+  });
+  console.log(transformPrices);
   res.render("service", { intervalList: transformPrices });
 });
 
@@ -62,7 +62,7 @@ router.get("/payment", (req, res, next) => {
 
 router.post("/payment", (req, res, next) => {
   const { name, number, expiresMonth, expiresYear, cvv, userId } = req.body;
-  
+
   console.log(req.body);
 
   if (
@@ -82,7 +82,7 @@ router.post("/payment", (req, res, next) => {
     userId: userId,
     ownerName: name,
     cardNumber: number,
-    expiration: expiresMonth + expiresYear ,
+    expiration: expiresMonth + expiresYear,
     cvv: cvv,
   })
     .then(() => {
@@ -97,33 +97,31 @@ router.get("/service-map", (req, res, next) => {
   res.render("service-map");
 });
 
-router.post('/service-map', (req, res, next) => {
-  const {contractData} = req.body
-  console.log(req.body)
+router.post("/service-map", (req, res, next) => {
+  const { contractData } = req.body;
+  console.log(req.body);
 
-  Card.findOne({userId: contractData.userId})
+  Card.findOne({ userId: contractData.userId })
     .then((card) => {
-      Contract.create ({
+      Contract.create({
         card_number: card.cardNumber,
         userId: contractData.userId,
         carerId: contractData.carerId,
         price: contractData.price,
         interval_time: contractData.interval_time,
         meeting_point: contractData.meeting_point,
-        card_number: contractData.card_number
+        card_number: contractData.card_number,
       })
-      .then(() => {
-        console.log('exito');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then(() => {
+          console.log("exito");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
-    .catch ((err) => {
-      console.log(err)
+    .catch((err) => {
+      console.log(err);
     });
-  
 });
-
 
 module.exports = router;
