@@ -78,7 +78,7 @@ router.post("/payment", (req, res, next) => {
   }
 
   Card.create({
-    //userId: currentUserInfo._id,
+    //userId: '{{currentUserInfo.user._id}}',
     ownerName: name,
     cardNumber: number,
     expiration: expiresMonth + expiresYear ,
@@ -92,9 +92,9 @@ router.post("/payment", (req, res, next) => {
     });
 });
 
-// ownerName: String,
-//   cardNumber: Number,
-//   expiration:Number,
-//   cvv: Number,
+router.get("/service-map", (req, res, next) => {
+  res.render("service-map");
+});
+
 
 module.exports = router;
