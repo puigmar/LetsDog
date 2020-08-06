@@ -741,8 +741,8 @@ main {
       .v-profile .pofile-heroBanner .profile-avatar .avatar {
         margin: 0;
         transform: translateY(16%);
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         box-shadow: none;
         border: 6px solid #fff; }
   .v-profile .home-buttons {

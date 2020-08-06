@@ -64,7 +64,7 @@ geocoder.on("result", (e) => {
   new mapboxgl.Marker(el).setLngLat(customMarkerCoord).addTo(map);
 
   document.getElementById("search-carers").addEventListener("click", () => {
-    /*apiService
+    apiService
       .sendUserLocation(userLocArr)
       .then(async (res) => {
         console.log(res);
@@ -73,7 +73,7 @@ geocoder.on("result", (e) => {
           .querySelector(".v-service-map-location")
           .classList.add("toCarerList");
       })
-      .catch((err) => console.log(err));*/
+      .catch((err) => console.log(err));
       document.querySelector('.v-service-map-location').classList.add('toCarerList');
   });
 });

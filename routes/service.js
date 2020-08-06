@@ -111,10 +111,10 @@ router.post("/service-map", (req, res, next) => {
 });
 
 router.get("/carer-profile/:id", async (req, res, next) => {
-  const carerId = req.params.id;
-  console.log(carerId);
+  const userId = req.params.id;
+ 
   try {
-    const carer = await Carer.findOne({ _id: carerId });
+    const carer = await Carer.findOne({ userId: userId });
     console.log('carer: ', carer);
     res.render("carer-profile", { selectedCarer: carer });
   }
