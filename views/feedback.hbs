@@ -1,0 +1,28 @@
+<h2>Valoración</h2>
+
+<img src={{selectedCarer.profilePhoto}} alt='Carer awesome profile photo'>
+
+<p>¿Qué tal te ha ido con {{selectedCarer.name}}</p>
+
+<form action="/payment" method="post">
+
+    <input type="radio" id="huesito1" name="huesito" value="1">
+    <label for="huesito1"></label><br>
+    <input type="radio" id="huesito2" name="huesito" value="2">
+    <label for="huesito2"></label><br>
+    <input type="radio" id="huesito3" name="huesito" value="3">
+    <label for="huesito3"></label><br>
+    <input type="radio" id="huesito4" name="huesito" value="4">
+    <label for="huesito4"></label><br>
+    <input type="radio" id="huesito5" name="huesito" value="5">
+    <label for="huesito5"></label><br><br>
+
+    <label for="review-area">Como te fue con {{selectedCarer.name}}</label>
+    <textarea name="message" rows="10" cols="30">Escribe aquí una pequeña reseña</textarea>
+    <br><br>
+
+    <button class="btn btn-primary btn-lg" class="submit" value="Submit">Enviar</button>
+
+
+
+</form>

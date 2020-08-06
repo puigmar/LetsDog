@@ -8,10 +8,11 @@
     }
 
     #map {
-        position: absolute;
+        position: relative;
         top: 0;
         bottom: 0;
         width: 100%;
+        height: 80vh;
     }
 
     .markerMeetingPoint {
@@ -43,6 +44,8 @@
 </style>
 
 <div id="map"></div>
+<button type="button" id="end-service" class="btn btn-primary btn-lg">Finalizar el servicio</button>
+
 
 
 <script>
@@ -53,6 +56,8 @@
 
 
         const coordinates = contract.geometry
+
+        console.log(contract.carerId)
 
         mapboxgl.accessToken = 'pk.eyJ1IjoicHVpZ21hciIsImEiOiJja2Q1cTRjMHoyOWc1MzBwZzUxNnBqZjgzIn0.Dl_LIKPYzM72_QZAE0wZWQ';
         var map = new mapboxgl.Map({
@@ -123,11 +128,11 @@
                     socket.on('carersOnlineData', carerData => {
                         console.log('Datos del carer conectado ', carerData)
                         new mapboxgl.Marker(elCarer)
-                        .setLngLat(carerData[0].geometry.coordinates)
-                        .addTo(map);
+                            .setLngLat(carerData[0].geometry.coordinates)
+                            .addTo(map);
                     });
 
-                    
+
 
                 }, function (error) {
                     alert('Error occurred. Error code: ' + error.code);
@@ -152,7 +157,7 @@
                                 }
                             }]
                         });
-                        
+
                         console.log(carerData[0].geometry.coordinates[0])
 
                         map.flyTo({
@@ -173,6 +178,14 @@
         });
 
         socket.on('user:left', data => console.log('usario ha dejado la sesion: ', data));
+
+        const endServiceButton = document.getElementById('end-service')
+
+        endServiceButton.addEventListener('click', () => {
+            location.href = `/feedback/${contract.carerId}`
+        })
     }
+
+
 
 </script>

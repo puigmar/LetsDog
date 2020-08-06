@@ -98,6 +98,9 @@ app.use("/manage", axios);
 const service = require("./routes/service");
 app.use("/", service);
 
+const feedback = require("./routes/feedback");
+app.use("/", feedback);
+
 
 
 module.exports = app;
