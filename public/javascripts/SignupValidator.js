@@ -1,6 +1,6 @@
 'use strict';
 
-class SignupValidator {
+class DogValidator {
     constructor(){
         this.emailExistError = 'Your email already exist!';
         this.invalidEmailError = 'Write a valid email';
@@ -134,6 +134,7 @@ class SignupValidator {
             }
             formEl.classList.toggle('is-valid');
             formEl.classList.add('is-invalid');
+            formEl.parentNode.classList.toggle('is-error');
 
         } else if(parent.querySelectorAll('.invalid-feedback').length !== 0){
             
@@ -141,6 +142,7 @@ class SignupValidator {
             errorMsg.parentNode.removeChild(errorMsg);
             
             formEl.classList.remove('is-invalid')
+            formEl.parentNode.classList.remove('is-error')
             formEl.classList.add('is-valid')
 
         } else {
@@ -155,4 +157,4 @@ class SignupValidator {
 
 }
 
-const validator = new SignupValidator();
+const dogValidator = new DogValidator();

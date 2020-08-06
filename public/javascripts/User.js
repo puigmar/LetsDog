@@ -29,7 +29,7 @@ class User{
                     this.startPosition.geometry.coordinates[0] = position.coords.longitude;
                     this.startPosition.geometry.coordinates[1] = position.coords.latitude;
                 }
-                
+
                 socket.emit(event, 
                     { 
                         socketId: socket.id,
@@ -49,15 +49,14 @@ class User{
             (position) => {
                 this.currentPosition.geometry.coordinates[0] = position.coords.longitude;
                 this.currentPosition.geometry.coordinates[1] = position.coords.latitude;
-                socket.emit(event, 
+                socket.emit('carer-online-moving', 
                     { 
                         socketId: socket.id,
                         carerId: this.id, 
                         geometry: {
                             coordinates: [this.currentPosition.geometry.coordinates[0],this.currentPosition.geometry.coordinates[1]],
                             type: 'Point'
-                        },
-                        duration: 0
+                        }
                     }
                 );
             }

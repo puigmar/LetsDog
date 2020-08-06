@@ -5,9 +5,11 @@
  */
 
 var app = require('../app');
-const { users, users_connected, carers_connected} = require('../socket');
+const { socketUsers, users_connected, carers_connected, messages} = require('../socket');
 var debug       = require('debug')('lets-dog:server');
 const http      = require('http');
+
+console.log('carers_connected: ', carers_connected.length)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -30,17 +32,32 @@ let server  = http.createServer(app);
 
 /// Socket.io /////////////////////////////////////////// 
 
+
 const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
-  
-  for(let i = 0; i < users_connected.length; i++) {
-    socket.emit("showOnlineUsers", users_connected[i]);
+
+  for(let i = 0; i < carers_connected.length; i++) {
+    socket.emit("showOnlineUsers", carers_connected[i]);
   }
 
   socket.on('carer-online', carerData => {
-    carers_connected.push(carerData);
-    console.log('carers_connected: ',carers_connected)
+    console.log('Un Carer se ha conectado');
+    let userExist = socketUsers.find( user => user.carerId === carerData.carerId);
+
+    if(userExist){
+      carers_connected.push(carerData);
+    } else {
+      socketUsers.push(carerData);
+      carers_connected.push(carerData);
+    }
+
+    console.log('carers connected:' ,carers_connected)
+    console.log('users:' , socketUsers)
+
+    for(let i = 0; i < carers_connected.length; i++) {
+      socket.broadcast.emit('messages', messages)
+    }
   })
 
   socket.on('carer-online-moving', carerData => {
@@ -48,34 +65,64 @@ io.on('connection', (socket) => {
       if(carer.userId === carerData.userId){
         carers_connected[index].geometry.coordinates[0] = carerData.geometry.coordinates[0];
         carers_connected[index].geometry.coordinates[1] = carerData.geometry.coordinates[1];
-        
       }
     })
-    //console.log('después de: ', carers_connected[0].geometry)
+  })
+
+  socket.on('request', message => {
+
+    socket.broadcast.emit('Resendmessage', {service: true})
+
+  })
+
+  socket.on('disconnect', userId => {
+    carers_connected.splice( carers_connected.indexOf(userId.carerId), 1);
+    console.log('Someone disconnected. Num connected: ', carers_connected.length);
+    console.log(carers_connected)
+  })
+
+  /*
+
+  socket.on('carer-online', carerData => {
+    carers_connected2.push(carerData);
+    console.log('Someone connected. Num connected: ', carers_connected2.length);
+    //socket.broadcast.emit('message', `Alguien se ha conectado: ${carers_connected2}`);
+  })
+
+  socket.on('carer-online-moving', carerData => {
+    console.log('carer-online-moving')
+    let arrayCarrerIndex = carers_connected2.forEach( (carer, index) => {
+      console.log('index: ', index)
+      if(carer.userId === carerData.userId){
+        carers_connected2[index].geometry.coordinates[0] = carerData.geometry.coordinates[0];
+        carers_connected2[index].geometry.coordinates[1] = carerData.geometry.coordinates[1];
+      }
+    })
   })
 
   socket.on ('request', requestData => {
+
+  console.log('carrers_connected: ', carers_connected2);
    // socket.emit('message', requestData)
    console.log("Aqui------->", requestData)
-   console.log('Otro------>', carers_connected)
+   console.log('Otro------>', carers_connected2)
    
-    carers_connected.find((carerSocket) => {
+   console.log('carrers_connected: ', carers_connected2);
+   
+      carers_connected2.find((carerSocket) => {
     
-      
-     if (carerSocket.carerId === requestData.carerId) {
-      io.to(carerSocket.socketId).emit('message', {text: 'text'})
-     }
-   })
+        if (carerSocket.carerId === requestData.carerId) {
+          io.to(carerSocket.socketId).emit('message', {text: 'text'})
+        }
 
+      })
 
-  });
-
+    });
+   
   socket.on('disconnect', userId => {
-    carers_connected.splice( carers_connected.indexOf(userId), 1);
-    //console.log('Current Connected Users:');
-    //console.log(users_connected);
-    //console.log('num connected: ', users_connected);
-  })
+    carers_connected2.splice( carers_connected2.indexOf(userId), 1);
+    console.log('Someone disconnected. Num connected: ', carers_connected2.length);
+  })*/
 });
 
 /// END Socket.io /////////////////////////////////////////// 

@@ -1,0 +1,30 @@
+<main class="v-profile">
+    <section class="pofile-heroBanner">
+        <section class="subHeader">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="subHeader_content">
+                            <a id="backLink" href="/service" class="text-dark"><span class="icon-back_arrow"></span></a>
+                            <button id="backSplide"class="d-none"><span class="icon-back_arrow"></span></button>
+                            <h1>Tu Perfil</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <div class="box-main">
+        <section class="form-row editField disabledField">
+            <div class="editField_label">
+                <label for="carerEmailInput"> Email </label>
+                <button data-type="editable" data-id="carerEmailInput" type="button"><span class="icon-editar"></span></button>
+            </div>
+            <input class="form-control" data-field="editable"  type="email" data-model="User" name="email" id="carerEmailInput" value="{{user.email}}">
+            <button class="btn btn-primary btn-md mt-3" data-btn="modify" data-model="User" data-id="carerEmailInput" type="button">Modificar</button>
+        </section>
+    </div>
+</main>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/javascripts/carer/EditCarerValidator.js"></script>
+<script src="/javascripts/carer/EditCarer.js"></script>

@@ -13,6 +13,24 @@
         bottom: 0;
         width: 100%;
     }
+
+    .markerMeetingPoint {
+        background-image: url('./../images/meetingpoint.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .markerUser {
+        background-image: url('./../images/usuario.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
 </style>
 
 <div id="map"></div>
@@ -53,9 +71,20 @@
             var longitude;
             var coordsClick;
 
-            var marker = new mapboxgl.Marker()
-                .setLngLat(contract.geometry)
+            var el = document.createElement("div");
+            el.className = "markerMeetingPoint";
+
+            var elUser = document.createElement("div");
+            elUser.className = "markerUser";
+
+            var meetingPointCoords = contract.geometry;
+
+            // Codigo del marker
+            new mapboxgl.Marker(el)
+                .setLngLat(meetingPointCoords)
                 .addTo(map);
+
+
 
             navigator.geolocation.getCurrentPosition(
                 function (position) {
@@ -72,59 +101,59 @@
                         'id': 'point',
                         'source': 'point_source',
                         'type': 'circle',
-                        'paint': {
-                            'circle-radius': 10,
-                            'circle-color': '#007cbf'
-                        }
+                    });
+                     
+                    new mapboxgl.Marker(elUser)
+                        .setLngLat(coordsClick.coordinates)
+                        .addTo(map);
+
+            const user = '{{currentUserInfo.user._id}}';
+
+            socket.emit("onlineUser", { userId: user, latitude: position.coords.latitude, longitude: position.coords.longitude });
+            socket.on('user:join', m => console.log('Exist a new user: ', m));
+
+        }, function (error) {
+            alert('Error occurred. Error code: ' + error.code);
+        }
+        );
+
+        navigator.geolocation.watchPosition(
+            function (position) {
+
+                socket.on("showOnlineUsers", data => {
+
+                    console.log('data from socket.io: ', data)
+
+                    map.getSource('point_source').setData({
+                        "type": "FeatureCollection",
+                        "features": [{
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [data.longitude, data.latitude]
+                            }
+                        }]
                     });
 
-                    const user = '{{currentUserInfo.user._id}}';
-
-                    socket.emit("onlineUser", { userId: user, latitude: position.coords.latitude, longitude: position.coords.longitude });
-                    socket.on('user:join', m => console.log('Exist a new user: ', m));
-
-                }, function (error) {
-                    alert('Error occurred. Error code: ' + error.code);
-                }
-            );
-
-            navigator.geolocation.watchPosition(
-                function (position) {
-
-                    socket.on("showOnlineUsers", data => {
-
-                        console.log('data from socket.io: ', data)
-
-                        map.getSource('point_source').setData({
-                            "type": "FeatureCollection",
-                            "features": [{
-                                "type": "Feature",
-                                "properties": {},
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [data.longitude, data.latitude]
-                                }
-                            }]
-                        });
-
-                        map.flyTo({
-                            center: [
-                                data.longitude,
-                                data.latitude
-                            ],
-                            speed: 0.5
-                        });
-
-                        //const user = JSON.parse(session.getItem('uUID'));
-                        //socket.emit("onlineUser", {userId: user, latitude: position.coords.latitude, longitude: position.coords.longitude});
-
+                    map.flyTo({
+                        center: [
+                            data.longitude,
+                            data.latitude
+                        ],
+                        speed: 0.5
                     });
-                }
-            );
 
-        });
+                    //const user = JSON.parse(session.getItem('uUID'));
+                    //socket.emit("onlineUser", {userId: user, latitude: position.coords.latitude, longitude: position.coords.longitude});
 
-        socket.on('user:left', data => console.log('usario ha dejado la sesion: ', data));
+                });
+            }
+        );
+
+    });
+
+    socket.on('user:left', data => console.log('usario ha dejado la sesion: ', data));
     }
 
 </script>

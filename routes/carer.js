@@ -44,10 +44,18 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
 
     try {
-        const theUser =  await User.findOne({email: email, isCarer: true});
+        
+        const { email, password } = req.body;
+
+        if (email === "" || password === "") {
+          res.render("carer/login", { err: "Los campos no pueden estar vacíos" });
+          return;
+        }
+
+        const theUser =  await User.findOne({ email, isCarer: true});
+
         if(theUser){
             if(!bcrypt.compareSync(password, theUser.password)){
                 res.render('carer/login', {
@@ -56,19 +64,15 @@ router.post('/login', async (req, res) => {
                 return;
             }
             const theCarer = await Carer.findOne({userId: theUser._id});
-            console.log(theCarer)
+            //console.log(theCarer)
             if(theCarer){
                 req.session.currentUser = { user: theUser, carer: theCarer};
                 res.redirect('/carer/dashboard');
             }
         }
     }
-    catch(error){
-        console.log(error)
-        res.render('carer/login', {
-            errorMessage: `User or Passoword are not correct. Try again.`
-        });
-        return;
+    catch(err) {
+        next(err)
     }
 })
 
@@ -104,7 +108,7 @@ router.get('/reviews/:id', async (req, res) => {
         const carerReview = await Review.find({carerId: carerId})
                                     .populate('carerId')
                                     .populate('dogId', '_id photo name')
-        console.log(carerReview[0].carerId);
+        //console.log(carerReview[0].carerId);
         res.render('carer/reviews', {review: carerReview})
     }
     catch(error){

@@ -1,41 +1,57 @@
-<h1> Sign Up - carer</h1>
-<section>
-    <div>
-        <label for="signupCarerEmailInput"> Email </label>
-        <input type="email" name="email" id="signupCarerEmailInput" placeholder="e.g., hola@hola.com">
-    </div>
-
-    <div>
-        <label for="signupCarerPasswordInput"> Password </label>
-        <input type="password" name="password" id="signupCarerPasswordInput" placeholder="">
-    </div>
-
-    <div>
-        <label for="signupCarerPasswordRepeatInput"> Repeat Password </label>
-        <input type="password" name="repeatPassword" id="signupCarerPasswordRepeatInput" placeholder="">
-    </div>
-</section>
-<section>
-    <form enctype="multipart/form-data" id="photoCarerAvatarForm">
-        <div id="photoCarerAvatarPreview" class="profile"></div>
-        <p>Foto de Avatar</p>
-        <input id="photoCarerAvatarInputFile" type="file" name="photo">
-        <input id="photoCArerAvatarBtnSubmit" type="submit">
-    </form>
-    <form enctype="multipart/form-data" id="photoCarerBannerProfileForm">
-        <div id="photoCarerBannerProfilePreview" class="profile profile-banner"></div>
-        <p>Foto de Perfil</p>
-        <input id="photoCarerBannerProfileInputFile" type="file" name="photo">
-        <input id="photoCarerBannerProfileBtnSubmit" type="submit">
-    </form>
-    <form action="/signup" method="post" id="form-step1">
-        <div>
-            <label for="signupCarerNameInput">Nombre</label>
-            <input type="text" name="signupCarerNameInput" id="signupCarerNameInput" placeholder="Escribe tu nombre">
+<main id="carerArea" class="v-signup">
+    <section class="subHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="subHeader_content">
+                        <a id="backLink" href="/carer/" class="text-dark"><span class="icon-back_arrow"></span></a>
+                        <button id="backSplide"class="d-none"><span class="icon-back_arrow"></span></button>
+                        <h1>Regístrate</h1>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
+    </section>
+
+    <section class="box-main">
+
+        <form enctype="multipart/form-data" id="photoCarerAvatarForm" class="form-group">
+            <label class="text-center p0">Foto de Avatar</label>
+            <div id="photoCarerAvatarPreview" class="profile avatar mt-3 mb-0"></div>
+            <input id="photoCarerAvatarInputFile" type="file" name="photo" class="d-none">
+            <input id="photoCArerAvatarBtnSubmit" type="submit" class="d-none">
+        </form>
+
+        <div class="form-group compact hideAutocomplete">
+            <label for="signupCarerEmailInput"> Email </label>
+            <input type="email" name="email" id="signupCarerEmailInput" placeholder="" class="form-control">
+        </div>
+
+        <div class="form-group compact hideAutocomplete">
+            <label for="signupCarerPasswordInput"> Password </label>
+            <input type="password" name="password" id="signupCarerPasswordInput" placeholder="" class="form-control">
+        </div>
+
+        <div class="form-group compact hideAutocomplete">
+            <label for="signupCarerPasswordRepeatInput"> Repeat Password </label>
+            <input type="password" name="repeatPassword" id="signupCarerPasswordRepeatInput" placeholder="" class="form-control">
+        </div>
+
+        <form enctype="multipart/form-data" id="photoCarerBannerProfileForm" class="form-group mb-0">
+            <label class="mt-4 p0">Foto de fondo de perfil</label>
+            <div id="photoCarerBannerProfilePreview" class="profile profile-banner mb-2"></div>
+            
+            <input id="photoCarerBannerProfileInputFile" class="d-none" type="file" name="photo">
+            <input id="photoCarerBannerProfileBtnSubmit" class="d-none"  type="submit">
+        </form>
+
+        <div class="form-group compact hideAutocomplete">
+            <label for="signupCarerNameInput">Nombre</label>
+            <input class="form-control" type="text" name="signupCarerNameInput" id="signupCarerNameInput">
+        </div>
+        <div class="form-group hideAutocomplete mb-4">
             <label for="signupCarerPhoneInput">Teléfono</label>
-            <select id="signupCarerPrefixPhoneInput">
+            <select class="custom-select" id="signupCarerPrefixPhoneInput">
                 <option data-countryCode="DZ" value="213">Algeria (+213)</option>
                 <option data-countryCode="AD" value="376">Andorra (+376)</option>
                 <option data-countryCode="AO" value="244">Angola (+244)</option>
@@ -251,23 +267,26 @@
                 <option data-countryCode="ZM" value="260">Zambia (+260)</option>
                 <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
             </select>
-            <input type="text" name="signupCarerPhoneInput" id="signupCarerPhoneInput" placeholder="Escribe tu teléfono">
+            <div class="form-group compact mb-2">
+                <input class="form-control pt-2 mb-0 without-label" type="text" name="signupCarerPhoneInput" id="signupCarerPhoneInput" placeholder="Escribe tu teléfono">
+            </div>
         </div>
-        <div>
-            <label for="signupCarerDescriptionInput">Descripción</label>
-            <textarea id="signupCarerDescriptionInput"></textarea>
+        <div class="form-group hideAutocomplete">
+            <label for="signupCarerDescriptionInput" class="mb-3">Descripción</label>
+            <textarea id="signupCarerDescriptionInput" class="form-control"></textarea>
         </div>
-    </form>
-</section>
-<button id="signupCarerBtnForm" type="button" disabled> Continuar </button>
-     
-<p>
-    Already have an account?
-    <a href="/login">
-        Log in.
-    </a>
-</p>
+
+        <div class="mt-5">
+            <button type="button" id="signupCarerBtnForm" class="btn btn-primary btn-lg" disabled="disabled">Registrarse</button>
+            <p class="small-link">¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a></p>
+        </div>
+
+
+    </section>
+
+</main>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/javascripts/carer/SignupCarerValidator.js"></script>
 <script src="/javascripts/carer/SignupCarer.js"></script>
+<script src="/javascripts/Forms.js"></script>

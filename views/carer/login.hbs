@@ -1,24 +1,46 @@
-<h1> Login - carer</h1>
-<section>
-    <form method="POST" action="/carer/login">
-        <div>
-            <label for="loginCarerEmailInput"> Email </label>
-            <input type="email" name="email" id="loginCarerEmailInput" placeholder="Escribe tu email">
+<main class="v-login">
+    <section class="subHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="subHeader_content">
+                        <a href="/"><span class="icon-back_arrow"></span></a>
+                        <h1>Iniciar sesión</h1>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
+    <form action="/carer/login" method="post">
+      <section class="box-main">
+      
+          <div class="login-content">
+            
+              <div class="form-group compact hideAutocomplete">
+                  <label for="loginCarerEmailInput"> Email </label>
+                  <input class="form-control" type="email" name="email" id="loginCarerEmailInput">
+              </div>
 
-        <div>
-            <label for="loginCarerPasswordInput"> Password </label>
-            <input type="password" name="password" id="loginCarerPasswordInput">
-        </div>
-        {{#if errMsg}} 
-            <div>{{ errMsg }}</div>
-        {{/if}}
-        <input id="loginCarerBtnSubmit" type="submit" value="Iniciar sesión" disabled>
+              <div class="form-group compact hideAutocomplete">
+                  <label for="loginCarerPasswordInput"> Password </label>
+                  <input class="form-control" type="password" name="password" id="loginCarerPasswordInput">
+              </div>
+
+              <div class="form-group">
+                {{#if err}}
+                  <p class="invalid-feedback">
+                    {{ err }}
+                  </p>
+                {{/if}}
+              </div>
+          </div>
+          <div class="box-main_footer">
+            <button id="btnContinueSignup" type="submit" class="btn btn-primary btn-lg">Inciniciar sesión</button>
+            <p class="small-link">¿Aún no eres usuario? Regístrate <a href="/carer/signup">aquí</a></p>
+          </div>
+      
+      </section>
     </form>
-    
-    <p>¿Aún no eres usuario? Regístrate <a href="/carer/signup">aquí</a></p>
-</section>
+</main>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="/javascripts/carer/LoginCarerValidator.js"></script>
-<script src="/javascripts/carer/LoginCarer.js"></script>
+<script src="/javascripts/Forms.js"></script>

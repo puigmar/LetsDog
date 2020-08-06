@@ -1,26 +1,20 @@
 'use strict';
 
-class SignupCarerValidator {
+class EditUserValidator {
     constructor(){
+
         this.emailExistError = 'Your email already exist!';
         this.invalidEmailError = 'Write a valid email';
         this.passwordError = 'Your password must have at least 6 letters';
         this.repeatPasswordError = `This field doesn't match with your password`;
         this.invalidAccess = 'Your email or your password are incorrect';
+
+        this.invalidEmailError = 'Write a valid email';
         this.emptyDescriptionError = 'This field cannot be empty';
-        this.emptyNameError = 'This field cannot be empty';
-        this.emptyPhoneError = 'This field cannot be empty';
-        //this.profileImageError = 'You must pick an image';
+        this.emptyError = 'This field cannot be empty';
         
         this.UserErrorForms = {
             errorEmailMsg: this.invalidEmailError,
-            errorPassMsg: this.passwordError,
-            errorPassRepeatMsg: this.repeatPasswordError,
-            emptyDescriptionError: this.emptyDescriptionError,
-            emptyNameError: this.emptyNameError,
-            emptyPhoneError: this.emptyPhoneError,
-            //profileImageError: this.profileImageError,
-            //avatarImageError: this.profileImageError
         }
         
     }
@@ -49,20 +43,6 @@ class SignupCarerValidator {
         return isValid;      
     }
 
-    validatePhoto = (e) => {
-
-    }
-
-    validatePassWord = (e, str) => {
-        if(str.length < 6){
-            this.UserErrorForms.errorPassMsg = this.passwordError
-        } else {
-            delete this.UserErrorForms.errorPassMsg
-        }
-
-        this.checkValidationMsg(e, this.UserErrorForms.errorPassMsg || null)
-    }
-
     validateName = (e) => {
         if(e.currentTarget.value === ''){
             this.UserErrorForms.emptyNameError = this.emptyNameError
@@ -71,36 +51,6 @@ class SignupCarerValidator {
         }
 
         this.checkValidationMsg(e, this.UserErrorForms.emptyNameError || null)
-    }
-
-    validatePhone = (e) => {
-        if(e.currentTarget.value === ''){
-            this.UserErrorForms.emptyPhoneError = this.emptyPhoneError
-        } else {
-            delete this.UserErrorForms.emptyPhoneError
-        }
-
-        this.checkValidationMsg(e, this.UserErrorForms.emptyPhoneError || null)
-    }
-
-    validateDescription = (e) => {
-        if(e.currentTarget.value === ''){
-            this.UserErrorForms.emptyDescriptionError = this.emptyDescriptionError
-        } else {
-            delete this.UserErrorForms.emptyDescriptionError
-        }
-
-        this.checkValidationMsg(e, this.UserErrorForms.emptyDescriptionError || null)
-    }
-
-    validateRepeatPassword = (e, password, repeatPassword) => {
-        if(password !== repeatPassword){
-            this.UserErrorForms.errorPassRepeatMsg = this.repeatPasswordError
-        } else {
-            delete this.UserErrorForms.errorPassRepeatMsg
-        }
-
-        this.checkValidationMsg(e, this.UserErrorForms.errorPassRepeatMsg || null)
     }
 
     checkValidationMsg = (e, msgErr) => {
@@ -122,7 +72,6 @@ class SignupCarerValidator {
             }
             formEl.classList.toggle('is-valid');
             formEl.classList.add('is-invalid');
-            formEl.parentNode.classList.toggle('is-error');
 
         } else if(parent.querySelectorAll('.invalid-feedback').length !== 0){
             
@@ -130,7 +79,6 @@ class SignupCarerValidator {
             errorMsg.parentNode.removeChild(errorMsg);
             
             formEl.classList.remove('is-invalid')
-            formEl.parentNode.classList.remove('is-error')
             formEl.classList.add('is-valid')
 
         } else {
@@ -142,7 +90,7 @@ class SignupCarerValidator {
     getErrors(object){
         return Object.values(object)
     }
-
+    
 }
 
-const carerValidator = new SignupCarerValidator();
+const userValidator = new EditUserValidator();
