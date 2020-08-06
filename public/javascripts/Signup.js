@@ -17,7 +17,6 @@ class Signup{
 
         this.dogNameInput = document.getElementById('signupDogName');
         this.dogSexInput = document.querySelector('input[name="signupDogSex"]:checked').getAttribute('data-value');
-        console.log('sex: ', document.querySelector('input[name="signupDogSex"]:checked').getAttribute('data-value'))
         this.dogBehaviorPeopleInput = document.getElementById('signupDogBehaviorPeople');
         this.dogBehaviorDogsInput = document.getElementById('signupDogBehaviorDogs');
         

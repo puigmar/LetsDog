@@ -369,10 +369,11 @@ main {
         display: inline-block; }
 
 .v-service-map-location {
-  min-height: auto;
-  display: flex; }
+  display: flex;
+  height: calc(100vh - 56px);
+  overflow: hidden;
+  position: relative; }
   .v-service-map-location .subHeader {
-    position: fixed;
     top: 56px;
     width: 100%;
     z-index: 10;
@@ -385,7 +386,7 @@ main {
     top: 0;
     bottom: 0;
     width: 100%;
-    margin-top: 112px;
+    margin-top: 56px;
     transition: all 0.3s ease-in;
     opacity: 1; }
   .v-service-map-location .box-main {
@@ -451,7 +452,6 @@ main {
   .v-service-map-location .mapboxgl-ctrl-geocoder {
     min-width: 100%; }
 
-<<<<<<< HEAD
 .v-service-map-location.toCarerList {
   height: 100vh; }
   .v-service-map-location.toCarerList header {
@@ -466,13 +466,6 @@ main {
     height: 87vh;
     background-color: transparent; }
   .v-service-map-location.toCarerList #search-carers {
-=======
-.v-service-map-location.toCarerList .box-main:not(.box-main--carerList) {
-  height: calc(100% - 63px);
-  z-index: 10;
-  background-color: #FAD06C; }
-  .v-service-map-location.toCarerList .box-main:not(.box-main--carerList) #search-carers {
->>>>>>> 430af53d02545da2dbb401433a46bf62518e26f6
     opacity: 0; }
 
 .v-dashboard {
