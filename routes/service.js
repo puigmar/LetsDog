@@ -110,18 +110,17 @@ router.post('/service-map', (req, res, next) => {
   
 });
 
-router.get("/carer-profile/:id", (req, res, next) => {
+router.get("/carer-profile/:id", async (req, res, next) => {
   const carerId = req.params.id;
   console.log(carerId);
-
-  Carer.findOne({ _id: carerId })
-    .then((carer) => {
-      console.log('carer: ', carer);
-      res.render("carer-profile", { selectedCarer: carer });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  try {
+    const carer = await Carer.findOne({ _id: carerId });
+    console.log('carer: ', carer);
+    res.render("carer-profile", { selectedCarer: carer });
+  }
+  catch(err) {
+    console.log(err)
+  }
 });
 
 

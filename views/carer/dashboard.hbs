@@ -1,13 +1,30 @@
 <main class="v-dashboard">
     <h1>DahsBoard</h1>
     <p>Hola {{currentUserInfo.carer.name}}!</p>
+    <button id="confirm" data-contract="2345" type="button">Aceptar petición</button>
 </main>
 <script src="/javascripts/User.js"></script>
 <script>
 
+    const petition = [];
+
+    const sendAnswer = (e) => {
+        let petitionId = e.currentTarget.getAttribute('data-contract');
+        console.log(petitionId)
+        socket.emit('accept', { petitionId: petitionId})
+    }
+
+    document.getElementById('confirm').addEventListener('click', sendAnswer);
+
+ 
+
     socket.on('Resendmessage', function(data) { 
-        console.log(data);
+        petition.push(data);
     });
+
+
+    
+
 
     navigator.geolocation.getCurrentPosition(
         (position) => {
