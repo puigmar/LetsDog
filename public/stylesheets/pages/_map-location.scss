@@ -11,6 +11,7 @@
         width: 100%;
         z-index: 10;
         background-color: white;
+        transition: all .3s ease-in-out;
 
         .subHeader_content #backLink{
             color: #000
@@ -23,11 +24,16 @@
         bottom: 0;
         width: 100%;
         margin-top: 112px;
+        transition: all 0.3s ease-in;
+        opacity: 1;
     }
 
     .box-main{
         z-index: 2;
-        position: relative;
+        position: absolute;
+        transition: all 0.3s ease-in;
+        bottom: 0;
+        height: 190px;
 
         .geocoder {
             position: relative;
@@ -84,9 +90,40 @@
         
     }
 
-    
+    .box-main--carerList{
+        transition: all .3s ease-in-out;
+        height: 20px;
+        bottom: -100%;
+        height: calc(100vh - 100px);
+    }
 
     .mapboxgl-ctrl-geocoder {
         min-width: 100%;
     }
+}
+
+.v-service-map-location.toCarerList{
+
+    .box-main:not(.box-main--carerList){
+        height: calc(100% - 63px);
+        z-index: 10;
+        background-color: $secondary-color;
+
+        #search-carers{
+            opacity: 0;
+        }
+    }
+
+    #map {
+        opacity: 0;
+    }
+
+    .subHeader{
+        background-color: transparent;
+    }
+
+    .box-main--carerList{
+        bottom: 0;
+    }
+    
 }

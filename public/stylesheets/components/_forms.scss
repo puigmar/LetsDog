@@ -10,6 +10,12 @@ input:-webkit-autofill:active  {
     margin: 20px 0;
     border-bottom: 2px solid $beige-color;
     padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    .half-col{
+        width: 48%;
+    }
 }
 
 .form-group {
@@ -217,6 +223,8 @@ input:-webkit-autofill:active  {
 }
 
 .editField{
+
+    width: 100%;
 
     input,
     textarea,

@@ -375,7 +375,8 @@ main {
     top: 56px;
     width: 100%;
     z-index: 10;
-    background-color: white; }
+    background-color: white;
+    transition: all .3s ease-in-out; }
     .v-service-map-location .subHeader .subHeader_content #backLink {
       color: #000; }
   .v-service-map-location #map {
@@ -383,10 +384,15 @@ main {
     top: 0;
     bottom: 0;
     width: 100%;
-    margin-top: 112px; }
+    margin-top: 112px;
+    transition: all 0.3s ease-in;
+    opacity: 1; }
   .v-service-map-location .box-main {
     z-index: 2;
-    position: relative; }
+    position: absolute;
+    transition: all 0.3s ease-in;
+    bottom: 0;
+    height: 190px; }
     .v-service-map-location .box-main .geocoder {
       position: relative;
       z-index: 1;
@@ -422,8 +428,28 @@ main {
       position: relative;
       bottom: 0;
       transform: translateY(-100%); }
+  .v-service-map-location .box-main--carerList {
+    transition: all .3s ease-in-out;
+    height: 20px;
+    bottom: -100%;
+    height: calc(100vh - 100px); }
   .v-service-map-location .mapboxgl-ctrl-geocoder {
     min-width: 100%; }
+
+.v-service-map-location.toCarerList .box-main:not(.box-main--carerList) {
+  height: calc(100% - 63px);
+  z-index: 10; }
+  .v-service-map-location.toCarerList .box-main:not(.box-main--carerList) #search-carers {
+    opacity: 0; }
+
+.v-service-map-location.toCarerList #map {
+  opacity: 0; }
+
+.v-service-map-location.toCarerList .subHeader {
+  background-color: transparent; }
+
+.v-service-map-location.toCarerList .box-main--carerList {
+  bottom: 0; }
 
 .v-dashboard {
   min-height: calc(100vh - 56px);
@@ -608,7 +634,11 @@ input:-webkit-autofill:active {
 .form-row {
   margin: 20px 0;
   border-bottom: 2px solid #F7F2E5;
-  padding-bottom: 20px; }
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: space-between; }
+  .form-row .half-col {
+    width: 48%; }
 
 .form-group {
   position: relative; }
@@ -749,57 +779,55 @@ input:-webkit-autofill:active {
       background-color: #FAD06C;
       color: #fff; }
 
-.editField input,
-.editField textarea,
-.editField .custom-select {
-  font-size: 1.7rem;
-  padding: 2px 10px;
-  border: 1px solid #B7AC9A;
-  font-weight: 300;
-  height: 40px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box; }
-
-.editField textarea {
-  min-height: 50px;
-  margin-top: 0; }
-
-.editField_label {
-  width: 100%;
-  margin-bottom: 5px;
-  padding-bottom: 10px; }
-  .editField_label label {
-    width: auto;
-    padding-right: 10px;
-    font-size: 1.6rem;
-    margin: 0;
-    color: #B7AC9A;
-    font-weight: 500; }
-  .editField_label button {
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    border: 0;
-    background-image: rgba(247, 242, 229, 0.2);
-    font-size: 2.2em;
+.editField {
+  width: 100%; }
+  .editField input,
+  .editField textarea,
+  .editField .custom-select {
+    font-size: 1.7rem;
+    padding: 2px 10px;
+    border: 1px solid #B7AC9A;
+    font-weight: 300;
+    height: 40px;
+    width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    line-height: 1; }
-
-.editField.disabledField input,
-.editField.disabledField textarea,
-.editField.disabledField .custom-select {
-  font-size: 1.7rem;
-  padding: 0;
-  border: 0;
-  font-weight: 300;
-  height: 20px; }
-
-.editField.disabledField textarea {
-  height: auto; }
+    box-sizing: border-box; }
+  .editField textarea {
+    min-height: 50px;
+    margin-top: 0; }
+  .editField_label {
+    width: 100%;
+    margin-bottom: 5px;
+    padding-bottom: 10px; }
+    .editField_label label {
+      width: auto;
+      padding-right: 10px;
+      font-size: 1.6rem;
+      margin: 0;
+      color: #B7AC9A;
+      font-weight: 500; }
+    .editField_label button {
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      border: 0;
+      background-image: rgba(247, 242, 229, 0.2);
+      font-size: 2.2em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 1; }
+  .editField.disabledField input,
+  .editField.disabledField textarea,
+  .editField.disabledField .custom-select {
+    font-size: 1.7rem;
+    padding: 0;
+    border: 0;
+    font-weight: 300;
+    height: 20px; }
+  .editField.disabledField textarea {
+    height: auto; }
 
 .editField_label,
 .profile-score_title {

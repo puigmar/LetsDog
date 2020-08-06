@@ -57,6 +57,7 @@ geocoder.on("result", (e) => {
     apiService
       .sendUserLocation(userLocArr)
       .then((res) => {
+        document.querySelector('.v-service-map-location').classList.add('toCarerList');
         console.log('respuesta de vuelta: ', res)
       })
       .catch((err) => console.log(err));

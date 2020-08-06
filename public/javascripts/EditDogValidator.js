@@ -16,12 +16,12 @@ class DogValidator {
     validateDogName = (e) => {
         if(e.currentTarget.value === ''){
             console.log('valor: ', e.currentTarget.value)
-            this.UserErrorFormsStep2.emptyNameError = this.emptyNameError
+            this.DogErrorForms.emptyNameError = this.emptyNameError
         } else {
-            delete this.UserErrorFormsStep2.emptyNameError
+            delete this.DogErrorForms.emptyNameError
         }
 
-        this.checkValidationMsg(e, this.UserErrorFormsStep2.emptyNameError || null)
+        this.checkValidationMsg(e, this.DogErrorForms.emptyNameError || null)
     }
 
     checkValidationMsg = (e, msgErr) => {
@@ -34,8 +34,8 @@ class DogValidator {
         }
         
         // Comprobamos si sigue existiendo el error
-        const findErrorStep1 = this.getErrors(this.UserErrorFormsStep1).find(error => error === msgErr);
-        const findErrorStep2 = this.getErrors(this.UserErrorFormsStep2).find(error => error === msgErr);
+        const findErrorStep1 = this.getErrors(this.DogErrorForms).find(error => error === msgErr);
+        const findErrorStep2 = this.getErrors(this.DogErrorForms).find(error => error === msgErr);
 
         if(findErrorStep1 || findErrorStep2 && msgErr !== null){
             if(parent.querySelectorAll('.invalid-feedback').length === 0){
