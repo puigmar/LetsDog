@@ -1,6 +1,5 @@
-.v-confirmation {
-    min-height: calc(100vh - #{$headerheight});
-    background-color: white; 
+.v-payment {
+    height: calc(100vh - #{$headerheight});
 
     h3{
         font-weight: 400;
@@ -42,7 +41,7 @@
         top: 0;
         bottom: 0;
         width: 100%;
-        height: calc(100vh - #{$headerheight*2});
+        height: 100vh;
     }
 
     #meeting-point {
@@ -70,19 +69,13 @@
         width: 100%;
     }
 
-    .bottom-box{
-        position: absolute;
-        bottom: 0;
-    }
-
     .box-main{
+        width: 100%;
+        padding: 24px;
+        height: auto;
+        z-index: 3;
         position: absolute;
         bottom: 0;
-        width: 100%;
-        padding: 24px 24px 0;
-        height: auto;
-        text-align: center;
-        z-index: 3;
 
         .profile_data{
             display: flex;
@@ -110,7 +103,6 @@
             bottom: 0;
             width: 100%;
             left: 0;
-            padding: 35px 35px 0;
             display: flex;
             align-items: center;
             justify-content: space-between;

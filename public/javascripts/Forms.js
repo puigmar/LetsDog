@@ -28,6 +28,20 @@ class Form {
             input.addEventListener('focus', (e) => {
                 e.target.parentNode.classList.add('is-focus')
             })
+
+            input.addEventListener('input', (e) => {
+                if(e.target.value === ''){
+                    e.target.parentNode.classList.remove('is-filled')
+                    e.target.parentNode.classList.remove('is-focus')
+                }
+            })
+
+            input.addEventListener('blur', (e) => {
+                if(e.target.value === ''){
+                    e.target.parentNode.classList.remove('is-filled')
+                    e.target.parentNode.classList.remove('is-focus')
+                }
+            })
         })
     }
 
