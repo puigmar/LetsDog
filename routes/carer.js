@@ -94,6 +94,9 @@ router.get('/profile/:id', async (req, res) => {
     try{
         const theCarer = await Carer.findOne({"_id": carerId})
                                     .populate('userId')
+
+        req.session.currentUser = { carer: theCarer };
+                                    
         res.render('carer/profile', {carer: theCarer})
     }
     catch(error){

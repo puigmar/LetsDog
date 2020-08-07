@@ -1,11 +1,11 @@
-<main class="v-checkPages"> 
+<main class="v-checkPages">
     <section class="subHeader">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="subHeader_content">
                         <a id="backLink" href="/service" class="text-dark"><span class="icon-back_arrow"></span></a>
-                        <button id="backSplide"class="d-none"><span class="icon-back_arrow"></span></button>
+                        <button id="backSplide" class="d-none"><span class="icon-back_arrow"></span></button>
                         <h1>Contratar servicio</h1>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
 <script src="./../javascripts/services/apiService.js"></script>
 
 <script>
-    
+
     let isLoading = true;
 
     window.onload = async () => {
@@ -46,9 +46,10 @@
         apiService
             .sendContractPetition(contract)
             .then( async (res) => {
-                console.log('res:', res)
+               // console.log('res:', res);
+                
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
 
     };
 </script>

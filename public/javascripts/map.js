@@ -67,14 +67,13 @@ geocoder.on("result", (e) => {
     apiService
       .sendUserLocation(userLocArr)
       .then(async (res) => {
-        console.log(res);
+
         await generateDOMCarersList(res.data, "availableCarersList");
         document
           .querySelector(".v-service-map-location")
           .classList.add("toCarerList");
       })
       .catch((err) => console.log(err));
-      document.querySelector('.v-service-map-location').classList.add('toCarerList');
   });
 });
 
@@ -115,7 +114,9 @@ map.on("load", function () {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       });
+
       socket.on("user:join", (m) => console.log("Exist a new user: ", m));
+
     },
     function (error) {
       alert("Error occurred. Error code: " + error.code);
@@ -161,18 +162,24 @@ socket.on("user:left", (data) =>
 const generateDOMCarersList = (arr, wrapper) => {
   
   const carer = arr.result;
-  console.log(carer)
+  //console.log(carer)
   
-  
-
   const parent = document.getElementById(wrapper);
   //let carerBlock = document.createElement("div");
   //carerBlock.className = "carerCard";
   //carerBlock.setAttribute("href", `/carer-profile`);
   let counter = "";
+  let maxWords = 10;
 
   carer.forEach((carers, i) => {
-    console.log(carers.carers['0'].name)
+    console.log(carers.reviews);
+    let review = 'Sin reseñas';
+    if(carers.numReviews > 0){
+      review = carers.reviews['0'].description
+    }
+    if(review.lenght > maxWords){
+      review = review.splice(0, maxWords) + '...';
+    }
     counter += `
     <a class="carerCard" href="/carer-profile/${carers.carers['0'].userId}">
       <div class="carerCard_details">
@@ -180,13 +187,13 @@ const generateDOMCarersList = (arr, wrapper) => {
             <div class="carerCard_buble">
                 <span class="icon-countDownClok"></span>
             </div>
-            <span class="carerCard_bubleTime_timeTo">en ${carers.duration}</span>
+            <span class="carerCard_bubleTime_timeTo">en ${carers.duration}'</span>
         </div>
         <div class="carerCard_Intro">
             <div class="carerCard_Intro_content">
                 <div class="carerCard_Intro_detail">
                     <h3 class="carerCard_Intro_name">${carers.carers['0'].name}</h3>
-                    <p class="carerCard_Intro_lastReview">${carers.carers['0'].name}</p>
+                    <p class="carerCard_Intro_lastReview">${review}</p>
                 </div>
                 <div class="carerCard_Intro_avatar">
                     <div class="avatar" style="background-image: url(${carers.carers['0'].profilePhoto})"></div>
@@ -198,7 +205,7 @@ const generateDOMCarersList = (arr, wrapper) => {
                 </div>
                 <div class="carerCard_feedback_nums">
                     <div class="carerCard_feedback_averageScore">${carers.carers['0'].rate}</div>
-                    <div class="carerCard_feedback_numReviews">40 reseñas</div>
+                    <div class="carerCard_feedback_numReviews">${carers.numReviews} reseñas</div>
                 </div>
             </div>
         </div>
@@ -210,4 +217,5 @@ const generateDOMCarersList = (arr, wrapper) => {
 
   
   parent.innerHTML = counter ;
+  document.getElementById('availableCarersCount').innerHTML = carer.length
 };

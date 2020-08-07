@@ -332,17 +332,34 @@ router.get('/get/pending-petitions', async (req, res, next) => {
 
     const getContracts = await Contract.find({pending: false})
 
-    console.log('getcontract:', getContracts)
+    console.log(getContracts)
 
     const getDogs = await Dog.find({userId: getContracts.userId})
 
-    console.log('getdogs:', getContracts)
+    console.log('getdogs:', getDogs)
 
-    console.log('getDogs: ', getDogs);
+  
 
-    res.json({contracts: getPendingContracts});
+    res.json({contracts: getContracts});
 
 })
+
+router.post("/accept/:id", async (req, res, next) => {
+    const contractUpdateId = req.params.id
+    console.log(contractUpdateId)
+
+    Contract.findOneAndUpdate({carerid: contractUpdateId}, {
+        pending: false
+    }) 
+        .then(() => {
+            res.status(200).send()
+        })
+        .catch ((err) => {
+            res.status(500).send()
+        });
+});
+
+
 
 
 

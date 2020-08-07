@@ -9,13 +9,12 @@
 <script>
 
     window.addEventListener('load', () => {
-        const checkPetitions = setTimeout(() => {
+        const intervalId = setInterval(() => {
             apiService
                 .getPendingPetitions()
                 .then(async (res) => {
                     console.log("res data:", res.data)
-                    showPetitions(res.data)
-
+                    showPetitions(res.data.contracts)
                 })
                 .catch((err) => console.log(err));
         }, 3000)
@@ -23,37 +22,39 @@
         function showPetitions(arr) {
 
             const wrapper = document.getElementById('contracts');
-            const contractContent = "";
+            let contractContent = "";
 
-            arr.forEach((contract, i) => {
-                console.log("Contract aqui:", contract)
+            arr.forEach((contract) => {
+                console.log("Contract aqui:", contract.dogName)
                 contractContent += `
                     <div class="petition">
                         <div class="petition_resume">
                             <div class="petition_dogPhoto">
-                                <div class="avatar" style="background-image: url('${contract[i].photo}')"></div>
+                                <div class="avatar" ></div>
                             </div>
                             <div class="petition_dogInfo">
-                                <h3>${contract[i].dogName}</h3>
-                                <p>Edad: ${contract[i].dogAge}</p>
-                                <p>Raza: ${contract[i].dogAge}</p>
+                                <h3>${contract.dogName}</h3>
+                                <p>Edad: ${contract.dogAge}</p>
+                                <p>Raza: ${contract.dogAge}</p>
                                 <a href="/" class="btn btn-md btn-secondary">Ver detalles</a>
                             </div>
                         </div>
                         <div class="petition_adress">
-                            <p>${contract[i].meeting_point}</p>
+                            <p>${contract.meeting_point}</p>
                         </div>
                         <div class="petition_actions">
-                            <input type="hidden" name="carerId" value="${contract[i].carerId}">
-                            <a href="/" class="btn-primary btn-lg">Omitir</button>
-                            <a href="/" class="btn-secondary btn-lg">ACEPTAR</button>
+                            <input type="hidden" name="carerId" value="${contract.carerId}">
+                            <button  class="btn-primary btn-lg">Omitir</button>
+                            <button  class="accept btn-secondary btn-lg">ACEPTAR</button>
                         </div>
                     </div>
                 `
+
             });
 
             wrapper.innerHTML = contractContent;
         }
+
     });
 
 </script>

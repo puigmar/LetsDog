@@ -1,4 +1,16 @@
-<main class="v-profile">
+<main id="carerArea" class="v-profile">
+    <section class="subHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="subHeader_content">
+                        <a id="backLink" href="/setup"><span class="icon-back_arrow"></span></a>
+                        <button id="backSplide"class="d-none"><span class="icon-back_arrow"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <div class="profile-background" style="background: url('{{selectedCarer.gallery}}')"></div>
     <div class="box-main">
         <div class="profile_header">
@@ -62,19 +74,25 @@
 <script>
     const getServiceButton = document.getElementById('get-service')
 
-    getServiceButton.addEventListener('click', () => {
+    getServiceButton.addEventListener('click', async () => {
 
-    let retrievedObject = localStorage.getItem("contract");
-    let contract = JSON.parse(retrievedObject);
-    contract = {
-        ...contract,
-        carerId: `{{selectedCarer._id}}`,
-        carerName: `{{selectedCarer.name}}`
-    };
-    console.log(contract);
-    localStorage.setItem("contract", JSON.stringify(contract));
+        let retrievedObject = localStorage.getItem("contract");
+        let contract = JSON.parse(retrievedObject);
+        contract = {
+            ...contract,
+            carerId: `{{selectedCarer._id}}`,
+            carerName: `{{selectedCarer.name}}`
+        };
 
-    window.location.assign("/validation")
+        let carer = {
+            name: `{{selectedCarer.name}}`,
+            profilePhoto: `{{selectedCarer.profilePhoto}}`
+        };
+
+        await localStorage.setItem("contract", JSON.stringify(contract));
+        await localStorage.setItem("carer", JSON.stringify(carer));
+
+        window.location.assign("/validation")
 
     });
 

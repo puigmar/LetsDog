@@ -14,7 +14,7 @@ const contractSchema = new Schema({
   dogBreed: String,
   pending: {
     type: Boolean,
-    default: false
+    default: true
   },
   delivered: {
     type: Boolean,

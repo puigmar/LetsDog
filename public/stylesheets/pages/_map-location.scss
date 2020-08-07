@@ -21,9 +21,10 @@
         top: 0;
         bottom: 0;
         width: 100%;
-        margin-top: 56px;
+        padding-top: 56px;
         transition: all 0.3s ease-in;
         opacity: 1;
+        height: calc(100vh - 56px);
     }
 
     .box-main{
@@ -32,6 +33,7 @@
         transition: all 0.3s ease-in;
         bottom: 0;
         height: 190px;
+        padding: 24px;
 
         .geocoder {
             position: relative;
@@ -103,25 +105,28 @@
 
     .box-main--carerList{
         transition: all .3s ease-in-out;
-        height: 100%;
+        height: 67vh;
         //pointer-events: none;
         width: 100%;
         bottom: 0;
         position: relative;
         z-index: 100;
         background-color: #fff;
-        padding: 18px;
+        padding: 27px 18px 18px;
         
     }
 
     .mapboxgl-ctrl-geocoder {
         min-width: 100%;
     }
+
+    .carerCards{
+        height: 100%;
+        overflow: scroll;
+    }
 }
 
 .v-service-map-location.toCarerList{
-
-    height: 100vh;
 
     header{
         z-index: 20px;
@@ -136,11 +141,11 @@
     }
 
     .carerList-block{
-        top: 23vh;
+        top: 20vh;
     }
 
     .box-main:not(.box-main--carerList){
-        height: 93vh;
+        height: 87vh;
         background-color: transparent;
     }
 
