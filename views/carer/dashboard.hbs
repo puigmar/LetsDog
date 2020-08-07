@@ -2,13 +2,78 @@
     <h1>DashBoard</h1>
     <p>Hola {{currentUserInfo.carer.name}}!</p>
     <div id="contracts"></div>
+
+    <div class="petition">
+        <div class="petition_resume">
+            <div class="petition_dogPhoto">
+                <div class="avatar cover" style="background: url('https://res.cloudinary.com/dtg4wdrbg/image/upload/v1596731529/letsdog_files/scgz9bx46cxhhsdabioa.jpg'); background-position: center;" ></div>
+                
+            </div>
+            <div class="petition_dogInfo">
+                <h3>Jodi</h3>
+                <p>Edad: 5</p>
+                <p>Raza: Poodle</p>
+                <a href="/" class="btn btn-md btn-secondary">Ver detalles</a>
+            </div>
+        </div>
+        <div class="petition_adress">
+            <p>Carrer de Valencia 191</p>
+        </div>
+        <div class="petition_actions">
+            <input type="hidden" name="carerId" value="${contract.carerId}">
+            <button class="btn-primary btn-lg">Omitir</button>
+            <button class="accept btn-secondary btn-lg">ACEPTAR</button>
+        </div>
+    </div>
+        <div class="petition">
+        <div class="petition_resume">
+            <div class="petition_dogPhoto">
+                <div class="avatar cover" style="background: url('https://res.cloudinary.com/dtg4wdrbg/image/upload/v1596745582/letsdog_files/imilwpicuid4zm4kvdmh.png'); background-position: center;"></div>
+            </div>
+            <div class="petition_dogInfo">
+                <h3>Doge</h3>
+                <p>Edad: 2</p>
+                <p>Raza: Shiba Inu</p>
+                <a href="/" class="btn btn-md btn-secondary">Ver detalles</a>
+            </div>
+        </div>
+        <div class="petition_adress">
+            <p>Passeig de Garcia, 121</p>
+        </div>
+        <div class="petition_actions">
+            <input type="hidden" name="carerId" value="${contract.carerId}">
+            <button class="btn-primary btn-lg">Omitir</button>
+            <button class="accept btn-secondary btn-lg">ACEPTAR</button>
+        </div>
+    </div>
+        <div class="petition">
+        <div class="petition_resume">
+            <div class="petition_dogPhoto">
+                <div class="avatar cover" style="background: url('https://res.cloudinary.com/dtg4wdrbg/image/upload/v1596750677/letsdog_files/uirwyirwla2talrxmlil.jpg'); background-position: center;"></div>
+            </div>
+            <div class="petition_dogInfo">
+                <h3>Fury</h3>
+                <p>Edad: 3</p>
+                <p>Raza: Enano feo</p>
+                <a href="/" class="btn btn-md btn-secondary">Ver detalles</a>
+            </div>
+        </div>
+        <div class="petition_adress">
+            <p>La Marina, 93</p>
+        </div>
+        <div class="petition_actions">
+            <input type="hidden" name="carerId" value="${contract.carerId}">
+            <button class="btn-primary btn-lg">Omitir</button>
+            <button class="accept btn-secondary btn-lg">ACEPTAR</button>
+        </div>
+    </div>
 </main>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="./../javascripts/services/apiService.js"></script>
 <script src="/javascripts/User.js"></script>
 <script>
 
-    window.addEventListener('load', () => {
+    /*window.addEventListener('load', () => {
         const intervalId = setInterval(() => {
             apiService
                 .getPendingPetitions()
@@ -55,6 +120,6 @@
             wrapper.innerHTML = contractContent;
         }
 
-    });
+    });*/
 
 </script>
