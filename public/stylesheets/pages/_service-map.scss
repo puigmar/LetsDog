@@ -115,5 +115,104 @@
             width: 65px;
             height: 65px;
         }
+
+        &.mapServiceInfo{
+            height: 120px;
+            background-color: $secondary-color;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+
+            .mapServiceInfo_text{
+                font-size: 1.2rem;
+                color: #000;
+                position: relative;
+                top: -10px;
+                padding-left: 29px;
+
+                &:before{
+                    content: "\e909";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    font-family:'icomoon';
+                    font-size: 1.4rem;
+                }
+            }
+
+            .avatar{
+                width: 50px;
+                height: 50px;
+            }
+
+            .mapServiceInfo_avatars{
+                width: 205px;
+                display: flex;
+                justify-content: flex-end;
+                transform: translateX(14px);
+
+                > .locator {
+                    margin: 0 9px;
+                    display: inline-block;
+                    margin-top: -53px;
+                    margin-bottom: 2px;
+
+                    p{
+                        font-size: 1.4rem;
+                        text-align: center;
+                    }
+
+
+                    .avatar{
+                        margin-bottom: 8px;
+                        position: relative;
+
+                        &.user{
+                            &:before{
+                                content: "\e90a";
+                                color: #f97350;
+                                font-size: 20px;
+                                font-family: 'icomoon';
+                                position: absolute;
+                                top: 50%;
+                                translate: transform(-50%, -50%);
+                            }
+                        }
+                    }
+
+                    .avatar.user{
+                        background-image: url('../../images/user.svg');
+                        background-size: 50%;
+                        &:before{
+                            content: "\e90a";
+                            color: #f97350;
+                            font-size: 20px;
+                            font-family: 'icomoon';
+                            position: absolute;
+                            top: 50%;
+                            translate: transform(-50%, -50%);
+                            background-image: url('../../images/user.svg');
+                        }
+                    }
+                }
+            }
+        }
+
+        &.mapServiceTimmer{
+            height: 56px;
+
+            .timmer{
+                font-size: 24px;
+                margin: 0 auto;
+                display: block;
+                text-align: center;
+                top: -13px;
+                position: relative;
+
+                span{
+                    padding: 0 2px
+                }
+            }
+        }
     }
 }

@@ -55,7 +55,7 @@ router.post("/payment", (req, res, next) => {
     name === "" ||
     number === "" ||
     expiresMonth === "" ||
-    expiresYear === "" ||
+    //expiresYear === "" ||
     cvv === ""
   ) {
     res.render("/payment", {
@@ -68,7 +68,7 @@ router.post("/payment", (req, res, next) => {
     userId: userId,
     ownerName: name,
     cardNumber: number,
-    expiration: expiresMonth + expiresYear,
+    expiration: expiresMonth,
     cvv: cvv,
   })
     .then(() => {

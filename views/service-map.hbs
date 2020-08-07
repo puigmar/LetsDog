@@ -4,23 +4,23 @@
 <main class="v-service-map">
     <div id="map"></div>
     <section class="box-main mapServiceInfo">
-        <div class="row">
-            <div class="col-7">
-                <div class="mapServiceInfo_text">
-                    Tiempo estimado, de Voodoo y de ti, al punto de encuentro 
-                </div>
+        <div class="mapServiceInfo_text">
+            Tiempo estimado, de Voodoo y de ti, al punto de encuentro 
+        </div>
+        <div class="mapServiceInfo_avatars">
+            <div class="locator">
+                <div class="avatar cover dog"></div>
+                <p>10 min</p>
             </div>
-            <div class="col-5">
-                <div class="mapServiceInfo_avatars">
-                    <div class="avatar cover"></div>
-                    <div class="avatar cover"></div>
-                </div>
+            <div class="locator">
+                <div class="avatar cover user"></div>
+                <p>10 min</p>
             </div>
         </div>
     </section>
-    <section class="box-main mapServiceInfo">
+    <section class="box-main mapServiceTimmer">
         <div class="timmer">
-            <span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span>
+            <span id="hours">01</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
         </div>
     </section>
 </main>
@@ -35,6 +35,8 @@
     window.onload = () => {
         let retrievedObject = localStorage.getItem("contract");
         let contract = JSON.parse(retrievedObject);
+
+
 
 
         const coordinates = contract.geometry

@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'icomoon';
-    src:  url('../../fonts/icomoon.eot?j8u0jq');
-    src:  url('../../fonts/icomoon.eot?j8u0jq#iefix') format('embedded-opentype'),
-      url('../../fonts/icomoon.woff2?j8u0jq') format('woff2'),
-      url('../../fonts/icomoon.ttf?j8u0jq') format('truetype'),
-      url('../../fonts/icomoon.woff?j8u0jq') format('woff'),
-      url('../../fonts/icomoon.svg?j8u0jq#icomoon') format('svg');
+    src:  url('../../fonts/icomoon.eot?ru1wed');
+    src:  url('../../fonts/icomoon.eot?ru1wed#iefix') format('embedded-opentype'),
+      url('../../fonts/icomoon.woff2?ru1wed') format('woff2'),
+      url('../../fonts/icomoon.ttf?ru1wed') format('truetype'),
+      url('../../fonts/icomoon.woff?ru1wed') format('woff'),
+      url('../../fonts/icomoon.svg?ru1wed#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -27,6 +27,14 @@
   }
   
 
+
+  .icon-user:before {
+    content: "\e90a";
+    color: #f97350;
+  }
+  .icon-flag:before {
+    content: "\e909";
+  }
   .icon-check:before {
     content: "\e908";
   }
