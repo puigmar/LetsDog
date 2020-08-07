@@ -131,7 +131,7 @@ class Signup{
         const data = new FormData()
         data.append('image', photoToUpload);
 
-        axios.post(postUrl, data, config)
+        axios.post(postUrl, photoToUpload, config)
             .then((response) => {
                 this.dogData[objKeyName] = response.data;
                 wrapperPreview.style.backgroundImage = `url(${this.dogData[objKeyName]})`;
