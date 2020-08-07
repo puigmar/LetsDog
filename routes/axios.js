@@ -310,8 +310,12 @@ router.post("/send/contract-petition", async (req, res, next) => {
             {
                 userId: contract.userId,
                 carerId: contract.carerId,
+                dogId: contract.dogId,
                 interval_time: contract.interval_time,
                 price: contract.price,
+                dogName: contract.dogName,
+                dogAge: contract.dogAge,
+                dogBreed: contract.dogbreed,
                 meeting_point: contract.meeting_point,
                 card_number: contract.card_number
             }
