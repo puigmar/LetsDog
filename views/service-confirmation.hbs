@@ -15,38 +15,40 @@
     <div class="meeting-point-map">
         <div id="map"></div>
     </div>
-    <section class="box-main">
-        <div class="profile_data">
-            <div class="profile_name"><h3>{{currentUSerInfo.user.name}}</h3></div>
-            <div class="profile_wrapperAvatar">
-                <div class="avatar cover" style="background: url('{{currentUSerInfo.client.profilePhoto}}')"></div>
+    <div class="bootom-box">
+        <section class="box-main">
+            <div class="profile_data">
+                <div class="profile_name"><h3 id="carer-name"></h3></div>
+                <div class="profile_wrapperAvatar">
+                    <div id="avatar" class="avatar cover"></div>
+                </div>
             </div>
-        </div>
-        <section>
-            <div class="box">
-                <dl>
-                    <dt>Tiempo Contratado</dt>
-                    <dd id="interval"></dd>
-                </dl>
-                <dl>
-                    <dt>Importe a pagar</dt>
-                    <dd id="price"></dd>
-                </dl>
-            </div>
-        </section>
-        
-        <section>
-            <h3>Punto de encuentro y recogida</h3>
-            <div class="box">
-                <p id="meeting-point"></p>
-            </div>
-        </section>
+            <section>
+                <div class="box box-confirmation-resume">
+                    <dl>
+                        <dt>Tiempo Contratado</dt>
+                        <dd id="interval"></dd>
+                    </dl>
+                    <dl>
+                        <dt>Importe a pagar</dt>
+                        <dd id="price"></dd>
+                    </dl>
+                </div>
+            </section>
+            
+            <section>
+                <h3>Punto de encuentro y recogida</h3>
+                <div class="box">
+                    <p id="meeting-point"></p>
+                </div>
+            </section>
 
-        <div class="footer-buttons">
-            <a href="/payment" class="btn btn-lg btn-primary ">Continuar</a>
-            <a href="" class="btn btn-lg btn-secondary btn-link">Cancelar servicio</a>
-        </div>
-    </section>
+            <div class="footer-buttons">
+                <a href="/payment" class="btn btn-lg btn-primary ">Continuar</a>
+                <a href="/service" class="btn btn-lg btn-secondary btn-link">Cancelar servicio</a>
+            </div>
+        </section>
+    </div>
 </main>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -55,24 +57,12 @@
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet" />
 
 
-<h3 id="carer-name"></h3>
-<p>Tiempo Contratado</p>
-<p id="interval"></p>
-<p>Importe a pagar</p>
-<p id="price"></p>
-
-<h3>Punto de encuentro y recogida</h3>
-<p id="meeting-point"></p>
-
-<button class="btn btn-primary btn-lg" href="/payment">Continuar</button>
-<a href="/service">Cancelar servicio</a>
-
-
 <script>
-
     window.onload = () => {
         let retrievedObject = localStorage.getItem("contract");
         let contract = JSON.parse(retrievedObject);
+
+        let carer = JSON.parse(localStorage.getItem("carer"));
 
         const coordinates = contract.geometry
 
@@ -101,9 +91,10 @@
         if (minutes !== 0) result.minutes = Number(minutes.toFixed(0)) + "min";
 
         document.getElementById('carer-name').innerHTML = contract.carerName
-        document.getElementById('interval').innerHTML = result.hours + result.minutes
+        document.getElementById('interval').innerHTML = (result.hours || '') + (result.minutes || '')
         document.getElementById('price').innerHTML = contract.price
         document.getElementById('meeting-point').innerHTML = contract.meeting_point
+        document.getElementById('avatar').style.backgroundImage = `url('${carer.profilePhoto}')`;
 
     }
 

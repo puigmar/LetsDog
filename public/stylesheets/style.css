@@ -386,15 +386,17 @@ main {
     top: 0;
     bottom: 0;
     width: 100%;
-    margin-top: 56px;
+    padding-top: 56px;
     transition: all 0.3s ease-in;
-    opacity: 1; }
+    opacity: 1;
+    height: calc(100vh - 56px); }
   .v-service-map-location .box-main {
     z-index: 2;
     position: absolute;
     transition: all 0.3s ease-in;
     bottom: 0;
-    height: 190px; }
+    height: 190px;
+    padding: 24px; }
     .v-service-map-location .box-main .geocoder {
       position: relative;
       z-index: 1;
@@ -441,31 +443,37 @@ main {
       padding: 0 24px 10px; }
   .v-service-map-location .box-main--carerList {
     transition: all .3s ease-in-out;
-    height: 100%;
+    height: 67vh;
     width: 100%;
     bottom: 0;
     position: relative;
     z-index: 100;
     background-color: #fff;
-    padding: 18px; }
+    padding: 27px 18px 18px; }
   .v-service-map-location .mapboxgl-ctrl-geocoder {
     min-width: 100%; }
+  .v-service-map-location .carerCards {
+    height: 100%;
+    overflow: scroll; }
 
-.v-service-map-location.toCarerList {
-  height: 100vh; }
-  .v-service-map-location.toCarerList header {
-    z-index: 20px; }
-  .v-service-map-location.toCarerList #map {
-    opacity: 0; }
-  .v-service-map-location.toCarerList .subHeader {
-    background-color: transparent; }
-  .v-service-map-location.toCarerList .carerList-block {
-    top: 23vh; }
-  .v-service-map-location.toCarerList .box-main:not(.box-main--carerList) {
-    height: 93vh;
-    background-color: transparent; }
-  .v-service-map-location.toCarerList #search-carers {
-    opacity: 0; }
+.v-service-map-location.toCarerList header {
+  z-index: 20px; }
+
+.v-service-map-location.toCarerList #map {
+  opacity: 0; }
+
+.v-service-map-location.toCarerList .subHeader {
+  background-color: transparent; }
+
+.v-service-map-location.toCarerList .carerList-block {
+  top: 20vh; }
+
+.v-service-map-location.toCarerList .box-main:not(.box-main--carerList) {
+  height: 87vh;
+  background-color: transparent; }
+
+.v-service-map-location.toCarerList #search-carers {
+  opacity: 0; }
 
 .v-dashboard {
   min-height: calc(100vh - 56px);
@@ -485,16 +493,29 @@ main {
   position: relative;
   padding: 0;
   background-color: #F7F2E5; }
+  #carerArea.v-profile .profile-background {
+    position: absolute; }
+  #carerArea.v-profile .subHeader {
+    background-color: transparent;
+    width: 100%;
+    position: absolute;
+    height: 56px;
+    z-index: 2; }
+    #carerArea.v-profile .subHeader #backLink {
+      color: #000; }
   #carerArea.v-profile .box-main {
-    padding-top: 50px;
-    overflow: hidden;
-    margin-top: -30px; }
+    padding-top: 30px;
+    overflow: visible;
+    margin-top: -30px;
+    position: absolute; }
     #carerArea.v-profile .box-main .profile-subHeader {
       display: flex;
       justify-content: space-between; }
       #carerArea.v-profile .box-main .profile-subHeader_name {
         width: 50%;
         padding-right: 30px; }
+    #carerArea.v-profile .box-main .profile_name {
+      font-size: 1.9rem; }
   #carerArea.v-profile .pofile-heroBanner {
     position: relative;
     overflow: visible;
@@ -516,7 +537,8 @@ main {
         width: 100px;
         height: 100px;
         box-shadow: none;
-        border: 6px solid #fff; }
+        border: 6px solid #fff;
+        margin-bottom: -3px; }
   #carerArea.v-profile .home-buttons {
     position: relative;
     z-index: 1;
@@ -543,6 +565,9 @@ main {
   #carerArea.v-profile .profile-banner-photo {
     width: 100%;
     margin-bottom: 25px; }
+
+.v-profile .box-main .profile_wrapperAvatar .avatar {
+  margin-bottom: -3px; }
 
 .profile-dog {
   position: relative;
@@ -816,36 +841,72 @@ main {
 .v-confirmation {
   min-height: calc(100vh - 56px);
   background-color: white; }
+  .v-confirmation h3 {
+    font-weight: 400;
+    font-size: 1.6rem;
+    margin-bottom: 15px; }
+  .v-confirmation .box-confirmation-resume {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column;
+    margin-bottom: 20px; }
+    .v-confirmation .box-confirmation-resume dl {
+      width: 50%;
+      margin-bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      width: 100%; }
+      .v-confirmation .box-confirmation-resume dl dt {
+        font-size: 1.3rem;
+        font-weight: 400; }
+      .v-confirmation .box-confirmation-resume dl dd {
+        font-size: 1.6rem;
+        font-weight: 500; }
+      .v-confirmation .box-confirmation-resume dl:last-child {
+        margin-bottom: 0; }
   .v-confirmation #map {
     position: relative;
     top: 0;
     bottom: 0;
     width: 100%;
-    height: 200px; }
-  .v-confirmation .markerMeetingPoint {
-    background-image: url("./../../images/meetingpoint.png");
-    background-size: cover;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer; }
+    height: 100vh; }
+  .v-confirmation #meeting-point {
+    position: relative;
+    padding-left: 30px;
+    text-align: left;
+    font-size: 1.3rem;
+    line-height: 1;
+    width: 100%; }
+    .v-confirmation #meeting-point:before {
+      content: '';
+      background-image: url("./../../images/meetingpoint.png");
+      background-size: contain;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      background-repeat: no-repeat;
+      left: 0; }
   .v-confirmation .subHeader {
     top: 56px;
     width: 100%; }
+  .v-confirmation .bottom-box {
+    position: absolute;
+    bottom: 0; }
   .v-confirmation .box-main {
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 35px;
-    height: 59vh;
-    text-align: center; }
-    .v-confirmation .box-main .illustration {
-      margin-top: -160px;
-      margin-bottom: 20px; }
-      .v-confirmation .box-main .illustration img {
-        margin-left: auto;
-        margin-right: auto;
-        display: block; }
+    padding: 24px 24px 0;
+    height: auto;
+    text-align: center;
+    z-index: 3; }
+    .v-confirmation .box-main .profile_data {
+      display: flex;
+      justify-content: space-between; }
+      .v-confirmation .box-main .profile_data .avatar {
+        width: 73px;
+        height: 73px;
+        margin-top: -53px; }
     .v-confirmation .box-main .transition-message {
       font-size: 18px;
       padding: 0 40px; }
@@ -853,15 +914,20 @@ main {
       max-width: 70px;
       margin: 18px auto; }
     .v-confirmation .box-main .footer-buttons {
-      position: absolute;
+      position: relative;
       bottom: 0;
       width: 100%;
       left: 0;
-      bottom: 25px;
       padding: 35px 35px 0;
       display: flex;
       align-items: center;
-      justify-content: space-between; }
+      justify-content: space-between;
+      flex-flow: column; }
+    .v-confirmation .box-main .avatar.cover {
+      background-size: cover;
+      background-position: center;
+      width: 65px;
+      height: 65px; }
 
 .btn {
   width: 100%;
@@ -1221,12 +1287,14 @@ textarea.form-control:disabled {
 .carerCard {
   overflow: hidden;
   display: block; }
-  .carerCard * {
+  .carerCard *,
+  .carerCard *:hover {
     text-decoration: none;
     color: #000; }
   .carerCard_details {
     display: flex;
-    justify-content: space-between; }
+    justify-content: space-between;
+    margin-bottom: 13px; }
     .carerCard_details .carerCard_bubleTime {
       width: 80px;
       padding-right: 20px;
@@ -1245,9 +1313,9 @@ textarea.form-control:disabled {
         content: "";
         position: absolute;
         width: 1px;
-        height: 39%;
+        height: 60%;
         border: 1px solid #F97350;
-        bottom: -10px;
+        top: 75px;
         opacity: 0.3; }
     .carerCard_details .carerCard_Intro {
       display: flex;
@@ -1255,14 +1323,16 @@ textarea.form-control:disabled {
       flex-direction: column; }
       .carerCard_details .carerCard_Intro_content {
         padding-right: 5px;
-        display: flex; }
+        display: flex;
+        justify-content: space-between; }
       .carerCard_details .carerCard_Intro_name {
         font-size: 1.8rem;
-        padding-bottom: 5px; }
+        padding-bottom: 5px;
+        width: 100%; }
       .carerCard_details .carerCard_Intro_avatar {
         margin-bottom: 3px;
         display: flex;
-        align-items: center; }
+        align-items: flex-start; }
         .carerCard_details .carerCard_Intro_avatar .avatar {
           width: 60px;
           height: 60px;
@@ -1273,7 +1343,10 @@ textarea.form-control:disabled {
       .carerCard_details .carerCard_Intro_lastReview {
         font-size: 1.4rem;
         line-height: 1.2;
-        font-style: italic; }
+        font-style: italic;
+        width: 100%;
+        padding: 0 12px 14px 0;
+        color: #666; }
   .carerCard_feedback {
     display: flex;
     justify-content: space-between;
@@ -1308,5 +1381,11 @@ textarea.form-control:disabled {
   align-items: center;
   font-size: 2.4rem;
   color: #F7F2E5; }
+
+.box {
+  border-radius: 15px;
+  background-color: #F7F2E5;
+  color: #000;
+  padding: 20px; }
 
 /*# sourceMappingURL=style.css.map */

@@ -34,8 +34,7 @@ router.get("/setup", (req, res, next) => {
   res.render("setup");
 });
 
-router.get("/validation", (req, res, next) => {
-  console.log(currentUserInfo)
+router.get("/validation", async (req, res, next) => {
   res.render("service-validation");
 });
 
