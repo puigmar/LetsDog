@@ -34,8 +34,9 @@
 <script>
     window.onload = () => {
         let retrievedObject = localStorage.getItem("contract");
+        let retrievedog = localStorage.getItem("dog");
         let contract = JSON.parse(retrievedObject);
-
+        let dog = JSON.parse(retrievedog);
 
 
 
@@ -79,6 +80,8 @@
             elCarer.className = "markerCarer";
 
             var meetingPointCoords = contract.geometry;
+
+            document.querySelector('.avatar.dog').style.backgroundImage = `url('${dog.profilePhoto}')`;
 
             // Codigo del marker
             new mapboxgl.Marker(el)
