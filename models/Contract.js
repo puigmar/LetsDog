@@ -9,9 +9,12 @@ const contractSchema = new Schema({
   interval_time: String,
   meeting_point: String,
   card_number: String,
+  dogName: String,
+  dogAge: String,
+  dogBreed: String,
   pending: {
     type: Boolean,
-    default: false
+    default: true
   },
   delivered: {
     type: Boolean,

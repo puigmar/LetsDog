@@ -89,15 +89,10 @@ router.post("/service-map", (req, res, next) => {
 
   Card.findOne({ userId: contractData.userId })
     .then((card) => {
-      Contract.create({
-        card_number: card.cardNumber,
-        userId: contractData.userId,
-        carerId: contractData.carerId,
-        price: contractData.price,
-        interval_time: contractData.interval_time,
-        meeting_point: contractData.meeting_point,
+      Contract.findOneAndUpdate({_id: contractData._id}, 
+        {$set: {
         card_number: contractData.card_number,
-      })
+      }})
         .then(() => {
           console.log("exito");
         })

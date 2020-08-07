@@ -1,11 +1,11 @@
-<main class="v-checkPages"> 
+<main class="v-checkPages">
     <section class="subHeader">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="subHeader_content">
                         <a id="backLink" href="/service" class="text-dark"><span class="icon-back_arrow"></span></a>
-                        <button id="backSplide"class="d-none"><span class="icon-back_arrow"></span></button>
+                        <button id="backSplide" class="d-none"><span class="icon-back_arrow"></span></button>
                         <h1>Contratar servicio</h1>
                     </div>
                 </div>
@@ -31,26 +31,32 @@
 <script src="./../javascripts/services/apiService.js"></script>
 
 <script>
-    
+
     let isLoading = true;
 
-    window.onload = () => {
+    window.onload = async () => {
 
         let retrievedObject = localStorage.getItem("contract");
         let contract = JSON.parse(retrievedObject);
 
         let isLoading = true;
 
-        console.log(contract);
-
         document.getElementById('carer-name').innerHTML = contract.carerName;
 
-        apiService
-            .sendContractPetition(contract)
-            .then( async (res) => {
-                console.log('res: ',res)
-            })
-            .catch((err) => console.log(err));
+
+        setTimeout(() => {
+
+            window.location.assign("/service-map")
+
+        }, 4000)
+
+        /* apiService
+             .sendContractPetition(contract)
+             .then( async (res) => {
+                // console.log('res:', res);
+                 
+             })
+             .catch((err) => console.log(err))*/
 
     };
 </script>

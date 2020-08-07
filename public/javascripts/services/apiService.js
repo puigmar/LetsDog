@@ -17,7 +17,8 @@ class ApiService {
     }
 
     sendContractPetition (contract) {
-        
+
+        console.log(contract)
         return this.api.post("manage/send/contract-petition", contract)
     }
 
