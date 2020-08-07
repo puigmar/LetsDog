@@ -69,7 +69,7 @@
             const card = event.target.parentNode
             const interval = card.querySelector('[data-type]').getAttribute('data-type');
             const price = card.querySelector('.price').innerHTML;
-            const contract = { userId: `{{currentUserInfo.user._id}}`, carerId: "", dogId: `{{currentUserInfo.dog._id}}`, dogName: `{{currentUserInfo.dog.name}}`, dogAge: `{{currentUserInfo.dog.age}}`, dogBreed: `{{currentUserInfo.dog.breed}}`,  interval_time: interval, price: price, meeting_point: "", card_number: "" };
+            const contract = { userId: `{{currentUserInfo.user._id}}`, carerId: "", dogId: `{{currentUserInfo.dog._id}}`, dogName: `{{currentUserInfo.dog.name}}`, dogPhoto: `{{currentUserInfo.dog.photo}}`, dogAge: `{{currentUserInfo.dog.age}}`, dogBreed: `{{currentUserInfo.dog.breed}}`,  interval_time: interval, price: price, meeting_point: "", card_number: "" };
             localStorage.setItem('contract', JSON.stringify(contract));
         });
 
