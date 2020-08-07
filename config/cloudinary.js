@@ -12,7 +12,7 @@ cloudinary.config({
 
 const storage = cloudinaryStorage({
   cloudinary: cloudinary,
-  folder: 'letsdog_files',
+  folder: 'letsdog',
   allowedFormats: ['jpg', 'png', 'jpeg', 'gif'],
   transformation: [{ width: 500, height: 500, crop: 'limit' }]
 });

@@ -3,7 +3,26 @@
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet" />
 <main class="v-service-map">
     <div id="map"></div>
-    
+    <section class="box-main mapServiceInfo">
+        <div class="row">
+            <div class="col-7">
+                <div class="mapServiceInfo_text">
+                    Tiempo estimado, de Voodoo y de ti, al punto de encuentro 
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="mapServiceInfo_avatars">
+                    <div class="avatar cover"></div>
+                    <div class="avatar cover"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="box-main mapServiceInfo">
+        <div class="timmer">
+            <span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span>
+        </div>
+    </section>
 </main>
 
 <button type="button" id="end-service" class="btn btn-primary btn-lg">Finalizar el servicio</button>

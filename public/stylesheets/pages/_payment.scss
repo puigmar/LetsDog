@@ -116,4 +116,41 @@
             height: 65px;
         }
     }
+
+    .save-card-check{
+        margin: 20px 0;
+        padding: 15px 0;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+
+        display: flex;
+
+        .custom-control{
+            transform: scale(3) translate(9px, 4px);
+            left: 0;
+            display: inline-block;
+        }
+
+        p{
+            font-size: 1.4rem;
+            position: relative;
+
+        }
+    }
+
+    .payment-information p{
+        font-size: 1.3rem;
+        padding-left: 50px;
+        position: relative;
+
+        &:before{
+            content: "\e908";
+            font-family: icomoon;
+            font-size: 3rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #333;      
+        }
+    }
 }

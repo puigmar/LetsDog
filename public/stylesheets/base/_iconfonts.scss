@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'icomoon';
-    src:  url('../../fonts/icomoon.eot?e06txi');
-    src:  url('../../fonts/icomoon.eot?e06txi#iefix') format('embedded-opentype'),
-      url('../../fonts/icomoon.woff2?e06txi') format('woff2'),
-      url('../../fonts/icomoon.ttf?e06txi') format('truetype'),
-      url('../../fonts/icomoon.woff?e06txi') format('woff'),
-      url('../../fonts/icomoon.svg?e06txi#icomoon') format('svg');
+    src:  url('../../fonts/icomoon.eot?j8u0jq');
+    src:  url('../../fonts/icomoon.eot?j8u0jq#iefix') format('embedded-opentype'),
+      url('../../fonts/icomoon.woff2?j8u0jq') format('woff2'),
+      url('../../fonts/icomoon.ttf?j8u0jq') format('truetype'),
+      url('../../fonts/icomoon.woff?j8u0jq') format('woff'),
+      url('../../fonts/icomoon.svg?j8u0jq#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -27,6 +27,9 @@
   }
   
 
+  .icon-check:before {
+    content: "\e908";
+  }
   .icon-countDownClok:before {
     content: "\e907";
     color: #f7f2e5;

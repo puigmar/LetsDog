@@ -89,8 +89,14 @@
             profilePhoto: `{{selectedCarer.profilePhoto}}`
         };
 
+        let dog = {
+            name: `{{selectedCarer.name}}`,
+            profilePhoto: `{{selectedCarer.profilePhoto}}`
+        };
+
         await localStorage.setItem("contract", JSON.stringify(contract));
         await localStorage.setItem("carer", JSON.stringify(carer));
+        await localStorage.setItem("dog", JSON.stringify(carer));
 
         window.location.assign("/validation")
 
