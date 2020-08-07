@@ -1,36 +1,59 @@
+<main class="v-confirmation"> 
+    <section class="subHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="subHeader_content">
+                        <a id="backLink" href="/service" class="text-dark"><span class="icon-back_arrow"></span></a>
+                        <button id="backSplide"class="d-none"><span class="icon-back_arrow"></span></button>
+                        <h1>Resumen del servicio</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="meeting-point-map">
+        <div id="map"></div>
+    </div>
+    <section class="box-main">
+        <div class="profile_data">
+            <div class="profile_name"><h3>{{currentUSerInfo.user.name}}</h3></div>
+            <div class="profile_wrapperAvatar">
+                <div class="avatar cover" style="background: url('{{currentUSerInfo.client.profilePhoto}}')"></div>
+            </div>
+        </div>
+        <section>
+            <div class="box">
+                <dl>
+                    <dt>Tiempo Contratado</dt>
+                    <dd id="interval"></dd>
+                </dl>
+                <dl>
+                    <dt>Importe a pagar</dt>
+                    <dd id="price"></dd>
+                </dl>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Punto de encuentro y recogida</h3>
+            <div class="box">
+                <p id="meeting-point"></p>
+            </div>
+        </section>
+
+        <div class="footer-buttons">
+            <a href="/payment" class="btn btn-lg btn-primary ">Continuar</a>
+            <a href="" class="btn btn-lg btn-secondary btn-link">Cancelar servicio</a>
+        </div>
+    </section>
+</main>
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet" />
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-    }
 
-    #map {
-        position: relative;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-        margin-top: 40px;
-        height: 200px;
-    }
-
-    .markerMeetingPoint {
-        background-image: url('./../images/meetingpoint.png');
-        background-size: cover;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        cursor: pointer;
-    }
-</style>
-
-<h2>Resumen de Servicio</h2>
-<div class="meeting-point-map">
-    <div id="map"></div>
-</div>
 
 <h3 id="carer-name"></h3>
 <p>Tiempo Contratado</p>
@@ -76,9 +99,6 @@
 
         if (hours !== 0) result.hours = hours + "h";
         if (minutes !== 0) result.minutes = Number(minutes.toFixed(0)) + "min";
-
-
-
 
         document.getElementById('carer-name').innerHTML = contract.carerName
         document.getElementById('interval').innerHTML = result.hours + result.minutes
