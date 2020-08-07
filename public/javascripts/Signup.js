@@ -130,8 +130,9 @@ class Signup{
         }
         const data = new FormData()
         data.append('image', photoToUpload);
+        data.append("timestamp", (Date.now() / 1000) | 0);
 
-        axios.post(postUrl, photoToUpload, config)
+        axios.post(postUrl, data, config)
             .then((response) => {
                 this.dogData[objKeyName] = response.data;
                 wrapperPreview.style.backgroundImage = `url(${this.dogData[objKeyName]})`;
