@@ -35,7 +35,7 @@ router.get("/setup", (req, res, next) => {
 });
 
 router.get("/validation", (req, res, next) => {
-  console.log(currentUserInfo)
+ 
   res.render("service-validation");
 });
 

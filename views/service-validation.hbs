@@ -34,21 +34,19 @@
     
     let isLoading = true;
 
-    window.onload = () => {
+    window.onload = async () => {
 
         let retrievedObject = localStorage.getItem("contract");
         let contract = JSON.parse(retrievedObject);
 
         let isLoading = true;
 
-        console.log(contract);
-
         document.getElementById('carer-name').innerHTML = contract.carerName;
 
         apiService
             .sendContractPetition(contract)
             .then( async (res) => {
-                console.log('res: ',res)
+                console.log('res:', res)
             })
             .catch((err) => console.log(err));
 

@@ -332,11 +332,15 @@ router.get('/get/pending-petitions', async (req, res, next) => {
 
     const getContracts = await Contract.find({pending: false})
 
+    console.log('getcontract:', getContracts)
+
     const getDogs = await Dog.find({userId: getContracts.userId})
+
+    console.log('getdogs:', getContracts)
 
     console.log('getDogs: ', getDogs);
 
-    //res.json({contracts: getPendingContracts});
+    res.json({contracts: getPendingContracts});
 
 })
 

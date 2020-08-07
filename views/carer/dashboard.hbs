@@ -1,5 +1,5 @@
 <main class="v-dashboard">
-    <h1>DahsBoard</h1>
+    <h1>DashBoard</h1>
     <p>Hola {{currentUserInfo.carer.name}}!</p>
     <div id="contracts"></div>
 </main>
@@ -7,46 +7,50 @@
 <script src="./../javascripts/services/apiService.js"></script>
 <script src="/javascripts/User.js"></script>
 <script>
+
     window.addEventListener('load', () => {
         const checkPetitions = setTimeout(() => {
             apiService
                 .getPendingPetitions()
                 .then(async (res) => {
-                    console.log(res.data)
+                    console.log("res data:", res.data)
+                    showPetitions(res.data)
+
                 })
                 .catch((err) => console.log(err));
         }, 3000)
 
-        const showPetitions = (arr) => {
+        function showPetitions(arr) {
 
             const wrapper = document.getElementById('contracts');
             const contractContent = "";
 
             arr.forEach((contract, i) => {
+                console.log("Contract aqui:", contract)
                 contractContent += `
                     <div class="petition">
                         <div class="petition_resume">
                             <div class="petition_dogPhoto">
-                                <div class="avatar" style="background-image: url('{{contract[i].photo}}'"></div>
+                                <div class="avatar" style="background-image: url('${contract[i].photo}')"></div>
                             </div>
                             <div class="petition_dogInfo">
-                                <h3>{{contract[i].dogName}}</h3>
-                                <p>Edad: {{contract[i].dogAge}}</p>
-                                <p>Raza: {{contract[i].dogAge}}</p>
+                                <h3>${contract[i].dogName}</h3>
+                                <p>Edad: ${contract[i].dogAge}</p>
+                                <p>Raza: ${contract[i].dogAge}</p>
                                 <a href="/" class="btn btn-md btn-secondary">Ver detalles</a>
                             </div>
                         </div>
                         <div class="petition_adress">
-                            <p>{{contact.adress}}</p>
+                            <p>${contract[i].meeting_point}</p>
                         </div>
                         <div class="petition_actions">
-                            <input type="hidden" name="carerId" value="{{contract[i].carerId}}">
+                            <input type="hidden" name="carerId" value="${contract[i].carerId}">
                             <a href="/" class="btn-primary btn-lg">Omitir</button>
                             <a href="/" class="btn-secondary btn-lg">ACEPTAR</button>
                         </div>
                     </div>
                 `
-            })
+            });
 
             wrapper.innerHTML = contractContent;
         }
