@@ -5,16 +5,20 @@ class EditCarer{
         this.descriptionInput = document.getElementById('carerDescriptionInput');
         this.phoneNumber = document.getElementById('carerPhoneInput');
 
+        this.profileHeroBanner = document.querySelector('.profile-heroBanner');
+
         this.photoCarerAvatarPreview = document.getElementById('photoCarerAvatarPreview');
         this.photoCarerAvatarInputFile = document.getElementById('photoCarerAvatarInputFile');
         this.photoCarerAvatarInputFileUrl = document.getElementById('photoCarerAvatarInputFileUrl');
         this.photoCarerAvatarBtnSubmit = document.getElementById('photoCarerAvatarBtnSubmit');
         this.photoCarerAvatarForm = document.getElementById('photoCarerAvatarForm');
+        this.photoCarerAvatarBtnUpdate = document.getElementById('photoCarerAvatarBtnUpdate');
 
         this.photoCarerBannerProfilePreview = document.getElementById('photoCarerBannerProfilePreview');
         this.photoCarerBannerProfileInputFile = document.getElementById('photoCarerBannerProfileInputFile');
         this.photoCarerBannerProfileBtnSubmit = document.getElementById('photoCarerBannerProfileBtnSubmit');
         this.photoCarerBannerProfileForm = document.getElementById('photoCarerBannerProfileForm');
+        this.photoCarerBannerProfileBtnUpdate = document.getElementById('photoCarerBannerProfileBtnUpdate');
 
         this.editableBtn = document.querySelectorAll("[data-type='editable']");
         this.editableFields = document.querySelectorAll("[data-field='editable']");
@@ -24,34 +28,48 @@ class EditCarer{
     sendAvatarPhoto = (e) => {
         e.preventDefault();
         this.updatePhoto(
-            this.photoCarerAvatarInputFile, this.photoCarerAvatarPreview, '/manage/validate-photo'
+            this.photoCarerAvatarInputFile, 
+            this.photoCarerAvatarPreview, 
+            '/manage/validate-photo', 
+            this.photoCarerAvatarBtnUpdate
         )
     }
 
     sendBannerProfilePhoto = (e) => {
         e.preventDefault();
         this.updatePhoto(
-            this.photoCarerBannerProfileInputFile, this.photoCarerBannerProfilePreview, '/manage/validate-photo'
+            this.photoCarerBannerProfileInputFile, 
+            this.photoCarerBannerProfilePreview, 
+            '/manage/validate-photo', 
+            this.photoCarerBannerProfileBtnUpdate
         )
     }
 
-    updatePhoto = (inputFile, wrapperPreview, postUrl, objKeyName) => {
+    updatePhoto = (inputFile, wrapperPreview, postUrl, updateBtn) => {
         const carerPhotoToUpload = inputFile.files[0];
         const config = {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         }
+
         const data = new FormData()
         data.append('image', carerPhotoToUpload);
+        wrapperPreview.classList.add('loading');
 
         axios.post(postUrl, data, config)
             .then((response) => {
+
                 const url = response.data;
                 const inputHiddenId = inputFile.getAttribute('id')+'Url';
                 document.getElementById(inputHiddenId).value = url;
                 wrapperPreview.style.backgroundImage = `url(${url})`;
                 wrapperPreview.classList.add('cover')
+                wrapperPreview.classList.remove('loading');
+
+                // boton que activa el método modifyField
+                updateBtn.click();
+                    
             })
             .catch(err => {
                 console.error("Image post failed: ", err)
@@ -123,6 +141,10 @@ class EditCarer{
                 inputTarget.classList.toggle('is-valid');
                 inputTarget.parentNode.classList.toggle('disabledField')
                 e.target.classList.toggle('d-none');
+
+                if(key === 'gallery'){
+                    this.profileHeroBanner.style.backgroundImage = `url('${value}')`
+                }
             })
             .catch( err => console.log(err));
     }
@@ -198,6 +220,7 @@ class EditCarer{
         });
 
         this.photoCarerBannerProfilePreview.addEventListener('click', () => {
+            console.log('click')
             this.photoCarerBannerProfileInputFile.click()
         })
         this.photoCarerBannerProfileForm.addEventListener('submit', this.sendBannerProfilePhoto);

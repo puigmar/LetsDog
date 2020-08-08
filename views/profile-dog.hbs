@@ -1,101 +1,102 @@
 <main class="v-profile profile-dog">
-    <section class="pofile-heroBanner">
-        <section class="subHeader">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="subHeader_content">
-                            <a id="backLink" href="/service" class="text-dark"><span class="icon-back_arrow"></span></a>
-                            <button id="backSplide"class="d-none"><span class="icon-back_arrow"></span></button>
-                            <h1>Tu perfil perruno</h1>
-                        </div>
+    <section class="subHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="subHeader_content">
+                        <a id="backLink" href="/service" class="text-dark"><span class="icon-back_arrow"></span></a>
+                        <button id="backSplide"class="d-none"><span class="icon-back_arrow"></span></button>
+                        <h1>Tu perfil perruno</h1>
                     </div>
                 </div>
             </div>
-        </section>
-        <form enctype="multipart/form-data" id="photoDogAvatarForm" class="form-avatar">
-            <div id="photoDogAvatarPreview" class="avatar cover" style="background-image: url('{{dog.photo}}');"></div>
-            <input class="d-none" id="photoDogAvatarInputFile" type="file" name="photo">
-            <input id="photoDogAvatarBtnSubmit" type="submit">
-        </form>
+        </div>
     </section>
+    
     <div class="box-main">
-        <section class="profile-subHeader form-row mt-0">
-            <div class="half-col">
-                <div class="profile-field form-group editField disabledField">
-                    <div class="editField_label">
-                        <label>Nombre</label>
-                        <button data-type="editable" data-id="dogNameInput" type="button"><span class="icon-editar"></span></button>
-                    </div>
-                    <input data-field="editable" data-id="dogNameInput" type="text" name="name" id="dogNameInput" class="form-control" value="{{dog.name}}">
-                    <button class="btn btn-primary btn-md mt-3" data-btn="modify" data-model="Dog" data-id="dogNameInput" type="button">Modificar</button>
-                </div>
+        <div class="row">
+            <div class="col-5">
+                <form enctype="multipart/form-data" id="photoDogAvatarForm" class="form-avatar">
+                    <div id="photoDogAvatarPreview" class="avatar cover" style="background-image: url('{{dog.photo}}');"></div>
+                    <input class="d-none" id="photoDogAvatarInputFile" type="file" name="photo">
+                    <input id="photoDogAvatarBtnSubmit" type="submit">
+                </form>
             </div>
-            <div class="half-col">
-                <div class="editField disabledField">
-                    <div class="editField_label">
-                        <label>Edad</label>
-                        <button data-type="editable" data-id="dogAgeInput" type="button"><span class="icon-editar"></span></button>
+            <div class="col-7">
+                <section class="profile-subHeader">
+                    <div class="profile-field form-group editField disabledField">
+                        <div class="editField_label">
+                            <label>Nombre</label>
+                            <button data-type="editable" data-id="dogNameInput" type="button"><span class="icon-editar"></span></button>
+                        </div>
+                        <input data-field="editable" data-id="dogNameInput" type="text" name="name" id="dogNameInput" class="form-control" value="{{dog.name}}">
+                        <button class="btn btn-primary btn-md mt-3" data-btn="modify" data-model="Dog" data-id="dogNameInput" type="button">Modificar</button>
                     </div>
-                    <select class="custom-select" id="dogAgeInput" data-field="editable" name="age">
-                        {{#select dog.age}}
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                        {{/select}}
-                    </select>
-                    <button class="btn btn-primary btn-md mt-3" data-btn="modify" data-model="Dog" data-id="dogAgeInput" type="button">Modificar</button>
-                </div>
+                </section>
             </div>
-        </section>
+        </div>
+        <div class="form-row ">
+            <div class="editField disabledField">
+                <div class="editField_label">
+                    <label>Edad</label>
+                    <button data-type="editable" data-id="dogAgeInput" type="button"><span class="icon-editar"></span></button>
+                </div>
+                <select class="custom-select" id="dogAgeInput" data-field="editable" name="age">
+                    {{#select dog.age}}
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                    {{/select}}
+                </select>
+                <button class="btn btn-primary btn-md mt-3" data-btn="modify" data-model="Dog" data-id="dogAgeInput" type="button">Modificar</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="profile-field form-group editField disabledField mb-0 ">
+                <div class="editField_label">
+                    <label>Raza</label>
+                    <button data-type="editable" data-id="dogBreedInput" type="button"><span class="icon-editar"></span></button>
+                </div>
+                <select class="custom-select" id="dogBreedInput" data-field="editable" name="breed">
+                    {{#select dog.breed}}
+                        <option value="caniche">Caniche</option>
+                        <option value="chihuahua">Chihuahua</option>
+                    {{/select}}
+                </select>
+                <button class="btn btn-primary btn-md mt-3" data-btn="modify" data-model="Dog" data-id="dogBreedInput" type="button">Modificar</button>
+            </div>
+        </div>
+    
         <section class="form-row">
-            <div class="half-col">
-                <div class="profile-field form-group editField disabledField mb-0 ">
-                    <div class="editField_label">
-                        <label>Raza</label>
-                        <button data-type="editable" data-id="dogBreedInput" type="button"><span class="icon-editar"></span></button>
-                    </div>
-                    <select class="custom-select" id="dogBreedInput" data-field="editable" name="breed">
-                        {{#select dog.breed}}
-                            <option value="caniche">Caniche</option>
-                            <option value="chihuahua">Chihuahua</option>
-                        {{/select}}
-                    </select>
-                    <button class="btn btn-primary btn-md mt-3" data-btn="modify" data-model="Dog" data-id="dogBreedInput" type="button">Modificar</button>
+            <div class="profile-field form-group editField disabledField mb-0">
+                <div class="editField_label">
+                    <label>Size</label>
+                    <button data-type="editable" data-id="dogSizeInput" type="button"><span class="icon-editar"></span></button>
                 </div>
+                <select class="custom-select" id="dogSizeInput" data-field="editable" name="size">
+                    {{#select dog.size}}
+                        <option value="small">Pequeño</option>
+                        <option value="medium">Mediano</option>
+                        <option value="big">Grande</option>
+                    {{/select}}
+                </select>
+                <button class="btn btn-primary btn-md mt-3" data-btn="modify" data-model="Dog" data-id="dogSizeInput" type="button">Modificar</button>
             </div>
-            <div class="half-col">
-                <div class="profile-field form-group editField disabledField mb-0">
-                    <div class="editField_label">
-                        <label>Size</label>
-                        <button data-type="editable" data-id="dogSizeInput" type="button"><span class="icon-editar"></span></button>
-                    </div>
-                    <select class="custom-select" id="dogSizeInput" data-field="editable" name="size">
-                        {{#select dog.size}}
-                            <option value="small">Pequeño</option>
-                            <option value="medium">Mediano</option>
-                            <option value="big">Grande</option>
-                        {{/select}}
-                    </select>
-                    <button class="btn btn-primary btn-md mt-3" data-btn="modify" data-model="Dog" data-id="dogSizeInput" type="button">Modificar</button>
-                </div>
-            </div>
-            
         </section>
         <section class="form-row">
             <div class="profile-field form-group editField disabledField mb-0">

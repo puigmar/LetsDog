@@ -9,39 +9,6 @@ const bcrypt = require("bcrypt");
 const Client = require("../models/Client");
 const bcryptSalt = 10;
 
-router.get("/signup", (req, res, next) => {
-  res.render("auth/signup", { err: "" });
-});
-
-router.post("/signup", async (req, res) => {
-  try {
-    const { userData, dogData, clientData } = req.body;
-
-    const salt = bcrypt.genSaltSync(bcryptSalt);
-    const hashPass = bcrypt.hashSync(userData.password, salt);
-
-    userData.password = hashPass;
-
-    const user = await User.create(userData);
-    const dog = await Dog.create({
-      userId: user._id,
-      ...dogData,
-    });
-    const client = await Client.create({
-      ...clientData,
-      dogId: dog._id,
-      userId: user._id,
-    });
-    if (client) {
-      req.session.currentUser = { user: user, dog: dog, client: client };
-
-      res.render("service");
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 router.get("/login", (req, res, next) => {
   res.render("auth/login", { err: "" });
 });
@@ -96,6 +63,63 @@ router.post("/login", async (req, res, next) => {
   }
 
 });
+
+router.get("/signup", (req, res, next) => {
+  res.render("auth/signup", { err: "" });
+});
+
+router.post("/signup", async (req, res) => {
+  try {
+    const { userData, dogData, clientData } = req.body;
+
+    const salt = bcrypt.genSaltSync(bcryptSalt);
+    const hashPass = bcrypt.hashSync(userData.password, salt);
+
+    userData.password = hashPass;
+
+    const user = await User.create(userData);
+    const dog = await Dog.create({
+      userId: user._id,
+      ...dogData,
+    });
+    const client = await Client.create({
+      ...clientData,
+      dogId: dog._id,
+      userId: user._id,
+    });
+    if (client) {
+      req.session.currentUser = { user: user, dog: dog, client: client };
+
+      res.render("service");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.get('/logout', (req, res, next) => {
+    
+  if (!req.session.currentUser) {
+      res.redirect('/');
+      return;
+  }
+
+  req.session.destroy((err) => {
+      if (err) {
+          next(err);
+          return;
+      }
+      res.redirect('/');
+  });
+})
+
+/*router.use((req, res, next) => {
+  if (req.session.currentUser.isCarer === false) {
+    next();
+    return;
+  }
+  res.redirect('/login');
+});*/
 
 router.get('/profile/:id', async (req, res) => {
   const userId = req.params.id;

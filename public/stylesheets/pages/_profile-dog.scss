@@ -1,13 +1,13 @@
-.profile-dog{
+.v-profile.profile-dog{
 
     position: relative;
     padding: 0;
-    background-color: $beige-color;
+    background-color: $secondary-color;
 
     .box-main{
-        padding-top: 50px;
-        overflow: hidden;
-        margin-top: -60px;
+        margin-top: 0;
+        position: relative;
+        margin-top: 40px;
 
         .profile-subHeader{
             display: flex;
@@ -19,7 +19,20 @@
             }
         }
 
+        .form-avatar{
+            margin-top: -60px;
+            margin-bottom: 20px;
+    
+            .avatar{
+                box-shadow: none;
+                border: 5px solid white;
+                margin-left: 0;
+            }
+        }
+
     }
+
+
 
     .pofile-heroBanner{
         position: relative;

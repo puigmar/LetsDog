@@ -543,10 +543,10 @@ main {
     #carerArea.v-profile .subHeader #backLink {
       color: #000; }
   #carerArea.v-profile .box-main {
-    padding-top: 30px;
     overflow: visible;
     margin-top: -30px;
-    position: absolute; }
+    position: relative;
+    padding-top: 60px; }
     #carerArea.v-profile .box-main .profile-subHeader {
       display: flex;
       justify-content: space-between; }
@@ -555,22 +555,24 @@ main {
         padding-right: 30px; }
     #carerArea.v-profile .box-main .profile_name {
       font-size: 1.9rem; }
-  #carerArea.v-profile .pofile-heroBanner {
+  #carerArea.v-profile .profile-heroBanner {
     position: relative;
     overflow: visible;
     min-height: 162px; }
-    #carerArea.v-profile .pofile-heroBanner .profile-banner {
+    #carerArea.v-profile .profile-heroBanner .profile-banner {
       border-radius: 0;
       margin: 0;
       height: 140px;
       box-shadow: none; }
-    #carerArea.v-profile .pofile-heroBanner .profile-avatar {
+      #carerArea.v-profile .profile-heroBanner .profile-banner button {
+        display: none; }
+    #carerArea.v-profile .profile-heroBanner .profile-avatar {
       position: absolute;
       bottom: 0;
       z-index: 2;
       left: 50%;
       transform: translateX(-50%); }
-      #carerArea.v-profile .pofile-heroBanner .profile-avatar .avatar {
+      #carerArea.v-profile .profile-heroBanner .profile-avatar .avatar {
         margin: 0;
         transform: translateY(16%);
         width: 100px;
@@ -578,6 +580,14 @@ main {
         box-shadow: none;
         border: 6px solid #fff;
         margin-bottom: -3px; }
+      #carerArea.v-profile .profile-heroBanner .profile-avatar .btn-modificar {
+        background-color: white;
+        opacity: 1;
+        position: absolute;
+        right: 11px;
+        bottom: -9px;
+        border: 1px solid #ccc;
+        pointer-events: none; }
   #carerArea.v-profile .home-buttons {
     position: relative;
     z-index: 1;
@@ -586,6 +596,9 @@ main {
     #carerArea.v-profile .home-buttons .btn {
       margin-top: 16px;
       box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.49); }
+  #carerArea.v-profile .profile-banner-photo button,
+  #carerArea.v-profile .profile.avatar button {
+    display: none; }
   #carerArea.v-profile .profile-score_bones {
     font-size: 1.7rem;
     height: 40px;
@@ -604,70 +617,103 @@ main {
   #carerArea.v-profile .profile-banner-photo {
     width: 100%;
     margin-bottom: 25px; }
+  #carerArea.v-profile .profile.avatar.loading,
+  #carerArea.v-profile .profile-banner.loading {
+    overflow: hidden;
+    position: relative; }
+    #carerArea.v-profile .profile.avatar.loading:after,
+    #carerArea.v-profile .profile-banner.loading:after {
+      width: 100%;
+      height: 100%;
+      content: "";
+      background-color: rgba(0, 0, 0, 0.5);
+      background-image: url("../../images/Spinner-1s-200px.svg");
+      background-repeat: no-repeat;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      transform: none;
+      opacity: 1;
+      font-size: 1.6rem;
+      font-family: rubik;
+      background-size: 35%;
+      background-position: center; }
 
 .v-profile .box-main .profile_wrapperAvatar .avatar {
   margin-bottom: -3px; }
 
-.profile-dog {
+.v-profile.profile-dog {
   position: relative;
   padding: 0;
-  background-color: #F7F2E5; }
-  .profile-dog .box-main {
-    padding-top: 50px;
-    overflow: hidden;
-    margin-top: -60px; }
-    .profile-dog .box-main .profile-subHeader {
+  background-color: #FAD06C; }
+  .v-profile.profile-dog .box-main {
+    margin-top: 0;
+    position: relative;
+    margin-top: 40px; }
+    .v-profile.profile-dog .box-main .profile-subHeader {
       display: flex;
       justify-content: space-between; }
-      .profile-dog .box-main .profile-subHeader_name {
+      .v-profile.profile-dog .box-main .profile-subHeader_name {
         width: 50%;
         padding-right: 30px; }
-  .profile-dog .pofile-heroBanner {
+    .v-profile.profile-dog .box-main .form-avatar {
+      margin-top: -60px;
+      margin-bottom: 20px; }
+      .v-profile.profile-dog .box-main .form-avatar .avatar {
+        box-shadow: none;
+        border: 5px solid white;
+        margin-left: 0; }
+  .v-profile.profile-dog .pofile-heroBanner {
     position: relative;
     overflow: visible;
     min-height: 162px; }
-    .profile-dog .pofile-heroBanner .profile-banner {
+    .v-profile.profile-dog .pofile-heroBanner .profile-banner {
       border-radius: 0;
       margin: 0;
       height: 140px;
       box-shadow: none; }
-    .profile-dog .pofile-heroBanner .profile-avatar {
+    .v-profile.profile-dog .pofile-heroBanner .profile-avatar {
       position: absolute;
       bottom: 0;
       z-index: 2;
       left: 50%;
       transform: translateX(-50%); }
-      .profile-dog .pofile-heroBanner .profile-avatar .avatar {
+      .v-profile.profile-dog .pofile-heroBanner .profile-avatar .avatar {
         margin: 0;
         transform: translateY(16%);
         width: 100px;
         height: 100px;
         box-shadow: none;
         border: 6px solid #fff; }
-  .profile-dog .home-buttons {
+  .v-profile.profile-dog .home-buttons {
     position: relative;
     z-index: 1;
     width: 100%;
     padding-bottom: 32px; }
-    .profile-dog .home-buttons .btn {
+    .v-profile.profile-dog .home-buttons .btn {
       margin-top: 16px;
       box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.49); }
-  .profile-dog .profile-score_bones {
+  .v-profile.profile-dog .profile-score_bones {
     font-size: 1.7rem;
     height: 40px;
     vertical-align: middle;
     display: flex;
     align-items: center; }
-    .profile-dog .profile-score_bones > span:first-child {
+    .v-profile.profile-dog .profile-score_bones > span:first-child {
       padding-right: 10px;
       font-weight: 500;
       color: #F97350; }
-  .profile-dog .profile-phoneSection {
+  .v-profile.profile-dog .profile-phoneSection {
     display: flex;
     justify-content: space-between; }
-    .profile-dog .profile-phoneSection > * {
+    .v-profile.profile-dog .profile-phoneSection > * {
       width: 48%; }
-  .profile-dog .profile-banner-photo {
+  .v-profile.profile-dog .profile-banner-photo {
     width: 100%;
     margin-bottom: 25px; }
 
@@ -1232,6 +1278,87 @@ main {
         .v-service-map .box-main.mapServiceTimmer .timmer span {
           padding: 0 2px; }
 
+.v-profile {
+  height: auto;
+  position: relative;
+  padding: 0;
+  background-color: #FAD06C; }
+  .v-profile .profile-background {
+    position: absolute; }
+  .v-profile .subHeader {
+    background-color: transparent;
+    width: 100%;
+    position: relative;
+    height: 56px;
+    z-index: 2; }
+    .v-profile .subHeader #backLink {
+      color: #000; }
+  .v-profile .box-main {
+    padding-top: 30px;
+    overflow: visible;
+    position: relative;
+    min-height: calc(100vh - 112px); }
+    .v-profile .box-main .profile-subHeader {
+      display: flex;
+      justify-content: space-between; }
+      .v-profile .box-main .profile-subHeader_name {
+        width: 50%;
+        padding-right: 30px; }
+    .v-profile .box-main .profile_name {
+      font-size: 1.9rem; }
+  .v-profile .pofile-heroBanner {
+    position: relative;
+    overflow: visible;
+    min-height: 162px; }
+    .v-profile .pofile-heroBanner .profile-banner {
+      border-radius: 0;
+      margin: 0;
+      height: 140px;
+      box-shadow: none; }
+    .v-profile .pofile-heroBanner .profile-avatar {
+      position: absolute;
+      bottom: 0;
+      z-index: 2;
+      left: 50%;
+      transform: translateX(-50%); }
+      .v-profile .pofile-heroBanner .profile-avatar .avatar {
+        margin: 0;
+        transform: translateY(16%);
+        width: 100px;
+        height: 100px;
+        box-shadow: none;
+        border: 6px solid #fff;
+        margin-bottom: -3px; }
+  .v-profile .home-buttons {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding-bottom: 32px; }
+    .v-profile .home-buttons .btn {
+      margin-top: 16px;
+      box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.49); }
+  .v-profile .profile-score_bones {
+    font-size: 1.7rem;
+    height: 40px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center; }
+    .v-profile .profile-score_bones > span:first-child {
+      padding-right: 10px;
+      font-weight: 500;
+      color: #F97350; }
+  .v-profile .profile-phoneSection {
+    display: flex;
+    justify-content: space-between; }
+    .v-profile .profile-phoneSection > * {
+      width: 48%; }
+  .v-profile .profile-banner-photo {
+    width: 100%;
+    margin-bottom: 25px; }
+
+.v-profile .box-main .profile_wrapperAvatar .avatar {
+  margin-bottom: -3px; }
+
 .btn {
   width: 100%;
   display: inline-flex;
@@ -1280,6 +1407,8 @@ input:-webkit-autofill:active {
   padding-bottom: 20px;
   display: flex;
   justify-content: space-between; }
+  .form-row.noBorder {
+    border-bottom: 0; }
   .form-row .half-col {
     width: 48%; }
 
@@ -1451,12 +1580,13 @@ input:-webkit-autofill:active {
       margin: 0;
       color: #B7AC9A;
       font-weight: 500; }
-    .editField_label button {
+    .editField_label button,
+    .editField_label .btn-modificar {
       border-radius: 50%;
       width: 25px;
       height: 25px;
       border: 0;
-      background-image: rgba(247, 242, 229, 0.2);
+      background-color: rgba(247, 242, 229, 0.8);
       font-size: 2.2em;
       display: flex;
       justify-content: center;
@@ -1472,6 +1602,19 @@ input:-webkit-autofill:active {
     height: 20px; }
   .editField.disabledField textarea {
     height: auto; }
+
+.editField_label button,
+.btn-modificar {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  border: 0;
+  background-color: rgba(247, 242, 229, 0.8);
+  font-size: 2.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1; }
 
 .editField_label,
 .profile-score_title {

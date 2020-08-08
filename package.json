@@ -7,6 +7,7 @@
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
@@ -17,6 +18,7 @@
     "debug": "~2.6.9",
     "dotenv": "~4.0.0",
     "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
     "express-session": "^1.17.1",
     "form-data": "^3.0.0",
     "hbs": "^4.1.1",
@@ -29,5 +31,8 @@
     "node-sass-middleware": "^0.11.0",
     "serve-favicon": "~2.4.5",
     "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "handlebars": "^4.7.6"
   }
 }

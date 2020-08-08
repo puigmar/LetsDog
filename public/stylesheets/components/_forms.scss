@@ -13,6 +13,10 @@ input:-webkit-autofill:active  {
     display: flex;
     justify-content: space-between;
 
+    &.noBorder{
+        border-bottom: 0;;
+    }
+
     .half-col{
         width: 48%;
     }
@@ -260,12 +264,13 @@ input:-webkit-autofill:active  {
             font-weight: 500;
         }
     
-        button{
+        button,
+        .btn-modificar{
             border-radius: 50%;
             width:  25px;
             height: 25px;
             border: 0;
-            background-image: rgba($beige-color, 0.2);
+            background-color: rgba($beige-color, 0.8);
             font-size: 2.2em;
             display: flex;
             justify-content: center;
@@ -289,6 +294,21 @@ input:-webkit-autofill:active  {
             height: auto;
         }
     }
+}
+
+
+.editField_label button,
+.btn-modificar{
+    border-radius: 50%;
+    width:  25px;
+    height: 25px;
+    border: 0;
+    background-color: rgba($beige-color, 0.8);
+    font-size: 2.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
 }
 
 .editField_label,

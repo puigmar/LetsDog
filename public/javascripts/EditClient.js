@@ -11,8 +11,8 @@ class EditClient{
         axios.post('/manage/validate-user?type=carer', { email: this.emailInput.value })
             .then((response) => {
                 if (!response.data) {
-                    carerValidator.UserErrorForms.errorEmailMsg = carerValidator.emailExistError;
-                    carerValidator.checkValidationMsg(e, carerValidator.emailExistError)
+                    userValidator.UserErrorForms.errorEmailMsg = carerValidator.emailExistError;
+                    userValidator.checkValidationMsg(e, carerValidator.emailExistError)
                 } else {
                     console.log('no existes')
                 }
@@ -22,7 +22,7 @@ class EditClient{
 
     handleEmail = (e) => {
         const email = e.target.value;
-        carerValidator.validateEmail(e, email);
+        userValidator.validateEmail(e, email);
     }
 
     modifyField = (e) => {

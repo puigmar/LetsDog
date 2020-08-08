@@ -11,7 +11,7 @@ const app = require("../app");
 const bcryptSalt = 10;
 
 router.get('/signup', (req, res) => {
-    res.render('carer/signup')
+    res.render('carer/signup', {layout: 'main-carer'})
 })
 
 router.post('/signup', async (req, res) => {
@@ -31,7 +31,7 @@ router.post('/signup', async (req, res) => {
             ...carerData
         })
         req.session.currentUser = {user: user, carer: carer}
-        res.render('carer/login')
+        res.render('carer/login', {layout: 'main-carer'})
 
     }
     catch(err){
@@ -40,7 +40,7 @@ router.post('/signup', async (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-    res.render('carer/login')
+    res.render('carer/login', {layout: 'main-carer'})
 })
 
 router.post('/login', async (req, res) => {
@@ -50,16 +50,20 @@ router.post('/login', async (req, res) => {
         const { email, password } = req.body;
 
         if (email === "" || password === "") {
-          res.render("carer/login", { err: "Los campos no pueden estar vacíos" });
+          res.render("carer/login", { err: "Los campos no pueden estar vacíos",  layout: 'main-carer'});
           return;
         }
 
         const theUser =  await User.findOne({ email, isCarer: true});
 
+        console.log('user: ', theUser)
+
         if(theUser){
             if(!bcrypt.compareSync(password, theUser.password)){
+                console.log('password erroneo')
                 res.render('carer/login', {
-                    errorMessage: 'Invalid password.'
+                    err: 'Invalid password.',
+                    layout: 'main-carer'
                 });
                 return;
             }
@@ -85,7 +89,7 @@ router.use((req, res, next) => {
 });
 
 router.get('/dashboard', (req, res) => {
-    res.render('carer/dashboard')
+    res.render('carer/dashboard', {layout: 'main-carer'})
 })
 
 router.get('/profile/:id', async (req, res) => {
@@ -97,7 +101,7 @@ router.get('/profile/:id', async (req, res) => {
 
         req.session.currentUser = { carer: theCarer };
                                     
-        res.render('carer/profile', {carer: theCarer})
+        res.render('carer/profile', {carer: theCarer, layout: 'main-carer'})
     }
     catch(error){
         console.log(error)
@@ -111,11 +115,28 @@ router.get('/reviews/:id', async (req, res) => {
                                     .populate('carerId')
                                     .populate('dogId', '_id photo name')
         //console.log(carerReview[0].carerId);
-        res.render('carer/reviews', {review: carerReview})
+        res.render('carer/reviews', {review: carerReview, layout: 'main-carer'})
     }
     catch(error){
         console.log(error)
     }
+})
+
+
+router.get('/logout', (req, res, next) => {
+    
+    if (!req.session.currentUser) {
+        res.redirect('carer/login');
+        return;
+    }
+
+    req.session.destroy((err) => {
+        if (err) {
+            next(err);
+            return;
+        }
+        res.redirect('carer/login');
+    });
 })
 
 

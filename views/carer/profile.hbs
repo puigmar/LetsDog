@@ -1,6 +1,6 @@
 <main id="carerArea" class="v-profile">
-    <section class="pofile-heroBanner" style="background-image: url('{{carer.gallery}}');">
-        <section class="subHeader light-mode">
+    <section class="profile-heroBanner" style="background-image: url('{{carer.gallery}}');">
+        <section class="subHeader">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -15,10 +15,13 @@
         </section>
         <form enctype="multipart/form-data" id="photoCarerAvatarForm" data-fieldId="photoCarerAvatarInputFile" class="profile-avatar">
             <div id="photoCarerAvatarPreview" class="profile avatar cover" style="background-image: url('{{carer.profilePhoto}}')"></div>
+            <div class="btn-modificar"><span class="icon-editar"></span></div>
+
             <input data-field="editable"  id="photoCarerAvatarInputFile" type="file" class="d-none">
             <input id="photoCarerAvatarBtnSubmit" type="submit" class="d-none">
+
             <input type="hidden" id="photoCarerAvatarInputFileUrl" class="d-none" name="profilePhoto">
-            <button data-btn="modify" data-model="Carer" type="button" class="d-none" data-id="photoCarerAvatarInputFileUrl">Modificar</button>
+            <button id="photoCarerAvatarBtnUpdate" type="button" data-btn='modify' data-id="photoCarerAvatarInputFileUrl" data-model="Carer"></button>
         </form>
     </section>
     <div class="box-main">
@@ -45,6 +48,14 @@
                 </div>
             </div>
         </section>
+        <section class="editField form-row">
+            <div class="editField_label">
+                <label>Descripción</label>
+                <button data-type="editable" data-id="carerDescriptionInput" type="button"><span class="icon-editar"></span></button>
+            </div>
+            <textarea class="form-control" data-field="editable"  name="description" id="carerDescriptionInput">{{carer.description}}</textarea>
+            <button class="btn btn-primary btn-md mt-3" data-btn="modify" data-model="Carer" type="button" data-id="carerDescriptionInput">Modificar</button>
+        </section>
         <section class="form-row editField disabledField">
             <div class="editField_label">
                 <label for="carerEmailInput"> Email </label>
@@ -53,21 +64,17 @@
             <input class="form-control" data-field="editable"  type="email" data-model="User" name="email" id="carerEmailInput" value="{{carer.userId.email}}">
             <button class="btn btn-primary btn-md mt-3" data-btn="modify" data-model="User" data-id="carerEmailInput" type="button">Modificar</button>
         </section>
-        <section class="form-row editField disabledField">
+        <section class="form-row editField">
             <form enctype="multipart/form-data" id="photoCarerBannerProfileForm" class="form-group profile-banner-photo">
                 <label class="mt-4 p0">Foto de fondo de perfil</label>
                 <div id="photoCarerBannerProfilePreview" class="profile profile-banner cover" style="background-image: url('{{carer.gallery}}')"></div>
-                
                 <input id="photoCarerBannerProfileInputFile" class="d-none" type="file" name="photo">
-                <input id="photoCarerBannerProfileBtnSubmit" class="d-none"  type="submit">
-            </form>
 
-            <div class="editField_label">
-                <label>Descripción</label>
-                <button data-type="editable" data-id="carerDescriptionInput" type="button"><span class="icon-editar"></span></button>
-            </div>
-            <textarea class="form-control" data-field="editable"  name="description" id="carerDescriptionInput">{{carer.description}}</textarea>
-            <button class="btn btn-primary btn-md mt-3" data-btn="modify" data-model="Carer" type="button" data-id="carerDescriptionInput">Modificar</button>
+                <input id="photoCarerBannerProfileInputFileUrl" type="hidden" name="gallery" data-btn="modify">
+                <button id="photoCarerBannerProfileBtnUpdate" type="button" data-btn='modify' data-id="photoCarerBannerProfileInputFileUrl" data-model="Carer"></button>
+                
+                <input id="photoCarerBannerProfileBtnSubmit" class="d-none" type="submit">
+            </form>
         </section>
     </div>
 </main>

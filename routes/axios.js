@@ -14,12 +14,8 @@ const Client = require("../models/Client");
 const Contract = require('../models/Contract');
 
 const parser = require('./../config/cloudinary.js');
-const {
-    modelNames
-} = require("mongoose");
-const {
-    routes
-} = require("../app");
+const { modelNames } = require("mongoose");
+const { routes } = require("../app");
 const Review = require("../models/Review");
 
 router.post('/validate-user', (req, res, next) => {
@@ -83,6 +79,7 @@ router.post("/updateField/carer", async (req, res, next) => {
     }
 
     console.log('updateQuery: ', updateQuery)
+    console.log('model: ', model)
 
     switch (model) {
         case 'User':

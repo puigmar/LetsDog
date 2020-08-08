@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script>
+      var socket = io.connect('http://localhost:3000', { 
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+              <nav class="navbar navbar-expand-lg navbar-light">
+                  <div class="navbar-logo">
+                      <a href="/"><img src="/images/logo.png" alt="letsdog"></a>
+                  </div>
+                  <div class="nav-tools-group">
+                      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+                          <span class="navbar-toggler-icon"></span>
+                      </button>
+          
+                      <div class="navbar-collapse offcanvas-collapse" id="offcanvas">
+                          <button class="navbar-toggler p-0 border-0 offcanvas-collapse_btnClose" type="button" data-toggle="offcanvas">
+                              <span aria-hidden="true">×</span>
+                          </button>
+                          <ul class="navbar-nav mr-auto">
+                              {{#if isUserLoggedIn}}
+                              <li class="nav-item">
+                                  <a class="nav-link" href="/profile/{{currentUserInfo.user._id}}">Mi perfil</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="/profile/dogs/{{currentUserInfo.dog._id}}">Mis perros</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="/service">Pedir Letsdog</a>
+                              </li>
+                              <li><a class="nav-link" href="/logout">Cerrar sesión</a></li>
+                              {{else}}
+                              <li class="nav-item">
+                                  <a class="nav-link" href="signup">Registrarse</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="login">Inciciar Sesión</a>
+                              </li>
+                              {{/if}}
+                          </ul>
+                      </div>
+                  </div>
+              </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    {{{body}}}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="/javascripts/main.js"></script>
+  </body>
+</html>

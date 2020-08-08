@@ -9,7 +9,9 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <script>
-      
+      var socket = io.connect('http://localhost:3000', { 
+        'forceNew': true 
+      });
     </script>
   </head>
   <body>
@@ -31,25 +33,18 @@
                               <span aria-hidden="true">×</span>
                           </button>
                           <ul class="navbar-nav mr-auto">
-                            {{#if isCarerLoggedIn}}
+                            {{#if isUserLoggedIn}}
                               <li><a class="nav-link" href="/carer/dashboard">Dashboard</a></li>
                               <li><a class="nav-link" href="/carer/profile/{{currentUserInfo.carer._id}}">Editar Perfil</a></li>
                               <li><a class="nav-link" href="/carer/reviews/{{currentUserInfo.carer._id}}">Ver Reviews</a></li>
+                              <li><a class="nav-link" href="/carer/logout">Cerrar sesión</a></li>
+
                             {{else}}
                               <li class="nav-item">
-                                  <a class="nav-link" href="/signup">Registrarse</a>
+                                  <a class="nav-link" href="/carer/signup">Registrarse</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" href="/login">Inciciar Sesión</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" href="/profile/{{currentUserInfo.user._id}}">Mi perfil</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" href="/profile/dogs/{{currentUserInfo.dog._id}}">Mis perros</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" href="/service">Pedir Letsdog</a>
+                                  <a class="nav-link" href="/carer/login">Inciciar Sesión</a>
                               </li>
                             {{/if}}
                           </ul>

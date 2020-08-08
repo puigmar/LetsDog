@@ -2,18 +2,17 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const favicon = require("serve-favicon");
-const hbs = require("hbs");
+const exphbs = require('express-handlebars');
+const Handlebars = require('handlebars')
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
 const jquery = require("jquery");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 
 require("dotenv").config();
-
-// HBS helpers
-require("./helpers/handlebars")(hbs);
 
 // DB Config Connection
 require("./config/db.js");
@@ -40,10 +39,18 @@ app.use(
   })
 );
 
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
+app.engine('hbs', exphbs({
+  layoutsDir: __dirname + '/views/layouts',
+  extname: 'hbs',
+  helpers: require("./helpers/handlebars.js").helpers,
+  handlebars: allowInsecurePrototypeAccess(Handlebars)
+}));
+
+app.set('view engine', 'hbs');
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
+
 
 // Authentication
 app.use(
@@ -60,18 +67,17 @@ app.use(
 );
 
 app.use((req, res, next) => {
+
   if (req.session.currentUser) {
     res.locals.currentUserInfo = req.session.currentUser;
-    console.log('Esta es la session:', req.session)
-    res.locals.isUserLoggedIn = true;
 
-    if (res.locals.currentUserInfo.user.isCarer) {
-      res.locals.isCarerLoggedIn = true;
+    if (res.locals.currentUserInfo) {
+      //console.log('currentUserInfo: ', res.locals.currentUserInfo)
+      res.locals.isUserLoggedIn = true;
     } else {
-      res.locals.isCarerLoggedIn = false;
+      res.locals.isUserLoggedIn = true;
     }
-  } else {
-    res.locals.isUserLoggedIn = false;
+
   }
 
   next();
