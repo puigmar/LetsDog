@@ -119,3 +119,7 @@
 .v-profile .box-main .profile_wrapperAvatar .avatar{
     margin-bottom: -3px;;
 }
+
+.v-profile.owner .box-main{
+    height: calc(100vh - #{$headerheight*2} );
+}
