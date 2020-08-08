@@ -1,8 +1,8 @@
 #carerArea.v-profile{
-
     position: relative;
     padding: 0;
-    background-color: $beige-color;
+    background-color: #F7F2E5;
+    height: calc(100vh - 56px);
 
     .profile-background{
         position: absolute;
@@ -23,8 +23,15 @@
     .box-main{
         overflow: visible;
         margin-top: -30px;
-        position: relative;
+        position: absolute;
+        top: 163px;
         padding-top: 60px;
+        height: auto;
+        min-height: auto;
+
+        .profile_header{
+            margin-top: -35px
+        }
 
         .profile-subHeader{
             display: flex;
@@ -43,9 +50,10 @@
     }
 
     .profile-heroBanner{
-        position: relative;
+        position: absolute;
         overflow: visible;
         min-height: 162px;
+        width: 100%;
 
         .profile-banner{
             border-radius: 0;
@@ -130,9 +138,14 @@
         } 
     }
 
+
+    .editField_label textarea{
+        padding: 15px
+    }
+
     .profile-banner-photo{
         width: 100%;
-        margin-bottom: 25px;
+        margin-bottom: 34px;
     }
 
     .profile.avatar,

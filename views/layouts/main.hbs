@@ -9,7 +9,9 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <script>
-      var socket = io.connect('/');
+      var socket = io.connect('/', { 
+        'forceNew': true 
+      });
     </script>
   </head>
   <body>

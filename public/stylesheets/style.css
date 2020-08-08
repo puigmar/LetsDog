@@ -531,7 +531,8 @@ main {
 #carerArea.v-profile {
   position: relative;
   padding: 0;
-  background-color: #F7F2E5; }
+  background-color: #F7F2E5;
+  height: calc(100vh - 56px); }
   #carerArea.v-profile .profile-background {
     position: absolute; }
   #carerArea.v-profile .subHeader {
@@ -545,8 +546,13 @@ main {
   #carerArea.v-profile .box-main {
     overflow: visible;
     margin-top: -30px;
-    position: relative;
-    padding-top: 60px; }
+    position: absolute;
+    top: 163px;
+    padding-top: 60px;
+    height: auto;
+    min-height: auto; }
+    #carerArea.v-profile .box-main .profile_header {
+      margin-top: -35px; }
     #carerArea.v-profile .box-main .profile-subHeader {
       display: flex;
       justify-content: space-between; }
@@ -556,9 +562,10 @@ main {
     #carerArea.v-profile .box-main .profile_name {
       font-size: 1.9rem; }
   #carerArea.v-profile .profile-heroBanner {
-    position: relative;
+    position: absolute;
     overflow: visible;
-    min-height: 162px; }
+    min-height: 162px;
+    width: 100%; }
     #carerArea.v-profile .profile-heroBanner .profile-banner {
       border-radius: 0;
       margin: 0;
@@ -614,9 +621,11 @@ main {
     justify-content: space-between; }
     #carerArea.v-profile .profile-phoneSection > * {
       width: 48%; }
+  #carerArea.v-profile .editField_label textarea {
+    padding: 15px; }
   #carerArea.v-profile .profile-banner-photo {
     width: 100%;
-    margin-bottom: 25px; }
+    margin-bottom: 34px; }
   #carerArea.v-profile .profile.avatar.loading,
   #carerArea.v-profile .profile-banner.loading {
     overflow: hidden;
@@ -1282,9 +1291,11 @@ main {
   height: auto;
   position: relative;
   padding: 0;
-  background-color: #FAD06C; }
+  background-color: #FAD06C;
+  height: calc(100vh - 56px); }
   .v-profile .profile-background {
-    position: absolute; }
+    position: absolute;
+    margin-top: -56px; }
   .v-profile .subHeader {
     background-color: transparent;
     width: 100%;
@@ -1296,8 +1307,7 @@ main {
   .v-profile .box-main {
     padding-top: 30px;
     overflow: visible;
-    position: relative;
-    min-height: calc(100vh - 112px); }
+    position: absolute; }
     .v-profile .box-main .profile-subHeader {
       display: flex;
       justify-content: space-between; }
@@ -1567,8 +1577,9 @@ input:-webkit-autofill:active {
     align-items: center;
     box-sizing: border-box; }
   .editField textarea {
-    min-height: 50px;
-    margin-top: 0; }
+    min-height: 100px;
+    margin-top: 0;
+    padding: 15px; }
   .editField_label {
     width: 100%;
     margin-bottom: 5px;

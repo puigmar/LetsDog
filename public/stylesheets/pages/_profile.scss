@@ -3,9 +3,11 @@
     position: relative;
     padding: 0;
     background-color: $secondary-color;
+    height: calc(100vh - 56px);
 
     .profile-background{
         position: absolute;
+        margin-top: -56px;
     }
 
     .subHeader{
@@ -23,8 +25,7 @@
     .box-main{
         padding-top: 30px;
         overflow: visible;
-        position: relative;
-        min-height: calc(100vh - #{$headerheight*2});
+        position: absolute;
 
         .profile-subHeader{
             display: flex;

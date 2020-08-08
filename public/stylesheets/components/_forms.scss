@@ -246,8 +246,9 @@ input:-webkit-autofill:active  {
     }
 
     textarea{
-        min-height: 50px;
+        min-height: 100px;
         margin-top: 0;
+        padding: 15px;
     }
 
     &_label {
